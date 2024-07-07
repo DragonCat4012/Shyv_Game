@@ -17,7 +17,6 @@ func _on_host_pressed():
 			addPlayer(new_peer_id)
 	)
 	
-
 func _on_join_pressed():
 	multiplayer_peer.create_client(Adress, Port)
 	multiplayer.multiplayer_peer = multiplayer_peer
