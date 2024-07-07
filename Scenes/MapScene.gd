@@ -18,20 +18,17 @@ func _ready():
 
 func _input(event):
 	if(Input.is_action_just_released("left_click")):
+		tile_map.local_to_map(to_local(get_global_mouse_position()))
 		_translate_global_to_tile(get_global_mouse_position())
-		#var tile = local_to_map(get_global_mouse_position());
-				#something here to get the clicked physics layer?
 				
 func _translate_global_to_tile(global: Vector2):
-	var tilePos = round(global / 125 / 2)
-	print(global, " -> ",tilePos)
+	var tilePos = tile_map.local_to_map(to_local(global))
 	tile_map.set_cell(0, tilePos, source_id, select_atlas)
-	pass
 
 func _generate_world():
 	for x in range(-width/2 , width/2):
 		for y in range(-height/2, height/2):
-			var noiseValue := noise.get_noise_2d(x, y)
+			var noiseValue := noise.get_noise_2d(2*x, 2*y)
 			if noiseValue >= 0.0: # land
 				tile_map.set_cell(0, Vector2(x,y), source_id, land_atlas)
 			elif noiseValue < 0.0: # water

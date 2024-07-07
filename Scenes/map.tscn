@@ -12,8 +12,8 @@ colors = PackedColorArray(0.418238, 0.601976, 1, 1, 0.614666, 0.848716, 0.417582
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_41tvk"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_g14po"]
-width = 300
-height = 300
+width = 200
+height = 200
 color_ramp = SubResource("Gradient_6mp1p")
 noise = SubResource("FastNoiseLite_41tvk")
 
