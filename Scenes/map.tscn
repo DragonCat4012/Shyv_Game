@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://7j7no5evfsjn"]
+[gd_scene load_steps=7 format=3 uid="uid://7j7no5evfsjn"]
 
 [ext_resource type="Script" path="res://Scenes/MapScene.gd" id="1_jltnr"]
+[ext_resource type="Script" path="res://Scenes/Camera2D.gd" id="3_nnm0c"]
 [ext_resource type="TileSet" uid="uid://bly1nmde8eksv" path="res://Graphics/map.tres" id="3_tbyt8"]
 
 [sub_resource type="Gradient" id="Gradient_6mp1p"]
@@ -21,3 +22,6 @@ noise_height_texture = SubResource("NoiseTexture2D_g14po")
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource("3_tbyt8")
 format = 2
+
+[node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("3_nnm0c")

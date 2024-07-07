@@ -16,8 +16,8 @@ func _ready():
 	_generate_world()
 
 func _generate_world():
-	for x in range(width):
-		for y in range(height):
+	for x in range(-width/2 , width/2):
+		for y in range(-height/2, height/2):
 			var noiseValue := noise.get_noise_2d(x, y)
 			if noiseValue >= 0.0: # land
 				tile_map.set_cell(0, Vector2(x,y), source_id, land_atlas)
