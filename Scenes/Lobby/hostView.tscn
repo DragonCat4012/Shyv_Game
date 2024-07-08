@@ -32,3 +32,10 @@ theme_override_colors/font_color = Color(0.659793, 0.645736, 0.990409, 1)
 text = "aaaa"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="StartButton" type="Button" parent="."]
+offset_left = 964.0
+offset_top = 548.0
+offset_right = 1092.0
+offset_bottom = 587.0
+text = "Start"

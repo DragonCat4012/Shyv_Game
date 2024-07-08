@@ -3,7 +3,10 @@ extends Node
 var multiplayer_peer = ENetMultiplayerPeer.new()
 const Port = 9999
 const Adress = "127.0.0.1"
+
+# Lobby managment
 var connected_peer_ids: Array[int] = []
+var ready_peer_ids: Array[int] = []
 var messages = {}
 
 func _on_host_pressed():
@@ -75,6 +78,27 @@ func send_lobby_message(newMessage):
 	rpc("_on_lobby_message", newMessage)
 	#messages[multiplayer.get_unique_id()] = newMessage
 	
+@rpc("any_peer", "call_local") # Any peer can call it, calls on self
+func _on_ready():
+	var peer_id = multiplayer.get_remote_sender_id()
+	print_signed("Ready peer: ", peer_id)
+	ready_peer_ids.append(peer_id)
+	
+func send_ready():
+	rpc("_on_ready")
+	ready_peer_ids.append(multiplayer.get_unique_id())
+
+@rpc("any_peer", "call_local") # Any peer can call it, calls on self
+func _on_un_ready():
+	var peer_id = multiplayer.get_remote_sender_id()
+	print_signed("UN-Ready peer: ", peer_id)
+	ready_peer_ids.erase(peer_id)
+	
+func send_un_ready():
+	rpc("_on_un_ready")
+	ready_peer_ids.erase(multiplayer.get_unique_id())
+	
+# Testing idk
 @rpc("any_peer")# Any peer can call it,
 func my_func_any_peer():
 	var peer_id = multiplayer.get_remote_sender_id()
