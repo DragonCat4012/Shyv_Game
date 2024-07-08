@@ -1,9 +1,21 @@
-[gd_scene load_steps=2 format=3 uid="uid://dfb210qwr8tft"]
+[gd_scene load_steps=2 format=3 uid="uid://dcsqpjk0hp6yj"]
 
-[ext_resource type="Script" path="res://Scenes/gameOverview.gd" id="1_4deea"]
+[sub_resource type="GDScript" id="GDScript_p2m2b"]
+script/source = "extends Node2D
+@onready var label = $Label
+@onready var player_list = $PlayerList
+
+
+func _ready():
+	label.text = str(GamManager.multiplayer.get_unique_id())
+
+
+func _process(delta):
+	player_list.text = str(GamManager.connected_peer_ids)
+"
 
 [node name="GameOverview" type="Node2D"]
-script = ExtResource("1_4deea")
+script = SubResource("GDScript_p2m2b")
 
 [node name="Label" type="Label" parent="."]
 offset_left = 389.0
