@@ -28,4 +28,4 @@ func _process(delta):
 	lastArr = str(GamManager.connected_peer_ids)
 
 func _on_start_button_pressed():
-	GamManager.start_game()
+	LobbyManager.start_game()

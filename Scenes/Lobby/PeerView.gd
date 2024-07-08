@@ -14,7 +14,7 @@ func _process(delta):
 	ready_button.text = "Wait!" if isReady else "Ready"
 	
 func display_message(message):
-	GamManager.send_lobby_message(message)
+	LobbyManager.send_lobby_message(message)
 
 func _on_line_edit_text_submitted(new_text):
 	display_message(new_text)
@@ -30,6 +30,6 @@ func show_messages() -> String:
 
 func _on_ready_button_pressed():
 	if isReady:
-		GamManager.send_un_ready()
+		LobbyManager.send_un_ready()
 	else: 
-		GamManager.send_ready()
+		LobbyManager.send_ready()

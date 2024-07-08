@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 GamManager="*res://GamManager.gd"
 SceneManager="*res://Global/SceneManager.gd"
+LobbyManager="*res://Scenes/Lobby/LobbyManager.gd"
 
 [input]
 

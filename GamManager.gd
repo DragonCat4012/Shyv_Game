@@ -66,45 +66,6 @@ func add_previously_send_messages(msgs):
 # Util
 func print_signed(arg, arg2 = "", arg3 = "", arg4 = ""):
 	print("[",multiplayer.get_unique_id(), "]: ", arg, arg2, arg3, arg4)
-	
-# Lobby Stuff
-@rpc("any_peer", "call_local") # Any peer can call it, calls on self
-func _on_lobby_message(msg):
-	var peer_id = multiplayer.get_remote_sender_id()
-	print_signed("Fucntion called by peer: ", peer_id," msg: ", msg)
-	messages[peer_id] = msg
-
-func send_lobby_message(newMessage):
-	rpc("_on_lobby_message", newMessage)
-	#messages[multiplayer.get_unique_id()] = newMessage
-	
-@rpc("any_peer", "call_local") # Any peer can call it, calls on self
-func _on_ready():
-	var peer_id = multiplayer.get_remote_sender_id()
-	print_signed("Ready peer: ", peer_id)
-	ready_peer_ids.append(peer_id)
-	
-func send_ready():
-	rpc("_on_ready")
-	ready_peer_ids.append(multiplayer.get_unique_id())
-
-@rpc("any_peer", "call_local") # Any peer can call it, calls on self
-func _on_un_ready():
-	var peer_id = multiplayer.get_remote_sender_id()
-	print_signed("UN-Ready peer: ", peer_id)
-	ready_peer_ids.erase(peer_id)
-	
-func send_un_ready():
-	rpc("_on_un_ready")
-	ready_peer_ids.erase(multiplayer.get_unique_id())
-	
-@rpc("any_peer", "call_local") 
-func _on_start_game():
-	get_tree().change_scene_to_file(SceneManager.GAMESCENE)
-	
-func start_game():
-	rpc("_on_start_game")
-	get_tree().change_scene_to_file(SceneManager.GAMESCENE)
 		
 # Testing idk
 @rpc("any_peer")# Any peer can call it,
