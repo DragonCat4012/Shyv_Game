@@ -1,11 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://vvn8fgobtq5o"]
+[gd_scene load_steps=3 format=3 uid="uid://vvn8fgobtq5o"]
 
 [ext_resource type="Script" path="res://Scenes/Lobby/hostView.gd" id="1_a783e"]
+[ext_resource type="Theme" uid="uid://ixv6thuip0t" path="res://Graphics/Themes/deleteTheme.tres" id="2_2qecq"]
 
 [node name="HostView" type="Node2D"]
 script = ExtResource("1_a783e")
-readyColor = null
-unreadyColor = null
 
 [node name="TitleLabel" type="Label" parent="."]
 offset_left = 557.0
@@ -42,4 +41,13 @@ offset_right = 1092.0
 offset_bottom = 587.0
 text = "Start"
 
+[node name="ExitButton" type="Button" parent="."]
+offset_left = 24.0
+offset_top = 23.0
+offset_right = 208.0
+offset_bottom = 60.0
+theme = ExtResource("2_2qecq")
+text = "Exit"
+
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="ExitButton" to="." method="_on_exit_button_pressed"]

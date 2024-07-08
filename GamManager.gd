@@ -8,6 +8,7 @@ const Adress = "127.0.0.1"
 var connected_peer_ids: Array[int] = []
 var ready_peer_ids: Array[int] = []
 var messages = {}
+var connected = false
 
 # Map
 var seed = 0
@@ -23,6 +24,7 @@ func _on_host_pressed():
 			rpc_id(new_peer_id, "add_previously_connected_player_character", connected_peer_ids)
 			rpc_id(new_peer_id, "add_previously_send_messages", messages)
 			addPlayer(new_peer_id)
+			connected = true
 	)
 	multiplayer_peer.peer_disconnected.connect(
 		func(old_peer_id):
@@ -30,12 +32,43 @@ func _on_host_pressed():
 			removePlayer(old_peer_id)
 	)
 	
+	
 func _on_join_pressed():
 	multiplayer_peer.create_client(Adress, Port)
 	multiplayer.multiplayer_peer = multiplayer_peer
 	print_signed("join with: ", multiplayer.get_unique_id())
 	print_signed("already joined players: ", multiplayer.get_peers())
 	connected_peer_ids.assign(multiplayer.get_peers())
+	connected = true # TODO move into connect callback
+	multiplayer_peer.peer_disconnected.connect (
+		func(e):
+			connected = false
+			print("welp disconnect")
+	)
+
+@rpc
+func _on_peer_disconnect(peerID):
+	print_signed("peer disconnected: ", peerID)
+	if peerID == multiplayer.get_unique_id(): # when disconnected from host
+		print("Server closed connection")
+		connected = false
+		multiplayer_peer.close()
+	removePlayer(peerID)
+
+func _diconnect():
+	connected = false
+	var id = multiplayer.get_unique_id()
+	multiplayer_peer.close()
+	rpc("_on_peer_disconnect", id)
+
+func _diconnect_all_peers_from_host():
+	for peer in connected_peer_ids:
+		rpc("_on_peer_disconnect", peer)
+		#OS.delay_msec(1000)
+		#multiplayer_peer.disconnect_peer(peer, false)
+		
+	connected = false
+	multiplayer_peer.close()
 
 func addPlayer(peer_id):
 	connected_peer_ids.append(peer_id)

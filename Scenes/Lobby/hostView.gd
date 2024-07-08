@@ -30,3 +30,7 @@ func _process(delta):
 func _on_start_button_pressed():
 	var mapSeed = randi_range(0,9)
 	LobbyManager.start_game(mapSeed)
+
+func _on_exit_button_pressed():
+	GamManager._diconnect_all_peers_from_host()
+	get_tree().change_scene_to_file(SceneManager.MENUSCENE)

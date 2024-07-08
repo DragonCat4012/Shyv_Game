@@ -8,9 +8,11 @@ extends Node2D
 var isReady = false
 
 func _process(delta):
-	peer_list.text = show_messages()#str(GamManager.connected_peer_ids)
+	if !GamManager.connected:
+		_exitScene()
+	peer_list.text = show_messages()
 	host_name.text = "Joined as: " + str(GamManager.multiplayer.get_unique_id())
-	isReady = GamManager.ready_peer_ids.has(multiplayer.get_unique_id())
+	isReady = GamManager.ready_peer_ids.has(GamManager.multiplayer.get_unique_id())
 	ready_button.text = "Wait!" if isReady else "Ready"
 	
 func display_message(message):
@@ -33,3 +35,10 @@ func _on_ready_button_pressed():
 		LobbyManager.send_un_ready()
 	else: 
 		LobbyManager.send_ready()
+
+func _on_exit_button_pressed():
+	GamManager._diconnect()
+	_exitScene()
+
+func _exitScene():
+	get_tree().change_scene_to_file(SceneManager.MENUSCENE)
