@@ -10,7 +10,7 @@ extends Node2D
 var lastArr = ""
 
 func _process(delta):
-	start_button.disabled = GamManager.connected_peer_ids.size() != GamManager.ready_peer_ids.size()
+	start_button.disabled = GamManager.connected_peer_ids.size() != GamManager.ready_peer_ids.size() or GamManager.connected_peer_ids.size() == 0
 		
 	#if str(GamManager.connected_peer_ids) != lastArr:
 	for child in v_box_container.get_children():
@@ -24,6 +24,8 @@ func _process(delta):
 			e.add_theme_color_override("font_color", readyColor)
 			
 		v_box_container.add_child(e)
-		
 	
 	lastArr = str(GamManager.connected_peer_ids)
+
+func _on_start_button_pressed():
+	GamManager.start_game()

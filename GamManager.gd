@@ -98,6 +98,14 @@ func send_un_ready():
 	rpc("_on_un_ready")
 	ready_peer_ids.erase(multiplayer.get_unique_id())
 	
+@rpc("any_peer", "call_local") 
+func _on_start_game():
+	get_tree().change_scene_to_file(SceneManager.GAMESCENE)
+	
+func start_game():
+	rpc("_on_start_game")
+	get_tree().change_scene_to_file(SceneManager.GAMESCENE)
+		
 # Testing idk
 @rpc("any_peer")# Any peer can call it,
 func my_func_any_peer():

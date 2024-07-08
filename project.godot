@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 GamManager="*res://GamManager.gd"
+SceneManager="*res://Global/SceneManager.gd"
 
 [input]
 
