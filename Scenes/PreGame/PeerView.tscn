@@ -5,16 +5,24 @@
 [node name="PeerView" type="Node2D"]
 script = ExtResource("1_hqru8")
 
-[node name="HostName" type="Label" parent="."]
+[node name="PeerList" type="Label" parent="."]
 offset_left = 913.0
 offset_top = 194.0
 offset_right = 1055.0
 offset_bottom = 496.0
 metadata/_edit_use_anchors_ = true
 
-[node name="Label2" type="Label" parent="."]
-offset_left = 605.0
-offset_top = 16.0
-offset_right = 645.0
-offset_bottom = 39.0
+[node name="HostName" type="Label" parent="."]
+offset_left = 514.0
+offset_top = 20.0
+offset_right = 614.0
+offset_bottom = 43.0
 text = "Joined a host"
+
+[node name="nameField" type="LineEdit" parent="."]
+offset_left = 713.0
+offset_top = 276.0
+offset_right = 780.063
+offset_bottom = 307.0
+
+[connection signal="text_submitted" from="nameField" to="." method="_on_line_edit_text_submitted"]
