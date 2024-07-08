@@ -11,7 +11,7 @@ var land_atlas = Vector2i(0,0)
 var high_land_atlas = Vector2i(0,3)
 
 @export var noise_height_texture: NoiseTexture2D
-var noise: Noise
+var noise: FastNoiseLite
 
 var width := 50
 var height := 50
@@ -20,6 +20,7 @@ var oldSeelctedTile = Vector2i(99,99)
 
 func _ready():
 	noise = noise_height_texture.noise
+	noise.seed = GamManager.seed
 	_generate_world()
 
 func _input(event):

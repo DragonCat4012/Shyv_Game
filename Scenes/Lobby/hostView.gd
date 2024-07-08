@@ -28,4 +28,5 @@ func _process(delta):
 	lastArr = str(GamManager.connected_peer_ids)
 
 func _on_start_button_pressed():
-	LobbyManager.start_game()
+	var mapSeed = randi_range(0,9)
+	LobbyManager.start_game(mapSeed)

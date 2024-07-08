@@ -32,10 +32,12 @@ func send_un_ready():
 	GamManager.ready_peer_ids.erase(multiplayer.get_unique_id())
 	
 @rpc("any_peer", "call_local") 
-func _on_start_game():
-	get_tree().change_scene_to_file(SceneManager.LOADINMAPSCENE)
+func _on_start_game(seed):
+	GamManager.seed = seed
+	get_tree().change_scene_to_file(SceneManager.GAMESCENE)
 	
-func start_game():
-	rpc("_on_start_game")
-	get_tree().change_scene_to_file(SceneManager.LOADINMAPSCENE)
+func start_game(seed):
+	rpc("_on_start_game", seed)
+	GamManager.seed = seed
+	get_tree().change_scene_to_file(SceneManager.GAMESCENE)
 	

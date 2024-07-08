@@ -9,6 +9,9 @@ var connected_peer_ids: Array[int] = []
 var ready_peer_ids: Array[int] = []
 var messages = {}
 
+# Map
+var seed = 0
+
 func _on_host_pressed():
 	multiplayer_peer.create_server(Port)
 	multiplayer.multiplayer_peer = multiplayer_peer
