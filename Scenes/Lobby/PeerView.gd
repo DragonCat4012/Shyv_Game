@@ -20,5 +20,5 @@ func show_messages() -> String:
 		var str2 = str(peer)
 		if peer in GamManager.messages.keys():
 			str2 += ": " + GamManager.messages[peer]
-		str += str2
+		str += str2 + "\n"
 	return str

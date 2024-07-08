@@ -6,10 +6,10 @@
 script = ExtResource("1_hqru8")
 
 [node name="PeerList" type="Label" parent="."]
-offset_left = 913.0
-offset_top = 194.0
-offset_right = 1055.0
-offset_bottom = 496.0
+offset_left = 40.0
+offset_top = 47.0
+offset_right = 182.0
+offset_bottom = 349.0
 metadata/_edit_use_anchors_ = true
 
 [node name="HostName" type="Label" parent="."]
@@ -20,9 +20,9 @@ offset_bottom = 43.0
 text = "Joined a host"
 
 [node name="nameField" type="LineEdit" parent="."]
-offset_left = 713.0
-offset_top = 276.0
-offset_right = 780.063
-offset_bottom = 307.0
+offset_left = 13.0
+offset_top = 596.0
+offset_right = 311.0
+offset_bottom = 627.0
 
 [connection signal="text_submitted" from="nameField" to="." method="_on_line_edit_text_submitted"]
