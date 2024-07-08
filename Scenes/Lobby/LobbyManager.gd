@@ -39,5 +39,8 @@ func _on_start_game(seed):
 func start_game(seed):
 	rpc("_on_start_game", seed)
 	GamManager.seed = seed
-	get_tree().change_scene_to_file(SceneManager.GAMESCENE)
+	if GamManager.ownID == 1: # Server
+		get_tree().change_scene_to_file(SceneManager.HOSTGAMESCENE)
+	else: # Client
+		get_tree().change_scene_to_file(SceneManager.GAMESCENE)
 	

@@ -47,9 +47,9 @@ color = Color(0, 0, 0, 0.329412)
 
 [node name="ColorRect2" type="ColorRect" parent="Control"]
 offset_left = 1157.0
-offset_top = 1.0
+offset_top = -1.0
 offset_right = 1233.0
-offset_bottom = 41.0
+offset_bottom = 39.0
 scale = Vector2(-3.096, 1)
 color = Color(0, 0, 0, 0.329412)
 
