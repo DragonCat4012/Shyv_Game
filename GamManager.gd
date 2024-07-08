@@ -8,15 +8,19 @@ const Adress = "127.0.0.1"
 var connected_peer_ids: Array[int] = []
 var ready_peer_ids: Array[int] = []
 var messages = {}
-var connected = false
 
 # Map
 var seed = 0
+
+# Peer managment
+var connected = false
+var ownID: int = -1
 
 func _on_host_pressed():
 	multiplayer_peer.create_server(Port)
 	multiplayer.multiplayer_peer = multiplayer_peer
 	print_signed("created host id: ", multiplayer.get_unique_id())
+	ownID = multiplayer.get_unique_id()
 	
 	multiplayer_peer.peer_connected.connect(
 		func(new_peer_id):
@@ -36,12 +40,15 @@ func _on_host_pressed():
 func _on_join_pressed():
 	multiplayer_peer.create_client(Adress, Port)
 	multiplayer.multiplayer_peer = multiplayer_peer
+	ownID = multiplayer.get_unique_id()
+	
 	print_signed("join with: ", multiplayer.get_unique_id())
 	print_signed("already joined players: ", multiplayer.get_peers())
 	connected_peer_ids.assign(multiplayer.get_peers())
 	connected = true # TODO move into connect callback
 	multiplayer_peer.peer_disconnected.connect (
 		func(e):
+			ownID = -1
 			connected = false
 			print("welp disconnect")
 	)
@@ -59,6 +66,7 @@ func _diconnect():
 	connected = false
 	var id = multiplayer.get_unique_id()
 	multiplayer_peer.close()
+	reset_after_disconnect()
 	rpc("_on_peer_disconnect", id)
 
 func _diconnect_all_peers_from_host():
@@ -102,12 +110,7 @@ func add_previously_send_messages(msgs):
 # Util
 func print_signed(arg, arg2 = "", arg3 = "", arg4 = ""):
 	print("[",multiplayer.get_unique_id(), "]: ", arg, arg2, arg3, arg4)
-		
-# Testing idk
-@rpc("any_peer")# Any peer can call it,
-func my_func_any_peer():
-	var peer_id = multiplayer.get_remote_sender_id()
-	if peer_id == get_multiplayer_authority():
-		# The authority is not allowed to call this function.
-		return
-	print_signed("Fucntion called by a remote peer: ", multiplayer.get_remote_sender_id())
+
+func reset_after_disconnect():
+	connected_peer_ids = []
+	messages = {}

@@ -1,6 +1,7 @@
 extends Node2D
 
-@onready var coordinate_tracker = $Camera2D/CoordinateTracker
+@onready var coordinate_tracker = $Control/CoordinateTracker
+@onready var peer_id = $Control/PeerID
 
 @onready var camera_2d = $Camera2D
 @onready var tile_map = $TileMap
@@ -22,6 +23,7 @@ func _ready():
 	noise = noise_height_texture.noise
 	noise.seed = GamManager.seed
 	_generate_world()
+	peer_id.text = str(GamManager.ownID)
 
 func _input(event):
 	if(Input.is_action_just_released("left_click")):
