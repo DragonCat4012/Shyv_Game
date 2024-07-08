@@ -11,10 +11,12 @@ var messages = {}
 
 # Map
 var seed = 0
+var land_tiles: Array[Vector2] = []
 
 # Peer managment
 var connected = false
 var ownID: int = -1
+
 
 func _on_host_pressed():
 	multiplayer_peer.create_server(Port)

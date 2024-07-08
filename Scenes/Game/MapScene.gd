@@ -49,7 +49,9 @@ func _generate_world():
 			var noiseValue := noise.get_noise_2d(2*x, 2*y)
 			if noiseValue >= 0.0: # land
 				tile_map.set_cell(0, Vector2(x,y), source_id, land_atlas)
+				GamManager.land_tiles.append(Vector2(x,y))
 			if noiseValue >= 0.2: # high land
 				tile_map.set_cell(0, Vector2(x,y), source_id, high_land_atlas)
+				GamManager.land_tiles.append(Vector2(x,y))
 			elif noiseValue < 0.0: # water
 				tile_map.set_cell(0, Vector2(x,y), source_id, water_atlas)
