@@ -12,10 +12,14 @@ var messages = {}
 # Map
 var seed = 0
 var land_tiles: Array[Vector2] = []
+var building_tiles: Array[BuildingTiles] = []
 
 # Peer managment
 var connected = false
 var ownID: int = -1
+
+# Game Maagment:
+var nationMapping = {} # nationId: peerId # TODO: implement
 
 
 func _on_host_pressed():
@@ -79,6 +83,7 @@ func _diconnect_all_peers_from_host():
 		
 	connected = false
 	multiplayer_peer.close()
+	reset_after_disconnect()
 
 func addPlayer(peer_id):
 	connected_peer_ids.append(peer_id)

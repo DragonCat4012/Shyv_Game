@@ -21,6 +21,7 @@ GamManager="*res://GamManager.gd"
 SceneManager="*res://Global/SceneManager.gd"
 LobbyManager="*res://Scenes/Lobby/LobbyManager.gd"
 EventSystem="*res://Global/EventSystem.gd"
+MapManager="*res://Scenes/Game/MapManager.gd"
 
 [display]
 
