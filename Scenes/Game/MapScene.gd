@@ -2,6 +2,8 @@ extends Node2D
 
 @onready var coordinate_tracker = $Camera2D/Control/CoordinateTracker
 @onready var peer_id = $Camera2D/Control/PeerID
+@onready var tile_info_panel = $Camera2D/Control/TileInfoPanel
+@onready var tile_owner = $Camera2D/Control/TileInfoPanel/TileOwner
 
 @onready var camera_2d = $Camera2D
 @onready var tile_map = $TileMap
@@ -22,7 +24,7 @@ var width := 50
 var height := 50
 
 # caching
-var oldSeelctedTile = Vector2i(-999,-999)
+var oldSeelctedTile = null#Vector2i(-999,-999)
 var oldTileBuildings = []
 
 func _ready():
@@ -40,18 +42,23 @@ func _process(delta):
 func _input(event):
 	if(Input.is_action_just_released("left_click")):
 		tile_map.local_to_map(to_local(get_global_mouse_position()))
-		_seelct_tile(get_global_mouse_position())
+		_select_tile(get_global_mouse_position())
 				
-func _seelct_tile(global: Vector2):
+func _select_tile(global: Vector2):
 	var tilePos = tile_map.local_to_map(to_local(global))
+	tile_map.clear_layer(2) # clear previous seelction
 	
 	if tilePos == oldSeelctedTile:
+		oldSeelctedTile = null
+		_toggle_tile_info_viibillity(false)
 		return
+		
+	oldSeelctedTile = tilePos
+	_toggle_tile_info_viibillity(true)
 	
-	tile_map.clear_layer(2) # clear previous seelction
 	tile_map.set_cell(2, tilePos, source_id, select_atlas)
 	coordinate_tracker.text = str(tilePos)
-
+	
 func _generate_world():
 	for x in range(-width/2 , width/2):
 		for y in range(-height/2, height/2):
@@ -72,3 +79,8 @@ func _update_tile_buildings():
 		var atlasPositionBefore = tile_map.get_cell_atlas_coords(0, tile.coords)
 		var newAtlas =Vector2i(building_atlas.x, atlasPositionBefore.y)
 		tile_map.set_cell(1, tile.coords, source_id, newAtlas)
+
+func _toggle_tile_info_viibillity(on):
+	tile_info_panel.visible = on
+	tile_owner.text = "blue" # TODO: get nation if there is one
+	
