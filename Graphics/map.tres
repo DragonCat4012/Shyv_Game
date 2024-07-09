@@ -1,14 +1,11 @@
 [gd_resource type="TileSet" load_steps=3 format=3 uid="uid://bly1nmde8eksv"]
 
-[ext_resource type="Texture2D" uid="uid://nrqqn752hh34" path="res://Graphics/Tiles.png" id="1_ypkrh"]
+[ext_resource type="Texture2D" uid="uid://cohcdq8fi347g" path="res://Graphics/Tiles.png" id="1_ypkrh"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6lkku"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_si37h"]
 texture = ExtResource("1_ypkrh")
 texture_region_size = Vector2i(100, 100)
-0:0/next_alternative_id = 3
 0:0/0 = 0
-0:0/1 = 1
-0:0/1/modulate = Color(0.616892, 0.197717, 0.981588, 1)
 1:0/0 = 0
 2:0/0 = 0
 3:0/0 = 0
@@ -32,4 +29,4 @@ texture_region_size = Vector2i(100, 100)
 [resource]
 tile_shape = 3
 tile_size = Vector2i(100, 100)
-sources/1 = SubResource("TileSetAtlasSource_6lkku")
+sources/1 = SubResource("TileSetAtlasSource_si37h")

@@ -92,6 +92,7 @@ func addPlayer(peer_id):
 func removePlayer(peer_id):
 	connected_peer_ids.erase(peer_id)
 	messages.erase(peer_id)
+	ready_peer_ids.erase(peer_id)
 
 @rpc
 func _on_player_connected(new_per_id):
