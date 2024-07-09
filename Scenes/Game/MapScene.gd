@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var coordinate_tracker = $Camera2D/Control/CoordinateTracker
+@onready var coordinate_tracker = $Camera2D/Control/TileInfoPanel/CoordinateTracker
 @onready var peer_id = $Camera2D/Control/PeerID
 @onready var tile_info_panel = $Camera2D/Control/TileInfoPanel
 @onready var tile_owner = $Camera2D/Control/TileInfoPanel/TileOwner

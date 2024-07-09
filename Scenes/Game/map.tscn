@@ -51,25 +51,6 @@ offset_bottom = 36.0
 scale = Vector2(-3.096, 1)
 color = Color(0, 0, 0, 0.329412)
 
-[node name="ColorRect2" type="ColorRect" parent="Camera2D/Control"]
-layout_mode = 0
-offset_left = 1151.0
-offset_top = 611.0
-offset_right = 1180.0
-offset_bottom = 651.0
-scale = Vector2(-3.096, 1)
-color = Color(0, 0, 0, 0.329412)
-
-[node name="CoordinateTracker" type="Label" parent="Camera2D/Control"]
-layout_mode = 0
-offset_left = 1075.0
-offset_top = 622.0
-offset_right = 1142.0
-offset_bottom = 645.0
-text = "(-,-)"
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="PeerID" type="Label" parent="Camera2D/Control"]
 layout_mode = 0
 offset_left = 18.0
@@ -82,7 +63,7 @@ text = "-1"
 visible = false
 layout_mode = 0
 offset_left = -2.0
-offset_top = 540.0
+offset_top = 484.0
 offset_right = 277.0
 offset_bottom = 650.0
 
@@ -97,15 +78,33 @@ vertical_alignment = 1
 [node name="_TileOwner" type="Label" parent="Camera2D/Control/TileInfoPanel"]
 layout_mode = 0
 offset_left = 15.0
-offset_top = 60.0
+offset_top = 48.0
 offset_right = 72.0
-offset_bottom = 83.0
+offset_bottom = 71.0
 text = "Owner:"
+
+[node name="_Coordinates" type="Label" parent="Camera2D/Control/TileInfoPanel"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 104.0
+offset_right = 78.0
+offset_bottom = 127.0
+text = "Position:"
 
 [node name="TileOwner" type="Label" parent="Camera2D/Control/TileInfoPanel"]
 layout_mode = 0
 offset_left = 106.0
-offset_top = 60.0
+offset_top = 48.0
 offset_right = 163.0
-offset_bottom = 83.0
+offset_bottom = 71.0
 text = "-"
+
+[node name="CoordinateTracker" type="Label" parent="Camera2D/Control/TileInfoPanel"]
+layout_mode = 0
+offset_left = 98.0
+offset_top = 102.0
+offset_right = 165.0
+offset_bottom = 125.0
+text = "(-,-)"
+horizontal_alignment = 1
+vertical_alignment = 1
