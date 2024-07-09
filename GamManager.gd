@@ -11,7 +11,7 @@ var messages = {}
 
 # Map
 var seed = 0
-var land_tiles: Array[Vector2] = []
+var land_tiles: Array[Vector2] = [] # tiles where player can start
 var building_tiles: Array[BuildingTiles] = []
 
 # Peer managment
@@ -121,3 +121,4 @@ func print_signed(arg, arg2 = "", arg3 = "", arg4 = ""):
 func reset_after_disconnect():
 	connected_peer_ids = []
 	messages = {}
+	ready_peer_ids = []
