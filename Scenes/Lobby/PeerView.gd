@@ -4,7 +4,7 @@ extends Node2D
 @onready var peer_list = $ColorRect/PeerList
 
 @onready var ready_button = $ReadyButton
-@onready var name_field = $nameField
+@onready var name_field := $nameField
 var isReady = false
 
 func _process(delta):
@@ -20,6 +20,8 @@ func display_message(message):
 
 func _on_line_edit_text_submitted(new_text):
 	display_message(new_text)
+	name_field.release_focus()
+	name_field.text = ""
 
 func show_messages() -> String:
 	var str = ""

@@ -66,7 +66,7 @@ offset_left = 1075.0
 offset_top = 622.0
 offset_right = 1142.0
 offset_bottom = 645.0
-text = "d"
+text = "(-,-)"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -81,10 +81,10 @@ text = "-1"
 [node name="TileInfoPanel" type="Panel" parent="Camera2D/Control"]
 visible = false
 layout_mode = 0
-offset_left = -1.0
-offset_top = 538.0
-offset_right = 278.0
-offset_bottom = 648.0
+offset_left = -2.0
+offset_top = 540.0
+offset_right = 277.0
+offset_bottom = 650.0
 
 [node name="Label" type="Label" parent="Camera2D/Control/TileInfoPanel"]
 layout_mode = 0

@@ -54,7 +54,8 @@ func _select_tile(global: Vector2):
 		return
 		
 	oldSeelctedTile = tilePos
-	_toggle_tile_info_viibillity(true)
+	var buildingAtlasCoordinates = tile_map.get_cell_atlas_coords(1, tilePos)
+	_toggle_tile_info_viibillity(true, buildingAtlasCoordinates)
 	
 	tile_map.set_cell(2, tilePos, source_id, select_atlas)
 	coordinate_tracker.text = str(tilePos)
@@ -80,7 +81,11 @@ func _update_tile_buildings():
 		var newAtlas =Vector2i(building_atlas.x, atlasPositionBefore.y)
 		tile_map.set_cell(1, tile.coords, source_id, newAtlas)
 
-func _toggle_tile_info_viibillity(on):
+func _toggle_tile_info_viibillity(on, atlasOwner=Vector2i(-1,-1)):
+	var ownerStr = "-"
+	if atlasOwner != Vector2i(-1,-1): # tile on this layer
+		ownerStr = str(atlasOwner.y)
+	
 	tile_info_panel.visible = on
-	tile_owner.text = "blue" # TODO: get nation if there is one
+	tile_owner.text = ownerStr # TODO: get nation if there is one
 	

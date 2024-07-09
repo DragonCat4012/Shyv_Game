@@ -7,7 +7,8 @@ const Adress = "127.0.0.1"
 # Lobby managment
 var connected_peer_ids: Array[int] = []
 var ready_peer_ids: Array[int] = []
-var messages = {}
+var messages = {} # Lobby messages
+var nationMappping = {} # created by hot, then published on game start
 
 # Map
 var seed = 0
