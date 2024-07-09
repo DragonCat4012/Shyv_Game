@@ -7,8 +7,8 @@ extends Node2D
 @onready var tile_map = $TileMap
 var source_id = 1
 var idk_atlas = Vector2i(0,2)
-var water_atlas = Vector2i(0,1)
-var land_atlas = Vector2i(0,0)
+var water_atlas = Vector2i(0,0)
+var land_atlas = Vector2i(0,1)
 var high_land_atlas = Vector2i(0,3)
 
 @export var noise_height_texture: NoiseTexture2D
@@ -65,7 +65,6 @@ func _generate_world():
 				tile_map.set_cell(0, Vector2(x,y), source_id, water_atlas)
 
 func _update_tile_buildings():
-	print("update tiles")
+	print(">>> update tiles")
 	for tile in GamManager.building_tiles:
-		print(tile)
 		tile_map.set_cell(0, tile.coords, source_id, idk_atlas)
