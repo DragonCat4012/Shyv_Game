@@ -22,6 +22,10 @@ SceneManager="*res://Global/SceneManager.gd"
 LobbyManager="*res://Scenes/Lobby/LobbyManager.gd"
 EventSystem="*res://Global/EventSystem.gd"
 
+[display]
+
+window/size/resizable=false
+
 [input]
 
 drag={
