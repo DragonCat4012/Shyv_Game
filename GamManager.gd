@@ -11,11 +11,15 @@ var messages = {}
 
 # Map
 var seed = 0
-var land_tiles: Array[Vector2] = []
+var land_tiles: Array[Vector2] = [] # tiles where player can start
+var building_tiles: Array[BuildingTiles] = []
 
 # Peer managment
 var connected = false
 var ownID: int = -1
+
+# Game Maagment:
+var nationMapping = {} # nationId: peerId # TODO: implement
 
 
 func _on_host_pressed():
@@ -49,7 +53,7 @@ func _on_join_pressed():
 	connected_peer_ids.assign(multiplayer.get_peers())
 	connected = true # TODO move into connect callback
 	multiplayer_peer.peer_disconnected.connect (
-		func(e):
+		func():
 			ownID = -1
 			connected = false
 			print("welp disconnect")
@@ -79,6 +83,7 @@ func _diconnect_all_peers_from_host():
 		
 	connected = false
 	multiplayer_peer.close()
+	reset_after_disconnect()
 
 func addPlayer(peer_id):
 	connected_peer_ids.append(peer_id)
@@ -87,6 +92,7 @@ func addPlayer(peer_id):
 func removePlayer(peer_id):
 	connected_peer_ids.erase(peer_id)
 	messages.erase(peer_id)
+	ready_peer_ids.erase(peer_id)
 
 @rpc
 func _on_player_connected(new_per_id):
@@ -116,3 +122,4 @@ func print_signed(arg, arg2 = "", arg3 = "", arg4 = ""):
 func reset_after_disconnect():
 	connected_peer_ids = []
 	messages = {}
+	ready_peer_ids = []

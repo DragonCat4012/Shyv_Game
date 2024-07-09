@@ -4,7 +4,7 @@ extends Node
 @rpc("any_peer", "call_local") # Any peer can call it, calls on self
 func _on_lobby_message(msg):
 	var peer_id = multiplayer.get_remote_sender_id()
-	GamManager.print_signed("Fucntion called by peer: ", peer_id," msg: ", msg)
+	GamManager.print_signed("Function called by peer: ", peer_id," msg: ", msg)
 	GamManager.messages[peer_id] = msg
 
 func send_lobby_message(newMessage):

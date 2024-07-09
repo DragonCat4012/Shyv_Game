@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="BuildingModel" load_steps=2 format=3 uid="uid://x4eoeyomshim"]
+
+[ext_resource type="Script" path="res://Models/BuildingModel.gd" id="1_odfh2"]
+
+[resource]
+script = ExtResource("1_odfh2")
+nationAtlasLevelPosition = Vector2(0, 0)
+randomBaseStat = 0

@@ -6,7 +6,7 @@
 
 [sub_resource type="Gradient" id="Gradient_6mp1p"]
 interpolation_mode = 1
-offsets = PackedFloat32Array(0, 0.403189, 0.77221)
+offsets = PackedFloat32Array(0, 0.342508, 0.899083)
 colors = PackedColorArray(0.418238, 0.601976, 1, 1, 0.614666, 0.848716, 0.417582, 1, 0.79855, 0.588704, 0.317982, 1)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_41tvk"]
@@ -25,11 +25,16 @@ noise_height_texture = SubResource("NoiseTexture2D_g14po")
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource("3_tbyt8")
 format = 2
+layer_0/name = "selection"
+layer_1/name = "buildings"
+layer_1/tile_data = PackedInt32Array()
+layer_2/name = "terrain"
+layer_2/tile_data = PackedInt32Array()
 
 [node name="Camera2D" type="Camera2D" parent="."]
 script = ExtResource("3_nnm0c")
 
-[node name="Control" type="Control" parent="."]
+[node name="Control" type="Control" parent="Camera2D"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -575.0
@@ -37,7 +42,8 @@ offset_top = -325.0
 offset_right = 578.0
 offset_bottom = -197.0
 
-[node name="ColorRect" type="ColorRect" parent="Control"]
+[node name="ColorRect" type="ColorRect" parent="Camera2D/Control"]
+layout_mode = 0
 offset_left = 233.0
 offset_top = -4.0
 offset_right = 309.0
@@ -45,25 +51,61 @@ offset_bottom = 36.0
 scale = Vector2(-3.096, 1)
 color = Color(0, 0, 0, 0.329412)
 
-[node name="ColorRect2" type="ColorRect" parent="Control"]
-offset_left = 1157.0
-offset_top = -1.0
-offset_right = 1233.0
-offset_bottom = 39.0
+[node name="ColorRect2" type="ColorRect" parent="Camera2D/Control"]
+layout_mode = 0
+offset_left = 1151.0
+offset_top = 611.0
+offset_right = 1180.0
+offset_bottom = 651.0
 scale = Vector2(-3.096, 1)
 color = Color(0, 0, 0, 0.329412)
 
-[node name="CoordinateTracker" type="Label" parent="Control"]
-offset_left = 1094.0
-offset_top = 9.0
-offset_right = 1134.0
-offset_bottom = 32.0
+[node name="CoordinateTracker" type="Label" parent="Camera2D/Control"]
+layout_mode = 0
+offset_left = 1075.0
+offset_top = 622.0
+offset_right = 1142.0
+offset_bottom = 645.0
 text = "d"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="PeerID" type="Label" parent="Control"]
+[node name="PeerID" type="Label" parent="Camera2D/Control"]
 layout_mode = 0
 offset_left = 18.0
 offset_top = 6.0
 offset_right = 217.0
 offset_bottom = 31.0
 text = "-1"
+
+[node name="TileInfoPanel" type="Panel" parent="Camera2D/Control"]
+visible = false
+layout_mode = 0
+offset_left = -1.0
+offset_top = 538.0
+offset_right = 278.0
+offset_bottom = 648.0
+
+[node name="Label" type="Label" parent="Camera2D/Control/TileInfoPanel"]
+layout_mode = 0
+offset_right = 278.0
+offset_bottom = 48.0
+text = "Tile Info"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="_TileOwner" type="Label" parent="Camera2D/Control/TileInfoPanel"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 60.0
+offset_right = 72.0
+offset_bottom = 83.0
+text = "Owner:"
+
+[node name="TileOwner" type="Label" parent="Camera2D/Control/TileInfoPanel"]
+layout_mode = 0
+offset_left = 106.0
+offset_top = 60.0
+offset_right = 163.0
+offset_bottom = 83.0
+text = "-"
