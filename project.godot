@@ -22,6 +22,7 @@ SceneManager="*res://Global/SceneManager.gd"
 LobbyManager="*res://Scenes/Lobby/LobbyManager.gd"
 EventSystem="*res://Global/EventSystem.gd"
 MapManager="*res://Scenes/Game/MapManager.gd"
+Jsonutil="*res://Global/JSONUTIL.gd"
 
 [display]
 

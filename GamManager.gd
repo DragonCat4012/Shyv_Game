@@ -53,7 +53,7 @@ func _on_join_pressed():
 	connected_peer_ids.assign(multiplayer.get_peers())
 	connected = true # TODO move into connect callback
 	multiplayer_peer.peer_disconnected.connect (
-		func(e):
+		func():
 			ownID = -1
 			connected = false
 			print("welp disconnect")
