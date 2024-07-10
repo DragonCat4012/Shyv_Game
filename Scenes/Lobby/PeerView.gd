@@ -8,7 +8,7 @@ extends Node2D
 var isReady = false
 
 # Create Nation
-var nation = preload("res://Models/NationModel.gd").new()
+var nation = RessourceManager.LOADED_NATION_MODEL.new()
 @onready var nation_name = $CreateNation/nationName
 @onready var color_picker = $CreateNation/colorPicker
 @onready var tile_index_label = $CreateNation/tileIndexLabel
@@ -52,7 +52,7 @@ func _on_ready_button_pressed():
 		ready_button.theme = null
 	else: 
 		LobbyManager.send_ready(nation)
-		ready_button.theme = RessourceManager.button_delete_theme
+		ready_button.theme = RessourceManager.THEME_BUTTON_DELETE
 
 func _on_exit_button_pressed():
 	GamManager._diconnect()
