@@ -1,14 +1,14 @@
 class_name  StartPositionsGenerate extends Node
 
 var tileMap: Array[Vector2]
-var players: Array[int]
+var nations: Array[int]
 
 func _init(tiles, peers):
 	tileMap = tiles
-	players = peers
+	nations.assign(peers)
 	
 func generate_positions() -> Dictionary: # TODO: just first impl not final qwq
 	var dict = {} # peerID: Position
-	for player in players:
-		dict[player] = tileMap.pick_random()
+	for nationID in nations:
+		dict[nationID] = tileMap.pick_random()
 	return dict

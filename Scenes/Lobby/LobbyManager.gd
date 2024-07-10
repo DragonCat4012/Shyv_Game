@@ -19,8 +19,6 @@ func _on_ready(nation):
 	
 	var playedNation = Jsonutil.NationModel_from_JSON(nation)
 	GamManager._add_player_nation_in_lobby(peer_id, playedNation)
-
-	print("#### ", playedNation)
 	
 	if peer_id == GamManager.ownID:
 		return
@@ -46,11 +44,30 @@ func _on_start_game(seed):
 	GamManager.seed = seed
 	get_tree().change_scene_to_file(SceneManager.GAMESCENE)
 	
-func start_game(seed):
+func start_game(seed): # Should only be called by server
+	_sync_nations_with_peers()
 	rpc("_on_start_game", seed)
 	GamManager.seed = seed
+	
 	if GamManager.ownID == 1: # Server
 		get_tree().change_scene_to_file(SceneManager.HOSTGAMESCENE)
 	else: # Client
 		get_tree().change_scene_to_file(SceneManager.GAMESCENE)
+	
+# Sync Nations with Peers
+func _sync_nations_with_peers():  # Should only be called by server
+	print("Manager Nations to sync: ", GamManager.allNations)
+	var nationJSON = Jsonutil.nations_to_JSON(GamManager.allNations)
+	var mappingJSON = Jsonutil.nationMapping_to_JSON(GamManager.nationMapping)
+	rpc("_on_sync_nations_with_peers", nationJSON, mappingJSON)
+
+@rpc("any_peer", "call_local") 
+func _on_sync_nations_with_peers(nationsJSON, nationsMappingJSON):
+	if GamManager.ownID == 1: # Server
+		return
+	
+	GamManager.allNations = Jsonutil.nations_from_JSON(nationsJSON)
+	GamManager.nationMapping = Jsonutil.nationMapping_from_JSON(nationsMappingJSON)
+	print("### ", GamManager.nationMapping, GamManager.allNations.size())
+	get_tree().change_scene_to_file(SceneManager.GAMESCENE)
 	

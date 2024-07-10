@@ -35,3 +35,28 @@ func NationModel_from_JSON(str: String) -> NationModel:
 	nation.color = str_to_var(dict["color"])
 	nation.building_tile_row = dict["building_tile_row"]
 	return nation
+
+
+
+const ARRAY_DIVIDER_IN_JSON_DONT_ASK = "xoxoILoveYouxoxo" # TODO: chekc that its not in nation name or description
+# Sync Nations
+func nationMapping_from_JSON(str: String) -> Dictionary:
+	return {}
+	
+func nationMapping_to_JSON(dict: Dictionary) -> String:
+	var str = ""
+	return str
+		
+func nations_from_JSON(str: String) -> Array[NationModel]:
+	var finalArr: Array[NationModel]
+	var mappedArray: Array[String]
+	mappedArray.assign(str.split(ARRAY_DIVIDER_IN_JSON_DONT_ASK))
+	
+	for i in mappedArray:
+		finalArr.append(NationModel_from_JSON(i))
+
+	return finalArr
+	
+func nations_to_JSON(nations: Array[NationModel]) -> String:
+	var mappedArray = nations.map(func(nat): return NationModel_to_JSON(nat))
+	return ARRAY_DIVIDER_IN_JSON_DONT_ASK.join(mappedArray)

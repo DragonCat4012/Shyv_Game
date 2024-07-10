@@ -20,7 +20,8 @@ var ownID: int = -1
 
 # Game Maagment:
 var nationMapping = {} # string_peerId: NationModel # TODO: implement
-var allNations = []
+var allNations: Array[Jsonutil.NationModel] = []
+var currentNationIDCount = 1 # only changed by server/host!
 
 func _on_host_pressed():
 	multiplayer_peer.create_server(Port)
@@ -121,8 +122,11 @@ func _remove_player_nation_in_lobby(peerID):
 	nationMapping.erase(str(peerID)) 
 
 func _add_player_nation_in_lobby(peerID, nation: NationModel):
+	nation.assignedID = currentNationIDCount
 	nationMapping[str(peerID)] = nation
 	allNations.append(nation)
+	
+	currentNationIDCount += 1 
 	
 # Util
 func print_signed(arg, arg2 = "", arg3 = "", arg4 = ""):
