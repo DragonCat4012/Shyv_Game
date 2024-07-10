@@ -47,7 +47,7 @@ func _input(event):
 func _select_tile(global: Vector2):
 	var tilePos = tile_map.local_to_map(to_local(global))
 	tile_map.clear_layer(2) # clear previous seelction
-	
+
 	if tilePos == oldSeelctedTile:
 		oldSeelctedTile = null
 		_toggle_tile_info_viibillity(false)
@@ -59,6 +59,7 @@ func _select_tile(global: Vector2):
 	
 	tile_map.set_cell(2, tilePos, source_id, select_atlas)
 	coordinate_tracker.text = str(tilePos)
+	_style_selected_tile_info(tilePos)
 	
 func _generate_world():
 	for x in range(-width/2 , width/2):
@@ -89,3 +90,12 @@ func _toggle_tile_info_viibillity(on, atlasOwner=Vector2i(-1,-1)):
 	tile_info_panel.visible = on
 	tile_owner.text = ownerStr # TODO: get nation if there is one
 	
+func _style_selected_tile_info(pos: Vector2):
+	var nation = GamManager.get_nation_to_tile(pos)
+	if not nation:
+		tile_owner.text = "?"
+		tile_owner.add_theme_color_override("font_color", Color.BLACK)
+		return
+	tile_owner.add_theme_color_override("font_color", nation.color)	
+	tile_owner.text = nation.name + "[" + str(nation.assignedID) + "]"
+

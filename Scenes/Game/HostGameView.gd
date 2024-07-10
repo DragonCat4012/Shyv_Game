@@ -1,13 +1,14 @@
 extends Node2D
 
-var BuildingTileBLueprint = preload("res://Models/BuildingTiles.gd")
 
 func _ready():
-	var generator = preload("res://Scenes/Game/StartPositionsGenerate.gd").new(GamManager.land_tiles, GamManager.connected_peer_ids)
-	var generatedstartPositions = generator.generate_positions()
+	var nationIDs = GamManager.nationMapping.values().map(func(nation): return nation.assignedID)
+	var START_POSITIONS_GENERATOR = RessourceManager.START_POSITIONS_GENERATOR.new(GamManager.land_tiles, nationIDs)
+	var generatedstartPositions = START_POSITIONS_GENERATOR.generate_positions()
 	print("Start Positions = ", generatedstartPositions)
 	
-	for position in generatedstartPositions.values(): # (perid: cords)
-		var tile = BuildingTileBLueprint.new()
-		tile.coords = position
+	for nationID in generatedstartPositions.keys(): # (nationID: cords)
+		var tile = RessourceManager.BUILDING_TILES.new()
+		tile.coords = generatedstartPositions[nationID]
+		tile.ownedByNationID = nationID
 		MapManager.send_tile_update(tile)

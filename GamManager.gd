@@ -8,7 +8,6 @@ const Adress = "127.0.0.1"
 var connected_peer_ids: Array[int] = []
 var ready_peer_ids: Array[int] = []
 var messages = {} # Lobby messages
-var nationMappping = {} # created by hot, then published on game start
 
 # Map
 var seed = 0
@@ -20,8 +19,9 @@ var connected = false
 var ownID: int = -1
 
 # Game Maagment:
-var nationMapping = {} # nationId: peerId # TODO: implement
-
+var nationMapping = {} # string_peerId: NationModel # TODO: implement
+var allNations: Array[Jsonutil.NationModel] = []
+var currentNationIDCount = 1 # only changed by server/host!
 
 func _on_host_pressed():
 	multiplayer_peer.create_server(Port)
@@ -116,6 +116,18 @@ func add_previously_connected_player_character(peer_ids):
 func add_previously_send_messages(msgs):
 	messages = msgs
 	
+# Manga Lobby Nations 
+func _remove_player_nation_in_lobby(peerID):
+	allNations.erase(nationMapping[str(peerID)])
+	nationMapping.erase(str(peerID)) 
+
+func _add_player_nation_in_lobby(peerID, nation: NationModel):
+	nation.assignedID = currentNationIDCount
+	nationMapping[str(peerID)] = nation
+	allNations.append(nation)
+	
+	currentNationIDCount += 1 
+	
 # Util
 func print_signed(arg, arg2 = "", arg3 = "", arg4 = ""):
 	print("[",multiplayer.get_unique_id(), "]: ", arg, arg2, arg3, arg4)
@@ -124,3 +136,20 @@ func reset_after_disconnect():
 	connected_peer_ids = []
 	messages = {}
 	ready_peer_ids = []
+
+func get_nation_id_to_tile(tilePosition: Vector2) -> int:
+	var nationID = -1
+	for tile in building_tiles:
+		if tile.coords == tilePosition:
+			nationID = tile.ownedByNationID
+	return nationID
+
+func get_nation_to_tile(tilePosition: Vector2) -> NationModel:
+	var id = get_nation_id_to_tile(tilePosition)
+	if id < 0:
+		return null
+		
+	for nat in allNations:
+		if nat.assignedID == id:
+			return nat 
+	return null
