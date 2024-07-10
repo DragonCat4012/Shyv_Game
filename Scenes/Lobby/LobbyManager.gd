@@ -56,7 +56,7 @@ func start_game(seed): # Should only be called by server
 	
 # Sync Nations with Peers
 func _sync_nations_with_peers():  # Should only be called by server
-	print("Manager Nations to sync: ", GamManager.allNations)
+	print("Manager Nations to sync: ", GamManager.allNations.size())
 	var nationJSON = Jsonutil.nations_to_JSON(GamManager.allNations)
 	var mappingJSON = Jsonutil.nationMapping_to_JSON(GamManager.nationMapping)
 	rpc("_on_sync_nations_with_peers", nationJSON, mappingJSON)
@@ -68,6 +68,5 @@ func _on_sync_nations_with_peers(nationsJSON, nationsMappingJSON):
 	
 	GamManager.allNations = Jsonutil.nations_from_JSON(nationsJSON)
 	GamManager.nationMapping = Jsonutil.nationMapping_from_JSON(nationsMappingJSON)
-	print("### ", GamManager.nationMapping, GamManager.allNations.size())
 	get_tree().change_scene_to_file(SceneManager.GAMESCENE)
 	

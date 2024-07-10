@@ -21,7 +21,7 @@ func BuildingTiles_from_JSON(str: String) -> BuildingTiles:
 const NationModel = preload("res://Models/NationModel.gd")
 
 func NationModel_to_JSON(nation: NationModel) -> String:
-	var dict = {"name": nation.name, "description": nation.description, "color": var_to_str(nation.color), "building_tile_row": nation.building_tile_row}
+	var dict = {"name": nation.name, "assignedID": nation.assignedID, "description": nation.description, "color": var_to_str(nation.color), "building_tile_row": nation.building_tile_row}
 	return JSON.stringify(dict)
 	
 func NationModel_from_JSON(str: String) -> NationModel:
@@ -34,18 +34,28 @@ func NationModel_from_JSON(str: String) -> NationModel:
 	nation.description = dict["description"]
 	nation.color = str_to_var(dict["color"])
 	nation.building_tile_row = dict["building_tile_row"]
+	nation.assignedID = dict["assignedID"]
 	return nation
 
 
 
-const ARRAY_DIVIDER_IN_JSON_DONT_ASK = "xoxoILoveYouxoxo" # TODO: chekc that its not in nation name or description
+const ARRAY_DIVIDER_IN_JSON_DONT_ASK = "xoxoILoveYouxoxo" # TODO: chekc that its not in nation name or description, in genral chekc for escaping cnhars
 # Sync Nations
 func nationMapping_from_JSON(str: String) -> Dictionary:
-	return {}
+	var dict = {}
+	var stringifiedDict = JSON.parse_string(str)
+	for key in stringifiedDict:
+		dict[key] = NationModel_from_JSON(stringifiedDict[key])
+	
+	print("welcome again xd ", dict)
+	return dict
 	
 func nationMapping_to_JSON(dict: Dictionary) -> String:
-	var str = ""
-	return str
+	var stringifiedDict = {}
+	for key in dict:
+		stringifiedDict[key] = NationModel_to_JSON(dict[key])
+	print("aloha ", JSON.stringify(stringifiedDict))
+	return JSON.stringify(stringifiedDict)
 		
 func nations_from_JSON(str: String) -> Array[NationModel]:
 	var finalArr: Array[NationModel]
