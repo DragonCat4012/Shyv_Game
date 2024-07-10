@@ -19,8 +19,8 @@ var connected = false
 var ownID: int = -1
 
 # Game Maagment:
-var nationMapping = {} # nationId: peerId # TODO: implement
-
+var nationMapping = {} # string_peerId: NationModel # TODO: implement
+var allNations = []
 
 func _on_host_pressed():
 	multiplayer_peer.create_server(Port)
@@ -114,6 +114,15 @@ func add_previously_connected_player_character(peer_ids):
 @rpc
 func add_previously_send_messages(msgs):
 	messages = msgs
+	
+# Manga Lobby Nations 
+func _remove_player_nation_in_lobby(peerID):
+	allNations.erase(nationMapping[str(peerID)])
+	nationMapping.erase(str(peerID)) 
+
+func _add_player_nation_in_lobby(peerID, nation: NationModel):
+	nationMapping[str(peerID)] = nation
+	allNations.append(nation)
 	
 # Util
 func print_signed(arg, arg2 = "", arg3 = "", arg4 = ""):

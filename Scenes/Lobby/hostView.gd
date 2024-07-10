@@ -4,9 +4,6 @@ extends Node2D
 @onready var player_rect = $VBoxContainer/Label
 @onready var v_box_container = $VBoxContainer
 
-@export var readyColor: Color = Color.LIGHT_GREEN
-@export var unreadyColor: Color = Color.INDIAN_RED
-
 var lastArr = ""
 
 func _process(delta):
@@ -18,10 +15,12 @@ func _process(delta):
 
 	for id in GamManager.connected_peer_ids:
 		var e = player_rect.duplicate()
-		e.add_theme_color_override("font_color", unreadyColor)
-		e.text = str(id) + ": " + GamManager.messages[id]
+		e.text = str(id)
 		if id in GamManager.ready_peer_ids:
-			e.add_theme_color_override("font_color", readyColor)
+			var player_nation: NationModel = GamManager.nationMapping[str(id)]
+			
+			e.add_theme_color_override("font_color", player_nation.color)
+			e.text = e.text + "[" + player_nation.name +"]"
 			
 		v_box_container.add_child(e)
 	

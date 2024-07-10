@@ -49,8 +49,10 @@ func show_messages() -> String:
 func _on_ready_button_pressed():
 	if isReady:
 		LobbyManager.send_un_ready()
+		ready_button.theme = null
 	else: 
 		LobbyManager.send_ready(nation)
+		ready_button.theme = RessourceManager.button_delete_theme
 
 func _on_exit_button_pressed():
 	GamManager._diconnect()
@@ -64,7 +66,7 @@ func _on_nation_name_text_submitted(new_text):
 	name_field.release_focus()
 
 func _on_nation_name_text_changed(new_text):
-	nation.name = name_field.text
+	nation.name = new_text
 	
 func _on_color_picker_color_changed(color):
 	nation.color = color_picker.color

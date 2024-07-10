@@ -18,7 +18,8 @@ func _on_ready(nation):
 		GamManager.ready_peer_ids.append(peer_id)
 	
 	var playedNation = Jsonutil.NationModel_from_JSON(nation)
-	GamManager.nationMapping[str(peer_id)] = playedNation
+	GamManager._add_player_nation_in_lobby(peer_id, playedNation)
+
 	print("#### ", playedNation)
 	
 	if peer_id == GamManager.ownID:
@@ -34,7 +35,7 @@ func _on_un_ready():
 	var peer_id = multiplayer.get_remote_sender_id()
 	GamManager.print_signed("UN-Ready peer: ", peer_id)
 	GamManager.ready_peer_ids.erase(peer_id)
-	GamManager.nationMapping.erase(str(peer_id))
+	GamManager._remove_player_nation_in_lobby(peer_id)
 	
 func send_un_ready():
 	rpc("_on_un_ready")
