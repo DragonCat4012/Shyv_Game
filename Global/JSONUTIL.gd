@@ -19,6 +19,7 @@ func BuildingTiles_from_JSON(str: String) -> BuildingTiles:
 	
 	
 const NationModel = preload("res://Models/NationModel.gd")
+
 func NationModel_to_JSON(nation: NationModel) -> String:
 	var dict = {"name": nation.name, "description": nation.description, "color": nation.color, "building_tile_row": nation.building_tile_row}
 	return JSON.stringify(dict)

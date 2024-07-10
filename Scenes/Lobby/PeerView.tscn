@@ -48,6 +48,71 @@ offset_bottom = 60.0
 theme = ExtResource("2_vyrjh")
 text = "Exit"
 
+[node name="CreateNation" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="nationName" type="LineEdit" parent="CreateNation"]
+offset_left = 865.0
+offset_top = 80.0
+offset_right = 1117.0
+offset_bottom = 111.0
+
+[node name="colorPicker" type="ColorPickerButton" parent="CreateNation"]
+layout_mode = 0
+offset_left = 867.0
+offset_top = 149.0
+offset_right = 1116.0
+offset_bottom = 183.0
+
+[node name="_colorDescript" type="Label" parent="CreateNation"]
+layout_mode = 0
+offset_left = 868.0
+offset_top = 122.0
+offset_right = 914.0
+offset_bottom = 145.0
+text = "Color:"
+
+[node name="_nameDescript" type="Label" parent="CreateNation"]
+layout_mode = 0
+offset_left = 866.0
+offset_top = 53.0
+offset_right = 917.0
+offset_bottom = 76.0
+text = "Name:"
+
+[node name="_iconDescript" type="Label" parent="CreateNation"]
+layout_mode = 0
+offset_left = 871.0
+offset_top = 200.0
+offset_right = 950.0
+offset_bottom = 223.0
+text = "Tile Index:"
+
+[node name="_titleDescript" type="Label" parent="CreateNation"]
+layout_mode = 0
+offset_left = 865.0
+offset_top = 19.0
+offset_right = 1112.0
+offset_bottom = 42.0
+text = "Nation"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="tileIndexLabel" type="Label" parent="CreateNation"]
+layout_mode = 0
+offset_left = 966.0
+offset_top = 199.0
+offset_right = 1112.0
+offset_bottom = 222.0
+text = "-1
+"
+
 [connection signal="text_submitted" from="nameField" to="." method="_on_line_edit_text_submitted"]
 [connection signal="pressed" from="ReadyButton" to="." method="_on_ready_button_pressed"]
 [connection signal="pressed" from="ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="text_changed" from="CreateNation/nationName" to="." method="_on_nation_name_text_changed"]
+[connection signal="text_submitted" from="CreateNation/nationName" to="." method="_on_nation_name_text_submitted"]
+[connection signal="color_changed" from="CreateNation/colorPicker" to="." method="_on_color_picker_color_changed"]
