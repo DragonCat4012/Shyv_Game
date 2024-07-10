@@ -136,3 +136,20 @@ func reset_after_disconnect():
 	connected_peer_ids = []
 	messages = {}
 	ready_peer_ids = []
+
+func get_nation_id_to_tile(tilePosition: Vector2) -> int:
+	var nationID = -1
+	for tile in building_tiles:
+		if tile.coords == tilePosition:
+			nationID = tile.ownedByNationID
+	return nationID
+
+func get_nation_to_tile(tilePosition: Vector2) -> NationModel:
+	var id = get_nation_id_to_tile(tilePosition)
+	if id < 0:
+		return null
+		
+	for nat in allNations:
+		if nat.assignedID == id:
+			return nat 
+	return null
