@@ -56,6 +56,12 @@ func start_game(seed): # Should only be called by server
 	
 # Sync Nations with Peers
 func _sync_nations_with_peers():  # Should only be called by server
+	var icons = RessourceManager.ALL_NATION_ICON_OPTIONS.duplicate()
+	icons.shuffle()
+	for nat in GamManager.allNations: # aplly icon indexes
+		var icon = icons.pop_back()
+		nat.building_tile_row = icon
+		
 	print("Manager Nations to sync: ", GamManager.allNations.size())
 	var nationJSON = Jsonutil.nations_to_JSON(GamManager.allNations)
 	var mappingJSON = Jsonutil.nationMapping_to_JSON(GamManager.nationMapping)

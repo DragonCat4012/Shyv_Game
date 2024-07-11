@@ -6,7 +6,7 @@ extends Node2D
 @onready var tile_owner = $Camera2D/Control/TileInfoPanel/TileOwner
 
 @onready var camera_2d = $Camera2D
-@onready var tile_map = $TileMap
+@onready var tile_map : TileMap = $TileMap
 var source_id = 1
 
 var water_atlas = Vector2i(0,0)
@@ -78,17 +78,22 @@ func _update_tile_buildings():
 	tile_map.clear_layer(1)
 
 	for tile in GamManager.building_tiles:
+		var nation = GamManager.get_nation_to_tile(tile.coords)
+		
 		var atlasPositionBefore = tile_map.get_cell_atlas_coords(0, tile.coords)
-		var newAtlas =Vector2i(building_atlas.x, atlasPositionBefore.y)
+		var newAtlas = Vector2i(building_atlas.x, nation.building_tile_row)
+		
 		tile_map.set_cell(1, tile.coords, source_id, newAtlas)
-
+		var x = tile_map.get_cell_tile_data(1, tile.coords)
+		x.modulate = nation.color
+		
 func _toggle_tile_info_viibillity(on, atlasOwner=Vector2i(-1,-1)):
 	var ownerStr = "-"
 	if atlasOwner != Vector2i(-1,-1): # tile on this layer
 		ownerStr = str(atlasOwner.y)
 	
 	tile_info_panel.visible = on
-	tile_owner.text = ownerStr # TODO: get nation if there is one
+	tile_owner.text = ownerStr
 	
 func _style_selected_tile_info(pos: Vector2):
 	var nation = GamManager.get_nation_to_tile(pos)
@@ -98,4 +103,3 @@ func _style_selected_tile_info(pos: Vector2):
 		return
 	tile_owner.add_theme_color_override("font_color", nation.color)	
 	tile_owner.text = nation.name + "[" + str(nation.assignedID) + "]"
-

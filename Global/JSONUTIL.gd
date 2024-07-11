@@ -46,15 +46,12 @@ func nationMapping_from_JSON(str: String) -> Dictionary:
 	var stringifiedDict = JSON.parse_string(str)
 	for key in stringifiedDict:
 		dict[key] = NationModel_from_JSON(stringifiedDict[key])
-	
-	print("welcome again xd ", dict)
 	return dict
 	
 func nationMapping_to_JSON(dict: Dictionary) -> String:
 	var stringifiedDict = {}
 	for key in dict:
 		stringifiedDict[key] = NationModel_to_JSON(dict[key])
-	print("aloha ", JSON.stringify(stringifiedDict))
 	return JSON.stringify(stringifiedDict)
 		
 func nations_from_JSON(str: String) -> Array[NationModel]:

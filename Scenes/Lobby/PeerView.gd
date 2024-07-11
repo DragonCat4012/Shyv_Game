@@ -11,12 +11,10 @@ var isReady = false
 var nation = RessourceManager.LOADED_NATION_MODEL.new()
 @onready var nation_name = $CreateNation/nationName
 @onready var color_picker = $CreateNation/colorPicker
-@onready var tile_index_label = $CreateNation/tileIndexLabel
 
 func _ready():
 	color_picker.color = nation.color
 	nation_name.text = nation.name
-	tile_index_label.text = str(nation.building_tile_row)
 
 func _process(delta):
 	if !GamManager.connected:

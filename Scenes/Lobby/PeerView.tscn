@@ -55,6 +55,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="nationName" type="LineEdit" parent="CreateNation"]
+layout_mode = 0
 offset_left = 865.0
 offset_top = 80.0
 offset_right = 1117.0
@@ -83,14 +84,6 @@ offset_right = 917.0
 offset_bottom = 76.0
 text = "Name:"
 
-[node name="_iconDescript" type="Label" parent="CreateNation"]
-layout_mode = 0
-offset_left = 871.0
-offset_top = 200.0
-offset_right = 950.0
-offset_bottom = 223.0
-text = "Tile Index:"
-
 [node name="_titleDescript" type="Label" parent="CreateNation"]
 layout_mode = 0
 offset_left = 865.0
@@ -100,15 +93,6 @@ offset_bottom = 42.0
 text = "Nation"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="tileIndexLabel" type="Label" parent="CreateNation"]
-layout_mode = 0
-offset_left = 966.0
-offset_top = 199.0
-offset_right = 1112.0
-offset_bottom = 222.0
-text = "-1
-"
 
 [connection signal="text_submitted" from="nameField" to="." method="_on_line_edit_text_submitted"]
 [connection signal="pressed" from="ReadyButton" to="." method="_on_ready_button_pressed"]
