@@ -51,7 +51,7 @@ offset_top = -4.0
 offset_right = 309.0
 offset_bottom = 36.0
 scale = Vector2(-3.096, 1)
-color = Color(0, 0, 0, 0.329412)
+color = Color(0, 0, 0, 0.564706)
 
 [node name="PeerID" type="Label" parent="Camera2D/Control"]
 layout_mode = 0
@@ -62,6 +62,7 @@ offset_bottom = 31.0
 text = "-1"
 
 [node name="TileInfoPanel" type="Panel" parent="Camera2D/Control"]
+visible = false
 layout_mode = 0
 offset_left = -2.0
 offset_top = 442.0
