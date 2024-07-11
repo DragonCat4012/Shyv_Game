@@ -74,5 +74,6 @@ func _on_sync_nations_with_peers(nationsJSON, nationsMappingJSON):
 	
 	GamManager.allNations = Jsonutil.nations_from_JSON(nationsJSON)
 	GamManager.nationMapping = Jsonutil.nationMapping_from_JSON(nationsMappingJSON)
+	GamManager.ownNation = GamManager.nationMapping[str(GamManager.ownID)]
 	get_tree().change_scene_to_file(SceneManager.GAMESCENE)
 	

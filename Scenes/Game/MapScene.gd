@@ -1,8 +1,10 @@
 extends Node2D
 
-@onready var coordinate_tracker = $Camera2D/Control/TileInfoPanel/CoordinateTracker
 @onready var peer_id = $Camera2D/Control/PeerID
+
+# Tile Info
 @onready var tile_info_panel = $Camera2D/Control/TileInfoPanel
+@onready var coordinate_tracker = $Camera2D/Control/TileInfoPanel/CoordinateTracker
 @onready var tile_owner = $Camera2D/Control/TileInfoPanel/TileOwner
 @onready var tile_level = $Camera2D/Control/TileInfoPanel/TileLevel
 @onready var tile_stat = $Camera2D/Control/TileInfoPanel/TileStat
@@ -42,6 +44,9 @@ func _ready():
 	noise.seed = GamManager.seed
 	_generate_world()
 	peer_id.text = str(GamManager.ownID)
+	if GamManager.ownNation:
+		peer_id.text = GamManager.ownNation.name
+		peer_id.add_theme_color_override("font_color", GamManager.ownNation.color)	
 
 func _process(delta):
 	if oldTileBuildings == GamManager.building_tiles:

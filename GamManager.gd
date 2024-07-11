@@ -23,6 +23,8 @@ var nationMapping = {} # string_peerId: NationModel # TODO: implement
 var allNations: Array[Jsonutil.NationModel] = []
 var currentNationIDCount = 1 # only changed by server/host!
 
+var ownNation = null
+
 func _on_host_pressed():
 	multiplayer_peer.create_server(Port)
 	multiplayer.multiplayer_peer = multiplayer_peer
