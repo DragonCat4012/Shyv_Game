@@ -16,11 +16,12 @@ func _process(delta):
 	for id in GamManager.connected_peer_ids:
 		var e = player_rect.duplicate()
 		e.text = str(id)
+		
 		if id in GamManager.ready_peer_ids:
 			var player_nation: NationModel = GamManager.nationMapping[str(id)]
 			
 			e.add_theme_color_override("font_color", player_nation.color)
-			e.text = e.text + "[" + player_nation.name +"]"
+			e.text = player_nation.name + " [" + str(id) +"]"
 			
 		v_box_container.add_child(e)
 	

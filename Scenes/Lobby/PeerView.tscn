@@ -54,36 +54,6 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="nationName" type="LineEdit" parent="CreateNation"]
-layout_mode = 0
-offset_left = 865.0
-offset_top = 80.0
-offset_right = 1117.0
-offset_bottom = 111.0
-
-[node name="colorPicker" type="ColorPickerButton" parent="CreateNation"]
-layout_mode = 0
-offset_left = 867.0
-offset_top = 149.0
-offset_right = 1116.0
-offset_bottom = 183.0
-
-[node name="_colorDescript" type="Label" parent="CreateNation"]
-layout_mode = 0
-offset_left = 868.0
-offset_top = 122.0
-offset_right = 914.0
-offset_bottom = 145.0
-text = "Color:"
-
-[node name="_nameDescript" type="Label" parent="CreateNation"]
-layout_mode = 0
-offset_left = 866.0
-offset_top = 53.0
-offset_right = 917.0
-offset_bottom = 76.0
-text = "Name:"
-
 [node name="_titleDescript" type="Label" parent="CreateNation"]
 layout_mode = 0
 offset_left = 865.0
@@ -93,6 +63,51 @@ offset_bottom = 42.0
 text = "Nation"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="_nameDescript" type="Label" parent="CreateNation"]
+layout_mode = 0
+offset_left = 866.0
+offset_top = 53.0
+offset_right = 917.0
+offset_bottom = 76.0
+text = "Name:"
+
+[node name="nationName" type="LineEdit" parent="CreateNation"]
+layout_mode = 0
+offset_left = 865.0
+offset_top = 80.0
+offset_right = 1117.0
+offset_bottom = 111.0
+
+[node name="nationDescript" type="LineEdit" parent="CreateNation"]
+layout_mode = 0
+offset_left = 865.0
+offset_top = 175.0
+offset_right = 1117.0
+offset_bottom = 206.0
+
+[node name="_descriptDescript" type="Label" parent="CreateNation"]
+layout_mode = 0
+offset_left = 866.0
+offset_top = 148.0
+offset_right = 960.0
+offset_bottom = 171.0
+text = "Description:"
+
+[node name="colorPicker" type="ColorPickerButton" parent="CreateNation"]
+layout_mode = 0
+offset_left = 866.0
+offset_top = 265.0
+offset_right = 1115.0
+offset_bottom = 299.0
+
+[node name="_colorDescript" type="Label" parent="CreateNation"]
+layout_mode = 0
+offset_left = 867.0
+offset_top = 238.0
+offset_right = 913.0
+offset_bottom = 261.0
+text = "Color:"
 
 [connection signal="text_submitted" from="nameField" to="." method="_on_line_edit_text_submitted"]
 [connection signal="pressed" from="ReadyButton" to="." method="_on_ready_button_pressed"]
