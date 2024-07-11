@@ -3,7 +3,7 @@ extends Node
 const BuildingTiles = preload("res://Models/BuildingTiles.gd")
 
 func BuildingTile_to_JSON(tile: BuildingTiles) -> String: # TODO: stringify Building
-	var dict = {"ownedByNationID": tile.ownedByNationID, "coords": { "x": tile.coords.x, "y": tile.coords.y}, "building": ""}
+	var dict = {"ownedByNationID": tile.ownedByNationID, "coords": { "x": tile.coords.x, "y": tile.coords.y}, "building": BUILDINGMODEL_to_JSON(tile.building)}
 	return JSON.stringify(dict)
 
 func BuildingTiles_from_JSON(str: String) -> BuildingTiles:
@@ -14,6 +14,7 @@ func BuildingTiles_from_JSON(str: String) -> BuildingTiles:
 		return null
 	tile.ownedByNationID = dict["ownedByNationID"]
 	tile.coords = Vector2(dict["coords"]["x"], dict["coords"]["y"])
+	tile.building = BUILDINGMODEL_from_JSON(dict["building"])
 	return tile
 	
 	
@@ -67,3 +68,26 @@ func nations_from_JSON(str: String) -> Array[NationModel]:
 func nations_to_JSON(nations: Array[NationModel]) -> String:
 	var mappedArray = nations.map(func(nat): return NationModel_to_JSON(nat))
 	return ARRAY_DIVIDER_IN_JSON_DONT_ASK.join(mappedArray)
+
+
+
+
+
+func BUILDINGMODEL_from_JSON(str) -> BuildingModel:
+	if str == "":
+		return null
+	var building = BuildingModel.new()
+	var dict = JSON.parse_string(str)
+	if not dict:
+		print(">>> Failed to parse Building <<<")
+		return null
+	building.currentLevel = dict["currentLevel"]
+	building.randomBaseStat = dict["randomBaseStat"]
+	building.randomBaseStatModifier = dict["randomBaseStatModifier"]
+	return building
+	
+func BUILDINGMODEL_to_JSON(building: BuildingModel) -> String:
+	if not building:
+		return ""
+	var dict = {"currentLevel": building.currentLevel, "randomBaseStat": building.randomBaseStat, "randomBaseStatModifier": building.randomBaseStatModifier}
+	return JSON.stringify(dict)

@@ -153,3 +153,9 @@ func get_nation_to_tile(tilePosition: Vector2) -> NationModel:
 		if nat.assignedID == id:
 			return nat 
 	return null
+
+func get_buildTile_from_pos(tilePosition: Vector2) -> BuildingTiles:
+	for tile in building_tiles:
+		if tile.coords == tilePosition:
+			return tile
+	return null
