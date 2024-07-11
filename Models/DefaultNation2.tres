@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="NationModel" load_steps=2 format=3 uid="uid://6d1jybeob241"]
-
-[ext_resource type="Script" path="res://Models/NationModel.gd" id="1_3hbl3"]
-
-[resource]
-script = ExtResource("1_3hbl3")
-name = "A Nation"
-description = "Nameless Description"
-color = Color(0.866378, 0.495727, 0.0940392, 1)
