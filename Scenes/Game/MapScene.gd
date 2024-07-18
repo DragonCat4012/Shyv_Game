@@ -13,7 +13,9 @@ extends Node2D
 @onready var camera_2d = $Camera2D
 @onready var tile_map : TileMap = $TileMap
 
+# Overlays
 @onready var game_phases_scene = $Camera2D/Control/GamePhasesScene
+@onready var next_phase_button = $Camera2D/Control/NextPhaseButton
 
 var source_id = 1
 
@@ -50,6 +52,12 @@ func _ready():
 	if GamManager.ownNation:
 		peer_id.text = GamManager.ownNation.name
 		peer_id.add_theme_color_override("font_color", GamManager.ownNation.color)	
+		
+	# Host UI
+	next_phase_button.visible = GamManager.isHost
+	
+	# Connect to Signals
+	EventSystem.PHASE_UPDATED.connect(_on_update_game_phase)
 
 func _process(delta):
 	if oldTileBuildings == GamManager.building_tiles:
@@ -136,5 +144,9 @@ func _style_selected_tile_info(pos: Vector2):
 	tile_stat.text = str(snapped(building.building.randomBaseStat,0.01))
 	tile_stat_modifier.text = str(snapped(building.building.randomBaseStatModifier,0.01))
 
-func update_game_phase(phase: int):
+func _on_update_game_phase(phase: int):
+	print("Updated to new phase: ", phase)
 	game_phases_scene.update_to_phase(phase)
+
+func _on_next_phase_button_pressed():
+	PhaseManager.update_phase()

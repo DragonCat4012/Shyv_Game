@@ -153,3 +153,13 @@ vertical_alignment = 1
 
 [node name="GamePhasesScene" parent="Camera2D/Control" instance=ExtResource("4_v3vhx")]
 position = Vector2(487, 0)
+
+[node name="NextPhaseButton" type="Button" parent="Camera2D/Control"]
+layout_mode = 0
+offset_left = 958.0
+offset_top = 577.0
+offset_right = 1127.0
+offset_bottom = 627.0
+text = "next Game Phase?"
+
+[connection signal="pressed" from="Camera2D/Control/NextPhaseButton" to="." method="_on_next_phase_button_pressed"]

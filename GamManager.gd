@@ -17,6 +17,7 @@ var building_tiles: Array[BuildingTiles] = []
 # Peer managment
 var connected = false
 var ownID: int = -1
+var isHost = false
 
 # Game Maagment:
 var nationMapping = {} # string_peerId: NationModel # TODO: implement
@@ -40,6 +41,7 @@ func _on_host_pressed():
 	multiplayer.multiplayer_peer = multiplayer_peer
 	print_signed("created host id: ", multiplayer.get_unique_id())
 	ownID = multiplayer.get_unique_id()
+	isHost = true
 	
 	multiplayer_peer.peer_connected.connect(
 		func(new_peer_id):
