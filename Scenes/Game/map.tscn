@@ -1,8 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://7j7no5evfsjn"]
+[gd_scene load_steps=9 format=3 uid="uid://7j7no5evfsjn"]
 
 [ext_resource type="Script" path="res://Scenes/Game/MapScene.gd" id="1_jltnr"]
 [ext_resource type="Script" path="res://Scenes/Game/Camera2D.gd" id="3_nnm0c"]
 [ext_resource type="TileSet" uid="uid://bly1nmde8eksv" path="res://Graphics/map.tres" id="3_tbyt8"]
+[ext_resource type="PackedScene" uid="uid://md3mc5jmctsj" path="res://Scenes/Overlays/GamePhasesScene.tscn" id="4_v3vhx"]
+[ext_resource type="PackedScene" uid="uid://cqu4dqw8hmixw" path="res://Scenes/Overlays/PlayerList/PlayerListScene.tscn" id="5_u20ln"]
 
 [sub_resource type="Gradient" id="Gradient_6mp1p"]
 interpolation_mode = 1
@@ -62,7 +64,6 @@ offset_bottom = 31.0
 text = "-1"
 
 [node name="TileInfoPanel" type="Panel" parent="Camera2D/Control"]
-visible = false
 layout_mode = 0
 offset_left = -2.0
 offset_top = 442.0
@@ -150,3 +151,30 @@ offset_bottom = 147.0
 text = "(-,-)"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="GamePhasesScene" parent="Camera2D/Control" instance=ExtResource("4_v3vhx")]
+position = Vector2(487, 0)
+
+[node name="PlayerListScene" parent="Camera2D/Control" instance=ExtResource("5_u20ln")]
+layout_mode = 0
+offset_left = 946.0
+offset_right = 1151.0
+
+[node name="NextPhaseButton" type="Button" parent="Camera2D/Control"]
+layout_mode = 0
+offset_left = 681.0
+offset_top = 8.0
+offset_right = 850.0
+offset_bottom = 58.0
+text = "next Game Phase?"
+
+[node name="PlayerListButton" type="Button" parent="Camera2D/Control"]
+layout_mode = 0
+offset_left = 876.0
+offset_top = 20.0
+offset_right = 920.0
+offset_bottom = 58.0
+text = "i"
+
+[connection signal="pressed" from="Camera2D/Control/NextPhaseButton" to="." method="_on_next_phase_button_pressed"]
+[connection signal="pressed" from="Camera2D/Control/PlayerListButton" to="." method="_on_player_list_button_pressed"]

@@ -41,10 +41,12 @@ func send_un_ready():
 	
 @rpc("any_peer", "call_local") 
 func _on_start_game(seed):
+	GamManager.currentPhase = 1
 	GamManager.seed = seed
 	get_tree().change_scene_to_file(SceneManager.GAMESCENE)
 	
 func start_game(seed): # Should only be called by server
+	GamManager.currentPhase = 1
 	_sync_nations_with_peers()
 	rpc("_on_start_game", seed)
 	GamManager.seed = seed

@@ -17,6 +17,7 @@ var building_tiles: Array[BuildingTiles] = []
 # Peer managment
 var connected = false
 var ownID: int = -1
+var isHost = false
 
 # Game Maagment:
 var nationMapping = {} # string_peerId: NationModel # TODO: implement
@@ -25,11 +26,22 @@ var currentNationIDCount = 1 # only changed by server/host!
 
 var ownNation = null
 
+# Game Phases
+var currentPhase = 0
+""" 
+0: None -> not started or error
+1: EVENT
+2: Building
+3: Movement
+4: Endphase
+"""
+	
 func _on_host_pressed():
 	multiplayer_peer.create_server(Port)
 	multiplayer.multiplayer_peer = multiplayer_peer
 	print_signed("created host id: ", multiplayer.get_unique_id())
 	ownID = multiplayer.get_unique_id()
+	isHost = true
 	
 	multiplayer_peer.peer_connected.connect(
 		func(new_peer_id):

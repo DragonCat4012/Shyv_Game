@@ -12,6 +12,12 @@ extends Node2D
 
 @onready var camera_2d = $Camera2D
 @onready var tile_map : TileMap = $TileMap
+
+# Overlays
+@onready var game_phases_scene = $Camera2D/Control/GamePhasesScene
+@onready var next_phase_button = $Camera2D/Control/NextPhaseButton
+@onready var player_list_scene = $Camera2D/Control/PlayerListScene
+
 var source_id = 1
 
 var water_atlas = Vector2i(0,0)
@@ -47,6 +53,15 @@ func _ready():
 	if GamManager.ownNation:
 		peer_id.text = GamManager.ownNation.name
 		peer_id.add_theme_color_override("font_color", GamManager.ownNation.color)	
+	
+	# Default hide
+	player_list_scene.visible = false
+	
+	# Host UI
+	next_phase_button.visible = GamManager.isHost
+	
+	# Connect to Signals
+	EventSystem.PHASE_UPDATED.connect(_on_update_game_phase)
 
 func _process(delta):
 	if oldTileBuildings == GamManager.building_tiles:
@@ -83,7 +98,7 @@ func _generate_world():
 			if noiseValue >= 0.0: # land
 				tile_map.set_cell(layerTerrain, Vector2(x,y), source_id, land_atlas)
 				GamManager.land_tiles.append(Vector2(x,y))
-			if noiseValue >= 0.2: # high land
+			if noiseValue >= 0.4: # high land
 				tile_map.set_cell(layerTerrain, Vector2(x,y), source_id, high_land_atlas)
 				GamManager.land_tiles.append(Vector2(x,y))
 			elif noiseValue < 0.0: # water
@@ -132,3 +147,14 @@ func _style_selected_tile_info(pos: Vector2):
 	tile_level.text = str(building.building.currentLevel)
 	tile_stat.text = str(snapped(building.building.randomBaseStat,0.01))
 	tile_stat_modifier.text = str(snapped(building.building.randomBaseStatModifier,0.01))
+
+func _on_update_game_phase(phase: int):
+	print("Updated to new phase: ", phase)
+	game_phases_scene.update_to_phase(phase)
+
+func _on_next_phase_button_pressed():
+	PhaseManager.update_phase()
+
+func _on_player_list_button_pressed():
+	player_list_scene.visible = !player_list_scene.visible
+	player_list_scene.updateList() # amybe change to not be caleld every time
