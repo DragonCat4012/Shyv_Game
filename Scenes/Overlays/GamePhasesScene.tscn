@@ -1,30 +1,32 @@
-[gd_scene load_steps=3 format=3 uid="uid://md3mc5jmctsj"]
+[gd_scene load_steps=4 format=3 uid="uid://md3mc5jmctsj"]
 
 [ext_resource type="Texture2D" uid="uid://b76nbb4ivdjk0" path="res://Graphics/gamephases.png" id="1_2kdg2"]
 [ext_resource type="Texture2D" uid="uid://qu5xdn3tttpg" path="res://Graphics/gamephases_active.png" id="1_g7b6r"]
+[ext_resource type="Script" path="res://Scenes/Overlays/GamePhasesScene.gd" id="1_s0ojv"]
 
 [node name="GamePhasesScene" type="Node2D"]
+script = ExtResource("1_s0ojv")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+[node name="P1" type="TextureRect" parent="HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("1_g7b6r")
 expand_mode = 2
 
-[node name="TextureRect2" type="TextureRect" parent="HBoxContainer"]
+[node name="P2" type="TextureRect" parent="HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("1_2kdg2")
 expand_mode = 2
 
-[node name="TextureRect3" type="TextureRect" parent="HBoxContainer"]
+[node name="P3" type="TextureRect" parent="HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("1_2kdg2")
 expand_mode = 2
 
-[node name="TextureRect4" type="TextureRect" parent="HBoxContainer"]
+[node name="P4" type="TextureRect" parent="HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("1_2kdg2")
 expand_mode = 2

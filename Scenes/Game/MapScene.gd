@@ -12,6 +12,9 @@ extends Node2D
 
 @onready var camera_2d = $Camera2D
 @onready var tile_map : TileMap = $TileMap
+
+@onready var game_phases_scene = $Camera2D/Control/GamePhasesScene
+
 var source_id = 1
 
 var water_atlas = Vector2i(0,0)
@@ -132,3 +135,6 @@ func _style_selected_tile_info(pos: Vector2):
 	tile_level.text = str(building.building.currentLevel)
 	tile_stat.text = str(snapped(building.building.randomBaseStat,0.01))
 	tile_stat_modifier.text = str(snapped(building.building.randomBaseStatModifier,0.01))
+
+func update_game_phase(phase: int):
+	game_phases_scene.update_to_phase(phase)
