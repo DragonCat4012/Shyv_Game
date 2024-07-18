@@ -62,7 +62,6 @@ offset_bottom = 31.0
 text = "-1"
 
 [node name="TileInfoPanel" type="Panel" parent="Camera2D/Control"]
-visible = false
 layout_mode = 0
 offset_left = -2.0
 offset_top = 442.0

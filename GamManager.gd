@@ -25,6 +25,16 @@ var currentNationIDCount = 1 # only changed by server/host!
 
 var ownNation = null
 
+# Game Phases
+var currentPhase = 0
+""" 
+0: None -> not started or error
+1: EVENT
+2: Building
+3: Movement
+4: Endphase
+"""
+	
 func _on_host_pressed():
 	multiplayer_peer.create_server(Port)
 	multiplayer.multiplayer_peer = multiplayer_peer
