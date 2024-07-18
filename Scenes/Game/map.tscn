@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://7j7no5evfsjn"]
+[gd_scene load_steps=8 format=3 uid="uid://7j7no5evfsjn"]
 
 [ext_resource type="Script" path="res://Scenes/Game/MapScene.gd" id="1_jltnr"]
 [ext_resource type="Script" path="res://Scenes/Game/Camera2D.gd" id="3_nnm0c"]
 [ext_resource type="TileSet" uid="uid://bly1nmde8eksv" path="res://Graphics/map.tres" id="3_tbyt8"]
+[ext_resource type="PackedScene" uid="uid://md3mc5jmctsj" path="res://Scenes/Overlays/GamePhasesScene.tscn" id="4_v3vhx"]
 
 [sub_resource type="Gradient" id="Gradient_6mp1p"]
 interpolation_mode = 1
@@ -149,3 +150,6 @@ offset_bottom = 147.0
 text = "(-,-)"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="GamePhasesScene" parent="Camera2D/Control" instance=ExtResource("4_v3vhx")]
+position = Vector2(487, 0)
