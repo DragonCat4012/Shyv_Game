@@ -16,6 +16,7 @@ extends Node2D
 # Overlays
 @onready var game_phases_scene = $Camera2D/Control/GamePhasesScene
 @onready var next_phase_button = $Camera2D/Control/NextPhaseButton
+@onready var player_list_scene = $Camera2D/Control/PlayerListScene
 
 var source_id = 1
 
@@ -52,7 +53,10 @@ func _ready():
 	if GamManager.ownNation:
 		peer_id.text = GamManager.ownNation.name
 		peer_id.add_theme_color_override("font_color", GamManager.ownNation.color)	
-		
+	
+	# Default hide
+	player_list_scene.visible = false
+	
 	# Host UI
 	next_phase_button.visible = GamManager.isHost
 	
@@ -150,3 +154,7 @@ func _on_update_game_phase(phase: int):
 
 func _on_next_phase_button_pressed():
 	PhaseManager.update_phase()
+
+func _on_player_list_button_pressed():
+	player_list_scene.visible = !player_list_scene.visible
+	player_list_scene.updateList() # amybe change to not be caleld every time
