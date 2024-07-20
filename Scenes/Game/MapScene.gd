@@ -57,9 +57,6 @@ func _ready():
 	# Default hide
 	player_list_scene.visible = false
 	
-	# Host UI
-	next_phase_button.visible = GamManager.isHost
-	
 	# Connect to Signals
 	EventSystem.PHASE_UPDATED.connect(_on_update_game_phase)
 
@@ -151,9 +148,6 @@ func _style_selected_tile_info(pos: Vector2):
 func _on_update_game_phase(phase: int):
 	print("Updated to new phase: ", phase)
 	game_phases_scene.update_to_phase(phase)
-
-func _on_next_phase_button_pressed():
-	PhaseManager.update_phase()
 
 func _on_player_list_button_pressed():
 	player_list_scene.visible = !player_list_scene.visible
