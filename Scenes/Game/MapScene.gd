@@ -1,6 +1,8 @@
 extends Node2D
 
-@onready var peer_id = $Camera2D/Control/PeerID
+@onready var peer_id =$Camera2D/Control/NameBox/PeerID
+
+@onready var name_box = $Camera2D/Control/NameBox
 
 # Tile Info
 @onready var tile_info_panel = $Camera2D/Control/TileInfoPanel
@@ -50,10 +52,13 @@ func _ready():
 	noise.seed = GamManager.seed
 	_generate_world()
 	peer_id.text = str(GamManager.ownID)
+	
 	if GamManager.ownNation:
 		peer_id.text = GamManager.ownNation.name
 		peer_id.add_theme_color_override("font_color", GamManager.ownNation.color)	
-	
+	if GamManager.isHost:
+		name_box.visible = false
+		
 	# Default hide
 	player_list_scene.visible = false
 	
