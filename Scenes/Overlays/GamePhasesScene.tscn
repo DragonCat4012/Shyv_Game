@@ -13,20 +13,28 @@ offset_bottom = 40.0
 
 [node name="P1" type="TextureRect" parent="HBoxContainer"]
 layout_mode = 2
+tooltip_text = "Event"
 texture = ExtResource("1_g7b6r")
 expand_mode = 2
 
 [node name="P2" type="TextureRect" parent="HBoxContainer"]
 layout_mode = 2
+tooltip_text = "Building"
 texture = ExtResource("1_2kdg2")
 expand_mode = 2
 
 [node name="P3" type="TextureRect" parent="HBoxContainer"]
 layout_mode = 2
+tooltip_text = "Movement"
 texture = ExtResource("1_2kdg2")
 expand_mode = 2
 
 [node name="P4" type="TextureRect" parent="HBoxContainer"]
 layout_mode = 2
+tooltip_text = "Endphase"
 texture = ExtResource("1_2kdg2")
 expand_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Some Phase"
