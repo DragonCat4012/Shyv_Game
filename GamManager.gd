@@ -27,15 +27,17 @@ var currentNationIDCount = 1 # only changed by server/host!
 var ownNation = null
 
 # Game Phases
-var currentPhase = 0
-""" 
-0: None -> not started or error
-1: EVENT
-2: Building
-3: Movement
-4: Endphase
-"""
-	
+var currentPhase: int = 0
+const phaseNames = { # NOTE: change tooltip text in GamePhaseScene if scenes change
+	0: "Nothingness :0",
+	1: "Event",
+	2: "Building",
+	3: "Movement",
+	4: "Endphase"
+}
+var endedTurnNations: Array[String] = [] # host only, nationIDs which have finished their turn in the current game phase
+var hasEndedTurn = false # Client only to hide ent turn option and disable actions
+
 func _on_host_pressed():
 	multiplayer_peer.create_server(Port)
 	multiplayer.multiplayer_peer = multiplayer_peer

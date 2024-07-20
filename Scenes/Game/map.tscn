@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://7j7no5evfsjn"]
+[gd_scene load_steps=10 format=3 uid="uid://7j7no5evfsjn"]
 
 [ext_resource type="Script" path="res://Scenes/Game/MapScene.gd" id="1_jltnr"]
 [ext_resource type="Script" path="res://Scenes/Game/Camera2D.gd" id="3_nnm0c"]
 [ext_resource type="TileSet" uid="uid://bly1nmde8eksv" path="res://Graphics/map.tres" id="3_tbyt8"]
 [ext_resource type="PackedScene" uid="uid://md3mc5jmctsj" path="res://Scenes/Overlays/GamePhasesScene.tscn" id="4_v3vhx"]
 [ext_resource type="PackedScene" uid="uid://cqu4dqw8hmixw" path="res://Scenes/Overlays/PlayerList/PlayerListScene.tscn" id="5_u20ln"]
+[ext_resource type="PackedScene" uid="uid://jc0rwis1gjgx" path="res://Scenes/Overlays/TurnView/TurnView.tscn" id="6_nh4wk"]
 
 [sub_resource type="Gradient" id="Gradient_6mp1p"]
 interpolation_mode = 1
@@ -44,24 +45,7 @@ anchors_preset = 0
 offset_left = -575.0
 offset_top = -325.0
 offset_right = 578.0
-offset_bottom = -197.0
-
-[node name="ColorRect" type="ColorRect" parent="Camera2D/Control"]
-layout_mode = 0
-offset_left = 233.0
-offset_top = -4.0
-offset_right = 309.0
-offset_bottom = 36.0
-scale = Vector2(-3.096, 1)
-color = Color(0, 0, 0, 0.564706)
-
-[node name="PeerID" type="Label" parent="Camera2D/Control"]
-layout_mode = 0
-offset_left = 18.0
-offset_top = 6.0
-offset_right = 217.0
-offset_bottom = 31.0
-text = "-1"
+offset_bottom = 324.0
 
 [node name="TileInfoPanel" type="Panel" parent="Camera2D/Control"]
 layout_mode = 0
@@ -160,21 +144,38 @@ layout_mode = 0
 offset_left = 946.0
 offset_right = 1151.0
 
-[node name="NextPhaseButton" type="Button" parent="Camera2D/Control"]
-layout_mode = 0
-offset_left = 681.0
-offset_top = 8.0
-offset_right = 850.0
-offset_bottom = 58.0
-text = "next Game Phase?"
-
 [node name="PlayerListButton" type="Button" parent="Camera2D/Control"]
 layout_mode = 0
-offset_left = 876.0
-offset_top = 20.0
-offset_right = 920.0
-offset_bottom = 58.0
+offset_left = 445.0
+offset_top = 4.0
+offset_right = 475.0
+offset_bottom = 35.0
 text = "i"
 
-[connection signal="pressed" from="Camera2D/Control/NextPhaseButton" to="." method="_on_next_phase_button_pressed"]
+[node name="TurnView" parent="Camera2D/Control" instance=ExtResource("6_nh4wk")]
+position = Vector2(276, 4)
+
+[node name="NameBox" type="Control" parent="Camera2D/Control"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="Camera2D/Control/NameBox"]
+layout_mode = 0
+offset_left = 233.0
+offset_top = -4.0
+offset_right = 309.0
+offset_bottom = 36.0
+scale = Vector2(-3.096, 1)
+color = Color(0, 0, 0, 0.564706)
+
+[node name="PeerID" type="Label" parent="Camera2D/Control/NameBox"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 6.0
+offset_right = 217.0
+offset_bottom = 31.0
+text = "-1"
+
+[connection signal="gui_input" from="Camera2D/Control" to="." method="_on_control_gui_input"]
 [connection signal="pressed" from="Camera2D/Control/PlayerListButton" to="." method="_on_player_list_button_pressed"]

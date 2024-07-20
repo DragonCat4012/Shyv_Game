@@ -4,8 +4,10 @@ extends Node2D
 @onready var p_3 := $HBoxContainer/P3
 @onready var p_4 := $HBoxContainer/P4
 @onready var allPhases = [p_1,p_2,p_3, p_4]
+@onready var label = $HBoxContainer/Label
 
 func _ready():
+	label.text = GamManager.phaseNames[GamManager.currentPhase]
 	update_to_phase(1)
 
 func update_to_phase(phase: int):
@@ -17,3 +19,4 @@ func update_to_phase(phase: int):
 		e.texture = RessourceManager.GAMEPHASES
 	
 	allPhases[phase-1].texture = RessourceManager.GAMEPHASES_ACTIVE
+	label.text = GamManager.phaseNames[phase]

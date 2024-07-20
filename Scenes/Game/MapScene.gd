@@ -1,6 +1,8 @@
 extends Node2D
 
-@onready var peer_id = $Camera2D/Control/PeerID
+@onready var peer_id =$Camera2D/Control/NameBox/PeerID
+
+@onready var name_box = $Camera2D/Control/NameBox
 
 # Tile Info
 @onready var tile_info_panel = $Camera2D/Control/TileInfoPanel
@@ -15,7 +17,6 @@ extends Node2D
 
 # Overlays
 @onready var game_phases_scene = $Camera2D/Control/GamePhasesScene
-@onready var next_phase_button = $Camera2D/Control/NextPhaseButton
 @onready var player_list_scene = $Camera2D/Control/PlayerListScene
 
 var source_id = 1
@@ -50,15 +51,15 @@ func _ready():
 	noise.seed = GamManager.seed
 	_generate_world()
 	peer_id.text = str(GamManager.ownID)
+	
 	if GamManager.ownNation:
 		peer_id.text = GamManager.ownNation.name
 		peer_id.add_theme_color_override("font_color", GamManager.ownNation.color)	
-	
+	if GamManager.isHost:
+		name_box.visible = false
+		
 	# Default hide
 	player_list_scene.visible = false
-	
-	# Host UI
-	next_phase_button.visible = GamManager.isHost
 	
 	# Connect to Signals
 	EventSystem.PHASE_UPDATED.connect(_on_update_game_phase)
@@ -68,9 +69,9 @@ func _process(delta):
 		return
 	_update_tile_buildings()
 	oldTileBuildings = GamManager.building_tiles
-
-func _input(event):
-	if(Input.is_action_just_released("left_click")):
+	
+func _on_control_gui_input(event):
+	if Input.is_action_just_released("left_click"):
 		tile_map.local_to_map(to_local(get_global_mouse_position()))
 		_select_tile(get_global_mouse_position())
 				
@@ -109,7 +110,6 @@ func _update_tile_buildings():
 
 	for tile in GamManager.building_tiles:
 		var nation = GamManager.get_nation_to_tile(tile.coords)
-		var atlasPositionBefore = tile_map.get_cell_atlas_coords(layerTerrain, tile.coords)
 		var newAtlas = Vector2i(building_atlas.x, nation.building_tile_row)
 		var levelAtlas = Vector2i(level_atlas.x, tile.building.currentLevel)
 		
@@ -151,9 +151,6 @@ func _style_selected_tile_info(pos: Vector2):
 func _on_update_game_phase(phase: int):
 	print("Updated to new phase: ", phase)
 	game_phases_scene.update_to_phase(phase)
-
-func _on_next_phase_button_pressed():
-	PhaseManager.update_phase()
 
 func _on_player_list_button_pressed():
 	player_list_scene.visible = !player_list_scene.visible
