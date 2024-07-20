@@ -15,7 +15,7 @@ tba
 
 ## Contributors
 <a href = "https://github.com/DragonCat4012/Shyv_Game/graphs/contributors">
-  <img src = "https://contrib.rocks/image?repoDragonCat4012/Shyv_Game"/>
+  <img src = "https://contrib.rocks/image?repo=DragonCat4012/Shyv_Game"/>
 </a>
 
 # Requierements
