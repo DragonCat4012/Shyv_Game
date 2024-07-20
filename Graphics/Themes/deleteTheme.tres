@@ -2,9 +2,17 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8lc4l"]
 bg_color = Color(0.95148, 0.482195, 0.449028, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b3n8a"]
 bg_color = Color(0.572179, 0.245624, 0.234265, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [resource]
 Button/styles/hover = SubResource("StyleBoxFlat_8lc4l")

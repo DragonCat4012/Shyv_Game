@@ -60,6 +60,7 @@ func _ready():
 		
 	# Default hide
 	player_list_scene.visible = false
+	tile_info_panel.visible = false
 	
 	# Connect to Signals
 	EventSystem.PHASE_UPDATED.connect(_on_update_game_phase)

@@ -8,6 +8,9 @@ func on_player_has_end_turn(nationID):
 		GamManager.endedTurnNations.append(str(nationID))
 	
 func end_turn(): # Should only be called by peer
+	if !GamManager.connected:
+		print("Player not connected")
+		return
 	GamManager.hasEndedTurn = true
 	rpc("on_player_has_end_turn", GamManager.ownNation.assignedID)
 	
