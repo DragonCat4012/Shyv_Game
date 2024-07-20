@@ -17,7 +17,6 @@ extends Node2D
 
 # Overlays
 @onready var game_phases_scene = $Camera2D/Control/GamePhasesScene
-@onready var next_phase_button = $Camera2D/Control/NextPhaseButton
 @onready var player_list_scene = $Camera2D/Control/PlayerListScene
 
 var source_id = 1
@@ -70,9 +69,9 @@ func _process(delta):
 		return
 	_update_tile_buildings()
 	oldTileBuildings = GamManager.building_tiles
-
-func _input(event):
-	if(Input.is_action_just_released("left_click")):
+	
+func _on_control_gui_input(event):
+	if Input.is_action_just_released("left_click"):
 		tile_map.local_to_map(to_local(get_global_mouse_position()))
 		_select_tile(get_global_mouse_position())
 				
@@ -111,7 +110,6 @@ func _update_tile_buildings():
 
 	for tile in GamManager.building_tiles:
 		var nation = GamManager.get_nation_to_tile(tile.coords)
-		var atlasPositionBefore = tile_map.get_cell_atlas_coords(layerTerrain, tile.coords)
 		var newAtlas = Vector2i(building_atlas.x, nation.building_tile_row)
 		var levelAtlas = Vector2i(level_atlas.x, tile.building.currentLevel)
 		

@@ -4,7 +4,8 @@ extends Node
 @rpc("any_peer", "call_local") 
 func on_player_has_end_turn(nationID):
 	print(nationID, " has ended their turn")
-	GamManager.endedTurnNations.append(nationID)
+	if not str(nationID) in GamManager.endedTurnNations:
+		GamManager.endedTurnNations.append(str(nationID))
 	
 func end_turn(): # Should only be called by peer
 	GamManager.hasEndedTurn = true

@@ -45,7 +45,7 @@ anchors_preset = 0
 offset_left = -575.0
 offset_top = -325.0
 offset_right = 578.0
-offset_bottom = -197.0
+offset_bottom = 324.0
 
 [node name="TileInfoPanel" type="Panel" parent="Camera2D/Control"]
 layout_mode = 0
@@ -177,4 +177,5 @@ offset_right = 217.0
 offset_bottom = 31.0
 text = "-1"
 
+[connection signal="gui_input" from="Camera2D/Control" to="." method="_on_control_gui_input"]
 [connection signal="pressed" from="Camera2D/Control/PlayerListButton" to="." method="_on_player_list_button_pressed"]

@@ -35,7 +35,7 @@ const phaseNames = { # NOTE: change tooltip text in GamePhaseScene if scenes cha
 	3: "Movement",
 	4: "Endphase"
 }
-var endedTurnNations = [] # host only, ntion which have finished their turn in the current game phase
+var endedTurnNations: Array[String] = [] # host only, nationIDs which have finished their turn in the current game phase
 var hasEndedTurn = false # Client only to hide ent turn option and disable actions
 
 func _on_host_pressed():
