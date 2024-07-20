@@ -21,3 +21,9 @@ corner_radius_bottom_left = 5
 [resource]
 Button/styles/hover = SubResource("StyleBoxFlat_a27g6")
 Button/styles/normal = SubResource("StyleBoxFlat_isc0i")
+Label/colors/font_color = Color(0.583533, 0.570718, 0.967615, 1)
+Label/colors/font_outline_color = Color(0.551482, 0.386425, 0.999993, 0.811765)
+Label/colors/font_shadow_color = Color(0.203922, 0.203922, 0.203922, 0.788235)
+Label/constants/shadow_offset_y = 2
+Label/constants/shadow_outline_size = 2
+Label/font_sizes/font_size = 45

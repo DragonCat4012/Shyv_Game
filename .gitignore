@@ -2,3 +2,9 @@
 .godot/
 *.exe
 *.pck
+
+
+# Godot
+.import/
+export.cfg
+export_presets.cfg
