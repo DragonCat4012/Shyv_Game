@@ -19,9 +19,11 @@ func _process(delta):
 	button.visible = !GamManager.hasEndedTurn
 	
 func _on_button_pressed():
+	next_phase_button.focus_mode = FOCUS_NONE
 	PhaseManager.end_turn()
 
 func _on_next_phase_button_pressed():
+	next_phase_button.focus_mode = FOCUS_NONE
 	PhaseManager.update_phase()
 
 func disable_interaction(option):
