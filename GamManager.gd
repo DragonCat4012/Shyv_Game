@@ -28,6 +28,7 @@ var ownNation = null
 
 # Game Phases
 var currentPhase: int = 0
+var phaseCount: int = 0
 const phaseNames = { # NOTE: change tooltip text in GamePhaseScene if scenes change
 	0: "Nothingness :0",
 	1: "Event",

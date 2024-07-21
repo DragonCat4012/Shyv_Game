@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 @onready var button = $Button
 @onready var next_phase_button = $NextPhaseButton
 
@@ -23,3 +23,7 @@ func _on_button_pressed():
 
 func _on_next_phase_button_pressed():
 	PhaseManager.update_phase()
+
+func disable_interaction(option):
+	next_phase_button.disabled = option
+	button.disabled = option
