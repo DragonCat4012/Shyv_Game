@@ -74,7 +74,7 @@ func _ready():
 	EventSystem.EVENT_OCCURED.connect(_on_event_occured)
 	EventSystem.EVENT_ACCEPTED.connect(_on_event_accepted)
 
-func _process(delta):
+func _process(_delta):
 	if oldTileBuildings == GamManager.building_tiles:
 		return
 	_update_tile_buildings()
@@ -171,10 +171,10 @@ func _on_player_list_button_pressed():
 	player_list_scene.updateList() # amybe change to not be caleld every time
 
 # Hanlde Event Selection
-func _on_event_selected(name):
+func _on_event_selected(eventName):
 	_toggle_views_for_event_selection(false)
 	event_options_scene.visible = false
-	PhaseManager.send_event(name)
+	PhaseManager.send_event(eventName)
 	PhaseManager.update_phase()
 	
 func _toggle_views_for_event_selection(isEventVisible: bool):

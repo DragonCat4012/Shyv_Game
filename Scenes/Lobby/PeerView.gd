@@ -16,7 +16,7 @@ func _ready():
 	color_picker.color = nation.color
 	nation_name.text = nation.name
 
-func _process(delta):
+func _process(_delta):
 	if !GamManager.connected:
 		_exitScene()
 	peer_list.text = show_messages()
@@ -36,13 +36,13 @@ func _on_line_edit_text_submitted(new_text):
 	name_field.text = ""
 
 func show_messages() -> String:
-	var str = ""
+	var msg = ""
 	for peer in GamManager.connected_peer_ids:
 		var str2 = str(peer)
 		if peer in GamManager.messages.keys():
 			str2 += ": " + GamManager.messages[peer]
-		str += str2 + "\n"
-	return str
+		msg += str2 + "\n"
+	return msg
 
 func _on_ready_button_pressed():
 	if isReady:
@@ -60,7 +60,7 @@ func _exitScene():
 	get_tree().change_scene_to_file(SceneManager.MENUSCENE)
 
 # Nation Creation
-func _on_nation_name_text_submitted(new_text):
+func _on_nation_name_text_submitted(_new_text):
 	name_field.release_focus()
 
 func _on_nation_name_text_changed(new_text):

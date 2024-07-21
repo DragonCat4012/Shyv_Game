@@ -9,7 +9,7 @@ func _ready():
 	button.disabled = GamManager.isHost
 	button.visible = !GamManager.isHost
 
-func _process(delta):
+func _process(_delta):
 	if GamManager.isHost:
 		if GamManager.endedTurnNations.size() != 0:
 			next_phase_button.disabled = GamManager.endedTurnNations.size() != GamManager.allNations.size()

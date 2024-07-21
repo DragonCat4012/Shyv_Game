@@ -21,7 +21,7 @@ var isHost = false
 
 # Game Maagment:
 var nationMapping = {} # string_peerId: NationModel # TODO: implement
-var allNations: Array[Jsonutil.NationModel] = []
+var allNations: Array[NationModel] = []
 var currentNationIDCount = 1 # only changed by server/host!
 
 var ownNation = null
