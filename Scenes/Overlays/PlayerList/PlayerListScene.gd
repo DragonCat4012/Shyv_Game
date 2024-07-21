@@ -12,5 +12,4 @@ func updateList():
 		newLabel.add_theme_color_override("font_color", player_nation.color)
 		newLabel.text = player_nation.name #+ " [" + str(id) +"]"
 			
-		print(GamManager.nationMapping[id])
 		list.add_child(newLabel)

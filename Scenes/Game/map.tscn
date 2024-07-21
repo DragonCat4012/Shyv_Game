@@ -167,12 +167,22 @@ text = "i"
 [node name="TurnView" parent="Camera2D/Control" instance=ExtResource("6_nh4wk")]
 position = Vector2(276, 4)
 
-[node name="NameBox" type="Panel" parent="Camera2D/Control"]
-layout_mode = 0
+[node name="NameBox" type="Control" parent="Camera2D/Control"]
+anchors_preset = 0
 offset_left = 7.0
 offset_top = 6.0
 offset_right = 227.0
 offset_bottom = 41.0
+
+[node name="TextureRect" type="TextureRect" parent="Camera2D/Control/NameBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_lbnwj")
+expand_mode = 1
 
 [node name="PeerID" type="Label" parent="Camera2D/Control/NameBox"]
 layout_mode = 1
@@ -180,21 +190,10 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 23.0
 grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "-1"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="TextureRect" type="TextureRect" parent="Camera2D/Control/NameBox"]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.439024
-anchor_right = 1.0
-anchor_bottom = 1.12195
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("8_lbnwj")
-expand_mode = 1
-metadata/_edit_use_anchors_ = true
 
 [connection signal="gui_input" from="Camera2D/Control" to="." method="_on_control_gui_input"]
 [connection signal="pressed" from="Camera2D/Control/PlayerListButton" to="." method="_on_player_list_button_pressed"]
