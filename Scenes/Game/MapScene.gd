@@ -21,6 +21,7 @@ extends Node2D
 @onready var event_options_scene = $Camera2D/Control/EventOptions
 @onready var player_list_button = $Camera2D/Control/PlayerListButton
 @onready var turn_view = $Camera2D/Control/TurnView
+@onready var event_dialogue_scene = $Camera2D/Control/EventDialogueScene
 
 var source_id = 1
 
@@ -65,10 +66,13 @@ func _ready():
 	event_options_scene.visible = false
 	player_list_scene.visible = false
 	tile_info_panel.visible = false
+	event_dialogue_scene.visible = false
 	
 	# Connect to Signals
 	EventSystem.PHASE_UPDATED.connect(_on_update_game_phase)
 	EventSystem.EVENT_SELECTED.connect(_on_event_selected)
+	EventSystem.EVENT_OCCURED.connect(_on_event_occured)
+	EventSystem.EVENT_ACCEPTED.connect(_on_event_accepted)
 
 func _process(delta):
 	if oldTileBuildings == GamManager.building_tiles:
@@ -160,6 +164,7 @@ func _on_update_game_phase(phase: int):
 	
 	if GamManager.isHost and GamManager.currentPhase == 1 and GamManager.phaseCount != 0:
 		_toggle_views_for_event_selection(true)
+		event_options_scene.visible = true
 		
 func _on_player_list_button_pressed():
 	player_list_scene.visible = !player_list_scene.visible
@@ -167,15 +172,23 @@ func _on_player_list_button_pressed():
 
 # Hanlde Event Selection
 func _on_event_selected(name):
-	print("ay Event selectedx")
+	print("ay Event selected")
 	_toggle_views_for_event_selection(false)
+	event_options_scene.visible = false
+	PhaseManager.send_event(name)
 	PhaseManager.update_phase()
 	
 func _toggle_views_for_event_selection(isEventVisible: bool):
 	if isEventVisible == true:
 		tile_info_panel.visible = !isEventVisible
 		player_list_scene.visible = !isEventVisible
-	event_options_scene.visible = isEventVisible
 	player_list_button.disabled = isEventVisible
 	turn_view.disable_interaction(isEventVisible)
 	
+func _on_event_occured(eventName):
+	event_dialogue_scene.visible = true
+	_toggle_views_for_event_selection(true)
+
+func _on_event_accepted():
+	event_dialogue_scene.visible = false
+	_toggle_views_for_event_selection(false)

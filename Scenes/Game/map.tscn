@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://7j7no5evfsjn"]
+[gd_scene load_steps=14 format=3 uid="uid://7j7no5evfsjn"]
 
 [ext_resource type="Script" path="res://Scenes/Game/MapScene.gd" id="1_jltnr"]
 [ext_resource type="Script" path="res://Scenes/Game/Camera2D.gd" id="3_nnm0c"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://f2ambigpxlwv" path="res://Graphics/Overlays/corner.png" id="4_0ip84"]
 [ext_resource type="PackedScene" uid="uid://c5mos0a234w8p" path="res://Scenes/Overlays/GMOptions/EventOptions.tscn" id="4_6jsjd"]
 [ext_resource type="PackedScene" uid="uid://md3mc5jmctsj" path="res://Scenes/Overlays/GamePhasesScene.tscn" id="4_v3vhx"]
+[ext_resource type="PackedScene" uid="uid://d0rmtj5tqyayu" path="res://Scenes/Overlays/PlayerOverlays/EventDialogueScene.tscn" id="5_ab5be"]
 [ext_resource type="PackedScene" uid="uid://cqu4dqw8hmixw" path="res://Scenes/Overlays/PlayerList/PlayerListScene.tscn" id="5_u20ln"]
 [ext_resource type="PackedScene" uid="uid://jc0rwis1gjgx" path="res://Scenes/Overlays/TurnView/TurnView.tscn" id="6_nh4wk"]
 [ext_resource type="Texture2D" uid="uid://dgtgp651xlux" path="res://Graphics/Overlays/title.png" id="8_lbnwj"]
@@ -53,6 +54,10 @@ offset_bottom = 324.0
 [node name="EventOptions" parent="Camera2D/Control" instance=ExtResource("4_6jsjd")]
 visible = false
 layout_mode = 0
+
+[node name="EventDialogueScene" parent="Camera2D/Control" instance=ExtResource("5_ab5be")]
+visible = false
+layout_mode = 1
 
 [node name="TileInfoPanel" type="Panel" parent="Camera2D/Control"]
 layout_mode = 0

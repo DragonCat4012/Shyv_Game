@@ -31,3 +31,17 @@ func update_phase(): # Should only be called by server
 	rpc("on_phase_update", newPhase)
 	GamManager.currentPhase = newPhase
 	GamManager.endedTurnNations = []
+
+
+# NOTE: Events
+@rpc("any_peer", "call_local") 
+func on_event_occured(eventName):
+	print(eventName, " has occured")
+	EventSystem.EVENT_OCCURED.emit(eventName)
+	
+func send_event(eventName): # Should only be called by server
+	if !GamManager.isHost:
+		print("Player not host")
+		return
+	rpc("on_event_occured", eventName)
+	
