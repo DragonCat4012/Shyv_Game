@@ -13,6 +13,7 @@ offset_bottom = 656.0
 color = Color(0, 0, 0, 0.478431)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
 offset_left = 103.0
 offset_top = 231.0
 offset_right = 1029.0
@@ -41,6 +42,7 @@ theme = ExtResource("1_2cofh")
 text = "a"
 
 [node name="Title" type="Label" parent="."]
+layout_mode = 0
 offset_top = 103.0
 offset_right = 1152.0
 offset_bottom = 166.0
