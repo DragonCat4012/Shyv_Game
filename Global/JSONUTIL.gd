@@ -1,14 +1,13 @@
 extends Node
 
-const BuildingTiles = preload("res://Models/BuildingTiles.gd")
-
+# BUILDINGTILES
 func BuildingTile_to_JSON(tile: BuildingTiles) -> String: # TODO: stringify Building
 	var dict = {"ownedByNationID": tile.ownedByNationID, "coords": { "x": tile.coords.x, "y": tile.coords.y}, "building": BUILDINGMODEL_to_JSON(tile.building)}
 	return JSON.stringify(dict)
 
-func BuildingTiles_from_JSON(str: String) -> BuildingTiles:
+func BuildingTiles_from_JSON(jsonString: String) -> BuildingTiles:
 	var tile = BuildingTiles.new()
-	var dict = JSON.parse_string(str)
+	var dict = JSON.parse_string(jsonString)
 	if not dict:
 		print(">>> Failed to parse Tile <<<")
 		return null
@@ -19,15 +18,14 @@ func BuildingTiles_from_JSON(str: String) -> BuildingTiles:
 	
 	
 	
-const NationModel = preload("res://Models/NationModel.gd")
-
+# NATIONS
 func NationModel_to_JSON(nation: NationModel) -> String:
 	var dict = {"name": nation.name, "assignedID": nation.assignedID, "description": nation.description, "color": var_to_str(nation.color), "building_tile_row": nation.building_tile_row}
 	return JSON.stringify(dict)
 	
-func NationModel_from_JSON(str: String) -> NationModel:
+func NationModel_from_JSON(jsonString: String) -> NationModel:
 	var nation = NationModel.new()
-	var dict = JSON.parse_string(str)
+	var dict = JSON.parse_string(jsonString)
 	if not dict:
 		print(">>> Failed to parse Nation <<<")
 		return null
@@ -42,9 +40,9 @@ func NationModel_from_JSON(str: String) -> NationModel:
 
 const ARRAY_DIVIDER_IN_JSON_DONT_ASK = "xoxoILoveYouxoxo" # TODO: chekc that its not in nation name or description, in genral chekc for escaping cnhars
 # Sync Nations
-func nationMapping_from_JSON(str: String) -> Dictionary:
+func nationMapping_from_JSON(jsonString: String) -> Dictionary:
 	var dict = {}
-	var stringifiedDict = JSON.parse_string(str)
+	var stringifiedDict = JSON.parse_string(jsonString)
 	for key in stringifiedDict:
 		dict[key] = NationModel_from_JSON(stringifiedDict[key])
 	return dict
@@ -55,10 +53,10 @@ func nationMapping_to_JSON(dict: Dictionary) -> String:
 		stringifiedDict[key] = NationModel_to_JSON(dict[key])
 	return JSON.stringify(stringifiedDict)
 		
-func nations_from_JSON(str: String) -> Array[NationModel]:
-	var finalArr: Array[NationModel]
-	var mappedArray: Array[String]
-	mappedArray.assign(str.split(ARRAY_DIVIDER_IN_JSON_DONT_ASK))
+func nations_from_JSON(jsonString: String) -> Array[NationModel]:
+	var finalArr: Array[NationModel] = []
+	var mappedArray: Array[String] = []
+	mappedArray.assign(jsonString.split(ARRAY_DIVIDER_IN_JSON_DONT_ASK))
 	
 	for i in mappedArray:
 		finalArr.append(NationModel_from_JSON(i))
@@ -73,11 +71,11 @@ func nations_to_JSON(nations: Array[NationModel]) -> String:
 
 
 
-func BUILDINGMODEL_from_JSON(str) -> BuildingModel:
-	if str == "":
+func BUILDINGMODEL_from_JSON(jsonString) -> BuildingModel:
+	if jsonString == "":
 		return null
 	var building = BuildingModel.new()
-	var dict = JSON.parse_string(str)
+	var dict = JSON.parse_string(jsonString)
 	if not dict:
 		print(">>> Failed to parse Building <<<")
 		return null

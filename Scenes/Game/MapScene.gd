@@ -18,6 +18,10 @@ extends Node2D
 # Overlays
 @onready var game_phases_scene = $Camera2D/Control/GamePhasesScene
 @onready var player_list_scene = $Camera2D/Control/PlayerListScene
+@onready var event_options_scene = $Camera2D/Control/EventOptions
+@onready var player_list_button = $Camera2D/Control/PlayerListButton
+@onready var turn_view = $Camera2D/Control/TurnView
+@onready var event_dialogue_scene = $Camera2D/Control/EventDialogueScene
 
 var source_id = 1
 
@@ -59,13 +63,18 @@ func _ready():
 		name_box.visible = false
 		
 	# Default hide
+	event_options_scene.visible = false
 	player_list_scene.visible = false
 	tile_info_panel.visible = false
+	event_dialogue_scene.visible = false
 	
 	# Connect to Signals
 	EventSystem.PHASE_UPDATED.connect(_on_update_game_phase)
+	EventSystem.EVENT_SELECTED.connect(_on_event_selected)
+	EventSystem.EVENT_OCCURED.connect(_on_event_occured)
+	EventSystem.EVENT_ACCEPTED.connect(_on_event_accepted)
 
-func _process(delta):
+func _process(_delta):
 	if oldTileBuildings == GamManager.building_tiles:
 		return
 	_update_tile_buildings()
@@ -82,12 +91,12 @@ func _select_tile(global: Vector2):
 
 	if tilePos == oldSeelctedTile:
 		oldSeelctedTile = null
-		_toggle_tile_info_viibillity(false)
+		_toggle_tile_info_visibillity(false)
 		return
 		
 	oldSeelctedTile = tilePos
 	var buildingAtlasCoordinates = tile_map.get_cell_atlas_coords(layerTerrain, tilePos)
-	_toggle_tile_info_viibillity(true, buildingAtlasCoordinates)
+	_toggle_tile_info_visibillity(true, buildingAtlasCoordinates)
 	
 	tile_map.set_cell(layerSelect, tilePos, source_id, select_atlas)
 	coordinate_tracker.text = str(tilePos)
@@ -126,7 +135,7 @@ func _update_tile_buildings():
 		if modulatedLevel:
 			modulatedLevel.modulate = nation.color
 		
-func _toggle_tile_info_viibillity(on, atlasOwner=Vector2i(-1,-1)):
+func _toggle_tile_info_visibillity(on, atlasOwner=Vector2i(-1,-1)):
 	var ownerStr = "-"
 	if atlasOwner != Vector2i(-1,-1): # tile on this layer
 		ownerStr = str(atlasOwner.y)
@@ -152,7 +161,33 @@ func _style_selected_tile_info(pos: Vector2):
 func _on_update_game_phase(phase: int):
 	print("Updated to new phase: ", phase)
 	game_phases_scene.update_to_phase(phase)
-
+	
+	if GamManager.isHost and GamManager.currentPhase == 1 and GamManager.phaseCount != 0:
+		_toggle_views_for_event_selection(true)
+		event_options_scene.visible = true
+		
 func _on_player_list_button_pressed():
 	player_list_scene.visible = !player_list_scene.visible
 	player_list_scene.updateList() # amybe change to not be caleld every time
+
+# Hanlde Event Selection
+func _on_event_selected(eventName):
+	_toggle_views_for_event_selection(false)
+	event_options_scene.visible = false
+	PhaseManager.send_event(eventName)
+	PhaseManager.update_phase()
+	
+func _toggle_views_for_event_selection(isEventVisible: bool):
+	if isEventVisible == true:
+		tile_info_panel.visible = !isEventVisible
+		player_list_scene.visible = !isEventVisible
+	player_list_button.disabled = isEventVisible
+	turn_view.disable_interaction(isEventVisible)
+	
+func _on_event_occured(eventName):
+	event_dialogue_scene.visible = true
+	_toggle_views_for_event_selection(true)
+
+func _on_event_accepted():
+	event_dialogue_scene.visible = false
+	_toggle_views_for_event_selection(false)

@@ -3,7 +3,6 @@ extends Node2D
 
 func _ready():
 	# Load version Info
-	var versionInfo = load("res://version.txt")
 	var file = FileAccess.open("res://version.txt", FileAccess.READ)
 	var version = file.get_as_text()
 	file.close()

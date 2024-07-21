@@ -21,13 +21,14 @@ var isHost = false
 
 # Game Maagment:
 var nationMapping = {} # string_peerId: NationModel # TODO: implement
-var allNations: Array[Jsonutil.NationModel] = []
+var allNations: Array[NationModel] = []
 var currentNationIDCount = 1 # only changed by server/host!
 
 var ownNation = null
 
 # Game Phases
 var currentPhase: int = 0
+var phaseCount: int = 0
 const phaseNames = { # NOTE: change tooltip text in GamePhaseScene if scenes change
 	0: "Nothingness :0",
 	1: "Event",

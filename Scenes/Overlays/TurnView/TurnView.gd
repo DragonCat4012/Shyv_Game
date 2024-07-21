@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 @onready var button = $Button
 @onready var next_phase_button = $NextPhaseButton
 
@@ -9,17 +9,24 @@ func _ready():
 	button.disabled = GamManager.isHost
 	button.visible = !GamManager.isHost
 
-func _process(delta):
+func _process(_delta):
 	if GamManager.isHost:
 		if GamManager.endedTurnNations.size() != 0:
-			#print("Update end turn button",GamManager.endedTurnNations.size(),GamManager.allNations.size())
 			next_phase_button.disabled = GamManager.endedTurnNations.size() != GamManager.allNations.size()
+		else:
+			next_phase_button.disabled = true
 		return
 	button.disabled = GamManager.hasEndedTurn
 	button.visible = !GamManager.hasEndedTurn
 	
 func _on_button_pressed():
+	next_phase_button.focus_mode = FOCUS_NONE
 	PhaseManager.end_turn()
 
 func _on_next_phase_button_pressed():
+	next_phase_button.focus_mode = FOCUS_NONE
 	PhaseManager.update_phase()
+
+func disable_interaction(option):
+	next_phase_button.disabled = option
+	button.disabled = option
