@@ -182,10 +182,10 @@ offset_bottom = 8.0
 
 [node name="NameBox" type="Control" parent="Camera2D/Control"]
 anchors_preset = 0
-offset_left = 7.0
+offset_left = 4.0
 offset_top = 6.0
-offset_right = 227.0
-offset_bottom = 41.0
+offset_right = 263.0
+offset_bottom = 48.0
 
 [node name="TextureRect" type="TextureRect" parent="Camera2D/Control/NameBox"]
 layout_mode = 1

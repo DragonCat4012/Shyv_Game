@@ -172,7 +172,6 @@ func _on_player_list_button_pressed():
 
 # Hanlde Event Selection
 func _on_event_selected(name):
-	print("ay Event selected")
 	_toggle_views_for_event_selection(false)
 	event_options_scene.visible = false
 	PhaseManager.send_event(name)

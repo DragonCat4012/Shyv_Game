@@ -1,8 +1,8 @@
 extends Node2D
 
 @onready var start_button = $StartButton
-@onready var player_rect = $VBoxContainer/Label
-@onready var v_box_container = $VBoxContainer
+@onready var player_rect = $Panel/VBoxContainer/Label
+@onready var v_box_container = $Panel/VBoxContainer
 
 var lastArr = ""
 

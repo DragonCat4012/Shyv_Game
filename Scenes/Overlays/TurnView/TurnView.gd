@@ -12,8 +12,9 @@ func _ready():
 func _process(delta):
 	if GamManager.isHost:
 		if GamManager.endedTurnNations.size() != 0:
-			#print("Update end turn button",GamManager.endedTurnNations.size(),GamManager.allNations.size())
 			next_phase_button.disabled = GamManager.endedTurnNations.size() != GamManager.allNations.size()
+		else:
+			next_phase_button.disabled = true
 		return
 	button.disabled = GamManager.hasEndedTurn
 	button.visible = !GamManager.hasEndedTurn
