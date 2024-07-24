@@ -1,16 +1,6 @@
 extends Node
 
-# Lobby Stuff
-@rpc("any_peer", "call_local") # Any peer can call it, calls on self
-func _on_lobby_message(msg):
-	var peer_id = multiplayer.get_remote_sender_id()
-	GamManager.print_signed("Function called by peer: ", peer_id," msg: ", msg)
-	GamManager.messages[peer_id] = msg
 
-func send_lobby_message(newMessage):
-	rpc("_on_lobby_message", newMessage)
-	#messages[multiplayer.get_unique_id()] = newMessage
-	
 @rpc("any_peer", "call_local") # Any peer can call it, calls on self
 func _on_ready(nation):
 	var peer_id = multiplayer.get_remote_sender_id()
@@ -39,6 +29,11 @@ func send_un_ready():
 	rpc("_on_un_ready")
 	GamManager.ready_peer_ids.erase(multiplayer.get_unique_id())
 	
+@rpc("authority", "reliable")
+func update_to_ready(peerID):
+	GamManager.ready_peer_ids.append(peerID)
+	
+# Start
 @rpc("any_peer", "call_local") 
 func _on_start_game(seed):
 	GamManager.currentPhase = 1
