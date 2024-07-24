@@ -45,7 +45,7 @@ func _on_host_pressed():
 	print_signed("created host id: ", multiplayer.get_unique_id())
 	ownID = multiplayer.get_unique_id()
 	isHost = true
-	
+	print(multiplayer_peer.get_connection_status())
 	multiplayer_peer.peer_connected.connect(
 		func(new_peer_id):
 			rpc("_on_player_connected", new_peer_id)
@@ -62,14 +62,34 @@ func _on_host_pressed():
 	
 	
 func _on_join_pressed():
-	multiplayer_peer.create_client(Adress, Port)
+	if multiplayer_peer.create_client(Adress, Port) != OK:
+		print("connetion refused")
+	
+#	multiplayer_peer.create_client(Adress, Port)
 	multiplayer.multiplayer_peer = multiplayer_peer
+
+	
+	get_tree().set_multiplayer(multiplayer_peer)
+	OfflineMultiplayerPeer
 	ownID = multiplayer.get_unique_id()
 	
+	match  multiplayer_peer.get_connection_status():
+		0: # CONNECTION_DISCONNECTED
+			print("Disconnected")
+			# TODO: return to menu
+			return
+		1:  #CONNECTION_CONNECTING
+			print("Trying to connect....")
+			return
+		2: #CONNECTION_CONNECTED
+			
+			print("Connected")
+
 	print_signed("join with: ", multiplayer.get_unique_id())
 	print_signed("already joined players: ", multiplayer.get_peers())
 	connected_peer_ids.assign(multiplayer.get_peers())
 	connected = true # TODO move into connect callback
+	
 	multiplayer_peer.peer_disconnected.connect (
 		func():
 			ownID = -1
