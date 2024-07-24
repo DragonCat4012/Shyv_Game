@@ -102,16 +102,28 @@ func on_lobby_joined(lobby):
 @rpc("any_peer", "reliable")
 func on_random_lobby_joined(lobby):
 	pass
+	
 @rpc("authority", "reliable")
 func lobby_found(lobbyID):
 	lobbyCode = lobbyID
 	
+@rpc("any_peer", "reliable")
+func request_lobbys():
+	pass
+	
 # Sync RPCs
+func _request_lobbies():
+	rpc_id(1, "request_lobbys")
+	
 @rpc("authority", "reliable")
 func sync_players_in_lobby(players):
 	print("Synced Players: ", players)
 	connected_peer_ids.assign(players)
 
+@rpc("authority", "reliable")
+func open_lobbys(lobbys):
+	EventSystem.FOUND_OPEN_LOBBYS.emit(lobbys)
+	print("found lobbys: ", lobbys)
 # MARK: RPc
 #@rpc
 func _on_peer_disconnect(peerID):

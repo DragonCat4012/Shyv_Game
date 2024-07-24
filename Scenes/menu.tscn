@@ -9,7 +9,7 @@ script = ExtResource("1_0ar7g")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 offset_left = 182.0
-offset_top = 289.0
+offset_top = 199.0
 offset_right = 973.0
 offset_bottom = 519.0
 theme_override_constants/separation = 40
@@ -25,6 +25,12 @@ custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme = ExtResource("2_11svc")
 text = "Join"
+
+[node name="JoinRandomButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme = ExtResource("2_11svc")
+text = "Join Random"
 
 [node name="Test" type="Button" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
@@ -51,4 +57,5 @@ vertical_alignment = 1
 
 [connection signal="pressed" from="VBoxContainer/HostButton" to="." method="_on_host_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/JoinButton" to="." method="_on_join_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/JoinRandomButton" to="." method="_on_join_random_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Test" to="." method="_on_test_pressed"]

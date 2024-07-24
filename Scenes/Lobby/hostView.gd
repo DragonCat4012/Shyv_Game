@@ -17,6 +17,7 @@ func _process(delta):
 	for id in GamManager.connected_peer_ids:
 		var e = player_rect.duplicate()
 		e.text = str(id)
+		e.add_theme_color_override("font_color", Color.WHITE)
 		
 		if id in GamManager.ready_peer_ids:
 			var player_nation: NationModel = GamManager.nationMapping[str(id)]
