@@ -2,7 +2,7 @@ extends Node
 
 var multiplayer_peer = ENetMultiplayerPeer.new()
 const Port = 9999
-const Adress = "127.0.0.1"
+const Adress = '127.0.0.1'
 
 # Lobby managment
 var connected_peer_ids: Array[int] = []
@@ -39,13 +39,19 @@ const phaseNames = { # NOTE: change tooltip text in GamePhaseScene if scenes cha
 var endedTurnNations: Array[String] = [] # host only, nationIDs which have finished their turn in the current game phase
 var hasEndedTurn = false # Client only to hide ent turn option and disable actions
 
+func _ready():
+	multiplayer.connected_to_server.connect(self._on_join_succeed)
+	multiplayer.connection_failed.connect(self._on_join_failure)
+	
 func _on_host_pressed():
-	multiplayer_peer.create_server(Port)
-	multiplayer.multiplayer_peer = multiplayer_peer
-	print_signed("created host id: ", multiplayer.get_unique_id())
-	ownID = multiplayer.get_unique_id()
 	isHost = true
-	print(multiplayer_peer.get_connection_status())
+	
+	multiplayer_peer.create_client(Adress, Port)
+	multiplayer.multiplayer_peer = multiplayer_peer
+	
+	print_signed("created host id: ", multiplayer.get_unique_id())
+	
+	return # TODO: let server ahndle that? not sure
 	multiplayer_peer.peer_connected.connect(
 		func(new_peer_id):
 			rpc("_on_player_connected", new_peer_id)
@@ -62,41 +68,32 @@ func _on_host_pressed():
 	
 	
 func _on_join_pressed():
-	if multiplayer_peer.create_client(Adress, Port) != OK:
-		print("connetion refused")
-	
-#	multiplayer_peer.create_client(Adress, Port)
+	multiplayer_peer.create_client(Adress, Port)
 	multiplayer.multiplayer_peer = multiplayer_peer
-
 	
-	get_tree().set_multiplayer(multiplayer_peer)
-	OfflineMultiplayerPeer
+func _on_join_succeed():
+	multiplayer.multiplayer_peer = multiplayer_peer
+	get_tree().set_multiplayer(multiplayer)
 	ownID = multiplayer.get_unique_id()
-	
-	match  multiplayer_peer.get_connection_status():
-		0: # CONNECTION_DISCONNECTED
-			print("Disconnected")
-			# TODO: return to menu
-			return
-		1:  #CONNECTION_CONNECTING
-			print("Trying to connect....")
-			return
-		2: #CONNECTION_CONNECTED
-			
-			print("Connected")
 
-	print_signed("join with: ", multiplayer.get_unique_id())
+	print_signed("joined with: ", multiplayer.get_unique_id())
 	print_signed("already joined players: ", multiplayer.get_peers())
-	connected_peer_ids.assign(multiplayer.get_peers())
-	connected = true # TODO move into connect callback
+	connected_peer_ids.assign(multiplayer.get_peers()) # TODO: filter out 1
+	connected = true
+	EventSystem.CONNECTED_SUCCESSFULL.emit()
 	
-	multiplayer_peer.peer_disconnected.connect (
-		func():
-			ownID = -1
-			connected = false
-			print("welp disconnect")
-	)
+	if isHost:
+		rpc_id(1,"_on_lobby_create", ownID)
 
+func _on_join_failure():
+	print("Failed to connect to Server")
+	
+# Server calls
+@rpc("any_peer", "call_remote", "reliable")
+func _on_lobby_create(lobbyID): # Ignore
+	print("ej")
+	
+# MARK: RPc
 @rpc
 func _on_peer_disconnect(peerID):
 	print_signed("peer disconnected: ", peerID)
@@ -170,6 +167,7 @@ func print_signed(arg, arg2 = "", arg3 = "", arg4 = ""):
 	print("[",multiplayer.get_unique_id(), "]: ", arg, arg2, arg3, arg4)
 
 func reset_after_disconnect():
+	multiplayer.multiplayer_peer = null
 	connected_peer_ids = []
 	messages = {}
 	ready_peer_ids = []

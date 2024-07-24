@@ -3,6 +3,7 @@ extends Node2D
 @onready var start_button = $StartButton
 @onready var player_rect = $Panel/VBoxContainer/Label
 @onready var v_box_container = $Panel/VBoxContainer
+@onready var id_label = $IDLabel
 
 var lastArr = ""
 
@@ -26,6 +27,7 @@ func _process(delta):
 		v_box_container.add_child(e)
 	
 	lastArr = str(GamManager.connected_peer_ids)
+	id_label.text = "ID: " + str(GamManager.ownID)
 
 func _on_start_button_pressed():
 	var mapSeed = randi_range(0,9)
