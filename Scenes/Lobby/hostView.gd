@@ -27,7 +27,7 @@ func _process(delta):
 		v_box_container.add_child(e)
 	
 	lastArr = str(GamManager.connected_peer_ids)
-	id_label.text = "ID: " + str(GamManager.ownID)
+	id_label.text = "Lobby/ID: " + str(GamManager.ownID)
 
 func _on_start_button_pressed():
 	var mapSeed = randi_range(0,9)

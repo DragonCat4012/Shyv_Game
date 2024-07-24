@@ -1,5 +1,6 @@
 extends Node2D
 
+@onready var lobby_label = $LobbyLabel
 @onready var host_name = $HostName
 @onready var peer_list = $ColorRect/PeerList
 
@@ -26,6 +27,7 @@ func _process(_delta):
 	ready_button.text = "Wait!" if isReady else "Ready"
 	color_picker.disabled = isReady
 	nation_name.editable = !isReady
+	lobby_label.text = str(GamManager.lobbyCode)
 	
 func display_message(message):
 	LobbyManager.send_lobby_message(message)

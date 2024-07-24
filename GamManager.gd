@@ -18,6 +18,7 @@ var building_tiles: Array[BuildingTiles] = []
 var connected = false
 var ownID: int = -1
 var isHost = false
+var lobbyCode: int = -1
 
 # Game Maagment:
 var nationMapping = {} # string_peerId: NationModel # TODO: implement
@@ -76,26 +77,40 @@ func _on_join_succeed():
 	get_tree().set_multiplayer(multiplayer)
 	ownID = multiplayer.get_unique_id()
 
-	print_signed("joined with: ", multiplayer.get_unique_id())
-	print_signed("already joined players: ", multiplayer.get_peers())
-	connected_peer_ids.assign(multiplayer.get_peers()) # TODO: filter out 1
+	print_signed("joined as: ", multiplayer.get_unique_id())
+	
 	connected = true
 	EventSystem.CONNECTED_SUCCESSFULL.emit()
 	
 	if isHost:
 		rpc_id(1,"on_lobby_create")
+	else:
+		rpc_id(1,"on_random_lobby_joined")
+		# TODO: if lobbyCode is there send this instead
 
 func _on_join_failure():
 	print("Failed to connect to Server")
 	
 	
+# Server RPCS
 @rpc("any_peer", "reliable")
 func on_lobby_create():
 	pass
 @rpc("any_peer", "reliable")
 func on_lobby_joined(lobby):
 	pass	
-
+@rpc("any_peer", "reliable")
+func on_random_lobby_joined(lobby):
+	pass
+@rpc("authority", "reliable")
+func lobby_found(lobbyID):
+	lobbyCode = lobbyID
+	
+# Sync RPCs
+@rpc("authority", "reliable")
+func sync_players_in_lobby(players):
+	print("Synced Players: ", players)
+	connected_peer_ids.assign(players)
 
 # MARK: RPc
 #@rpc
