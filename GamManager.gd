@@ -2,7 +2,7 @@ extends Node
 
 var multiplayer_peer = ENetMultiplayerPeer.new()
 const Port = 9999
-const Adress = '127.0.0.1'
+const Adress = '192.168.1.144'
 
 # Lobby managment
 var connected_peer_ids: Array[int] = []
@@ -83,18 +83,22 @@ func _on_join_succeed():
 	EventSystem.CONNECTED_SUCCESSFULL.emit()
 	
 	if isHost:
-		rpc_id(1,"_on_lobby_create", ownID)
+		rpc_id(1,"on_lobby_create")
 
 func _on_join_failure():
 	print("Failed to connect to Server")
 	
-# Server calls
-@rpc("any_peer", "call_remote", "reliable")
-func _on_lobby_create(lobbyID): # Ignore
-	print("ej")
 	
+@rpc("any_peer", "reliable")
+func on_lobby_create():
+	pass
+@rpc("any_peer", "reliable")
+func on_lobby_joined(lobby):
+	pass	
+
+
 # MARK: RPc
-@rpc
+#@rpc
 func _on_peer_disconnect(peerID):
 	print_signed("peer disconnected: ", peerID)
 	if peerID == multiplayer.get_unique_id(): # when disconnected from host
@@ -129,24 +133,24 @@ func removePlayer(peer_id):
 	messages.erase(peer_id)
 	ready_peer_ids.erase(peer_id)
 
-@rpc
+#@rpc
 func _on_player_connected(new_per_id):
 	'''Called on every peer'''
 	print_signed("Added player: ", new_per_id)
 	addPlayer(new_per_id)
 	
-@rpc
+#@rpc
 func _on_player_diconnected(new_per_id):
 	'''Called on every peer'''
 	print_signed("remove player: ", new_per_id)
 	removePlayer(new_per_id)
 
-@rpc # only server can call it
+#@rpc # only server can call it
 func add_previously_connected_player_character(peer_ids):
 	print_signed("added a few: ", peer_ids)
 	for peer_id in peer_ids:
 		addPlayer(peer_id)
-@rpc
+#@rpc
 func add_previously_send_messages(msgs):
 	messages = msgs
 	
