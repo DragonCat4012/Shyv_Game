@@ -81,10 +81,20 @@ func _update_player_list(lobbyID):
 func sync_players_in_lobby(players):
 	pass # TODO: publsih othger joined players
 
+@rpc("any_peer", "reliable")
+func request_lobbys():
+	print("e")
+	var peer_id = multiplayer.get_remote_sender_id()
+	print("requestd lobbys by: ", peer_id)
+	rpc_id(peer_id, "open_lobbys", lobbies.keys())
+	
+# CLient RPCs
 @rpc("authority", "reliable")
 func lobby_found(lobbyID):
 	pass
-	
+@rpc("authority", "reliable")
+func open_lobbys(lobbies):
+	pass
 # MARK idk
 
 #@rpc
