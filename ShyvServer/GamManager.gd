@@ -4,7 +4,7 @@ var network = ENetMultiplayerPeer.new()
 var port = 9999
 
 var lobbies = {} # hostID: [connectedIDS]
-
+var peer_to_game_map = {} # peer_id: lobbyId
 
 func _ready():
 	multiplayer.peer_connected.connect(_peer_connected)
@@ -40,6 +40,8 @@ func on_lobby_create():
 	var peer_id = multiplayer.get_remote_sender_id()
 	print("New lobby created: ", peer_id)
 	lobbies[peer_id] = []
+	
+	peer_to_game_map[peer_id] = peer_id
 	rpc_id(peer_id, "lobby_found", peer_id)
 	
 @rpc("any_peer",  "reliable")
@@ -51,6 +53,7 @@ func on_lobby_joined(lobbyID): # TODO:!!!
 	oldPlayers.append(peer_id)
 	lobbies[lobbyID] = oldPlayers
 	
+	peer_to_game_map[peer_id] = lobbyID
 	rpc_id(peer_id, "lobby_found", lobbyID)
 	
 @rpc("any_peer",  "reliable")
@@ -64,6 +67,8 @@ func on_random_lobby_joined():
 	lobbies[lobbyID] = oldPlayers
 	
 	_update_player_list(lobbyID)
+	
+	peer_to_game_map[peer_id] = lobbyID
 	rpc_id(peer_id, "lobby_found", lobbyID)
 	# TODO: on player disconnet message all peers they left
 
