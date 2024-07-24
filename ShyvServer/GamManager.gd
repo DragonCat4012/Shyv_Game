@@ -40,19 +40,46 @@ func on_lobby_create():
 	var peer_id = multiplayer.get_remote_sender_id()
 	print("New lobby created: ", peer_id)
 	lobbies[peer_id] = []
+	rpc_id(peer_id, "lobby_found", peer_id)
 	
 @rpc("any_peer",  "reliable")
-func on_lobby_joined(lobbyID):
+func on_lobby_joined(lobbyID): # TODO:!!!
 	var peer_id = multiplayer.get_remote_sender_id()
 	print(peer_id," joined lobby ", lobbyID)
 	
 	var oldPlayers = lobbies[lobbyID]
 	oldPlayers.append(peer_id)
 	lobbies[lobbyID] = oldPlayers
+	
+	rpc_id(peer_id, "lobby_found", lobbyID)
+	
+@rpc("any_peer",  "reliable")
+func on_random_lobby_joined():
+	var lobbyID = lobbies.keys().pick_random()
+	var peer_id = multiplayer.get_remote_sender_id()
+	print(peer_id," joined lobby ", lobbyID)
+	
+	var oldPlayers = lobbies[lobbyID]
+	oldPlayers.append(peer_id)
+	lobbies[lobbyID] = oldPlayers
+	
+	_update_player_list(lobbyID)
+	rpc_id(peer_id, "lobby_found", lobbyID)
+	# TODO: on player disconnet message all peers they left
 
-func _send_joined_players():
+func _update_player_list(lobbyID):
+	rpc_id(lobbyID, "sync_players_in_lobby", lobbies[lobbyID])
+	for user in lobbies[lobbyID]:
+		rpc_id(user, "sync_players_in_lobby", lobbies[lobbyID])
+	
+@rpc("authority", "reliable")
+func sync_players_in_lobby(players):
 	pass # TODO: publsih othger joined players
 
+@rpc("authority", "reliable")
+func lobby_found(lobbyID):
+	pass
+	
 # MARK idk
 
 #@rpc
