@@ -7,11 +7,23 @@
 script = ExtResource("1_hqru8")
 
 [node name="HostName" type="Label" parent="."]
-offset_left = 514.0
+offset_left = 397.0
 offset_top = 20.0
-offset_right = 614.0
+offset_right = 719.0
 offset_bottom = 43.0
-text = "Joined a host"
+text = "PlayerId"
+horizontal_alignment = 1
+
+[node name="LobbyLabel" type="Label" parent="."]
+offset_left = 397.0
+offset_top = 43.0
+offset_right = 720.0
+offset_bottom = 66.0
+theme_override_font_sizes/font_size = 13
+text = "Lobby
+"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="nameField" type="LineEdit" parent="."]
 offset_left = 13.0

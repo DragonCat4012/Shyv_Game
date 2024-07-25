@@ -21,11 +21,11 @@ func _process(_delta):
 	
 func _on_button_pressed():
 	next_phase_button.focus_mode = FOCUS_NONE
-	PhaseManager.end_turn()
+	PhaseManager._end_turn()
 
 func _on_next_phase_button_pressed():
 	next_phase_button.focus_mode = FOCUS_NONE
-	PhaseManager.update_phase()
+	PhaseManager._update_phase()
 
 func disable_interaction(option):
 	next_phase_button.disabled = option

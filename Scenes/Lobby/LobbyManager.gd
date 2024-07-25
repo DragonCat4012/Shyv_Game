@@ -1,63 +1,67 @@
 extends Node
 
-# Lobby Stuff
-@rpc("any_peer", "call_local") # Any peer can call it, calls on self
-func _on_lobby_message(msg):
-	var peer_id = multiplayer.get_remote_sender_id()
-	GamManager.print_signed("Function called by peer: ", peer_id," msg: ", msg)
-	GamManager.messages[peer_id] = msg
-
-func send_lobby_message(newMessage):
-	rpc("_on_lobby_message", newMessage)
-	#messages[multiplayer.get_unique_id()] = newMessage
+# Send ready and nations, Server RPCs
+func _publish_ready(nation):
+	rpc_id(1, "publish_ready", Jsonutil.NationModel_to_JSON(nation))
+func _publish_unready():
+	rpc_id(1, "publish_unready")
+@rpc("any_peer", "reliable") 
+func publish_ready(_nationSTR): # Client says its ready
+	pass
+@rpc("any_peer", "reliable") 
+func publish_unready(): # Client says its not ready
+	pass
 	
-@rpc("any_peer", "call_local") # Any peer can call it, calls on self
-func _on_ready(nation):
-	var peer_id = multiplayer.get_remote_sender_id()
-	if peer_id not in GamManager.ready_peer_ids:
-		GamManager.ready_peer_ids.append(peer_id)
+# HOST RPCS
+@rpc("authority", "reliable") 
+func on_client_ready(nationSTR, peerID): # host updates his nations
+	if peerID not in GamManager.ready_peer_ids:
+		GamManager.ready_peer_ids.append(peerID)
 	
-	var playedNation = Jsonutil.NationModel_from_JSON(nation)
-	GamManager._add_player_nation_in_lobby(peer_id, playedNation)
+	var playedNation = Jsonutil.NationModel_from_JSON(nationSTR)
+	GamManager._add_player_nation_in_lobby(peerID, playedNation)
 	
-	if peer_id == GamManager.ownID:
+	GamManager.print_signed("Ready peer: ", peerID)
+	
+@rpc("authority", "reliable") 
+func on_client_unready(peerID): # host updates his nations
+	#var peer_id = multiplayer.get_remote_sender_id()
+	GamManager.print_signed("UN-Ready peer: ", peerID)
+	GamManager.ready_peer_ids.erase(peerID)
+	GamManager._remove_player_nation_in_lobby(peerID)
+	
+# Host advertises nations & seed on start
+# Start
+func _start_game(seed): #  only called by host
+	if not GamManager.isHost:
+		print("youre not host :c")
 		return
-	GamManager.print_signed("Ready peer: ", peer_id)
+	GamManager.seed = seed
+	GamManager.currentPhase = 1
 	
-func send_ready(nation: NationModel):
-	rpc("_on_ready", Jsonutil.NationModel_to_JSON(nation))
-	GamManager.ready_peer_ids.append(multiplayer.get_unique_id())
+	var data = _get_nations_to_send()
+	rpc_id(1, "start_game", seed, data[0], data[1])
+	get_tree().change_scene_to_file(SceneManager.HOSTGAMESCENE) # TODO: move into hostView!?
+		
+@rpc("any_peer", "reliable") 
+func start_game(seed, nations): # For server
+	pass
 
-@rpc("any_peer", "call_local") # Any peer can call it, calls on self
-func _on_un_ready():
-	var peer_id = multiplayer.get_remote_sender_id()
-	GamManager.print_signed("UN-Ready peer: ", peer_id)
-	GamManager.ready_peer_ids.erase(peer_id)
-	GamManager._remove_player_nation_in_lobby(peer_id)
-	
-func send_un_ready():
-	rpc("_on_un_ready")
-	GamManager.ready_peer_ids.erase(multiplayer.get_unique_id())
-	
-@rpc("any_peer", "call_local") 
-func _on_start_game(seed):
+@rpc("authority", "reliable") 
+func _on_start_game(seed, nationsJSON, nationsMappingJSON): # All clients should get this exept host
+	if GamManager.isHost:
+		return
 	GamManager.currentPhase = 1
 	GamManager.seed = seed
-	get_tree().change_scene_to_file(SceneManager.GAMESCENE)
 	
-func start_game(seed): # Should only be called by server
-	GamManager.currentPhase = 1
-	_sync_nations_with_peers()
-	rpc("_on_start_game", seed)
-	GamManager.seed = seed
+	GamManager.allNations = Jsonutil.nations_from_JSON(nationsJSON)
+	GamManager.nationMapping = Jsonutil.nationMapping_from_JSON(nationsMappingJSON)
+	GamManager.ownNation = GamManager.nationMapping[str(GamManager.ownID)]
 	
-	if GamManager.ownID == 1: # Server
-		get_tree().change_scene_to_file(SceneManager.HOSTGAMESCENE)
-	else: # Client
-		get_tree().change_scene_to_file(SceneManager.GAMESCENE)
+	get_tree().change_scene_to_file(SceneManager.GAMESCENE) #TODO: move this ino peerView?!
 	
 # Sync Nations with Peers
-func _sync_nations_with_peers():  # Should only be called by server
+func _get_nations_to_send() -> Array:  # Should only be called by server
 	var icons = RessourceManager.ALL_NATION_ICON_OPTIONS.duplicate()
 	icons.shuffle()
 	for nat in GamManager.allNations: # aplly icon indexes
@@ -67,15 +71,4 @@ func _sync_nations_with_peers():  # Should only be called by server
 	print("Manager Nations to sync: ", GamManager.allNations.size())
 	var nationJSON = Jsonutil.nations_to_JSON(GamManager.allNations)
 	var mappingJSON = Jsonutil.nationMapping_to_JSON(GamManager.nationMapping)
-	rpc("_on_sync_nations_with_peers", nationJSON, mappingJSON)
-
-@rpc("any_peer", "call_local") 
-func _on_sync_nations_with_peers(nationsJSON, nationsMappingJSON):
-	if GamManager.ownID == 1: # Server
-		return
-	
-	GamManager.allNations = Jsonutil.nations_from_JSON(nationsJSON)
-	GamManager.nationMapping = Jsonutil.nationMapping_from_JSON(nationsMappingJSON)
-	GamManager.ownNation = GamManager.nationMapping[str(GamManager.ownID)]
-	get_tree().change_scene_to_file(SceneManager.GAMESCENE)
-	
+	return [nationJSON, mappingJSON]

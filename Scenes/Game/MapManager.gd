@@ -1,16 +1,18 @@
 extends Node
 
-@rpc("any_peer", "call_local")
-func _on_tile_update(tileJSON: String):
+func _send_tile_update(tile: BuildingTiles):
+	rpc_id(1, "send_tile_update", Jsonutil.BuildingTile_to_JSON(tile))
+	GamManager.print_signed("sent tile update")
+	
+@rpc("any_peer", "reliable")
+func send_tile_update(tileJSON): # server rpc
+	pass
+	
+@rpc("authority", "reliable")
+func tile_updated(tileJSON):
 	GamManager.print_signed("receive tile update")
 	update_tiles(tileJSON)
-	var peer_id = multiplayer.get_remote_sender_id()
-	GamManager.print_signed("Tile updated by: ", peer_id," tile: ", tileJSON)
-
-func send_tile_update(tile: BuildingTiles):
-	GamManager.print_signed("sent tile update")
-	rpc("_on_tile_update", Jsonutil.BuildingTile_to_JSON(tile))
-	#dont call update_tiles(tile)!
+	GamManager.print_signed("Tile updated: ", tileJSON)
 	
 # Called after rpc
 func update_tiles(tileJSON: String):
