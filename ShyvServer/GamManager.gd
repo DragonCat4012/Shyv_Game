@@ -59,6 +59,7 @@ func _leave_lobby(lobbyID, peerID):
 	var withOutArr = lobbies[lobbyID]
 	withOutArr.erase(peerID)
 	lobbies[lobbyID] = withOutArr
+	peer_to_game_map.erase(peerID)
 	_update_player_list(lobbyID)
 	
 func _close_lobby(lobbyID):
