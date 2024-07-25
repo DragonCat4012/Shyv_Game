@@ -15,7 +15,8 @@ var land_tiles: Array[Vector2] = [] # tiles where player can start
 var building_tiles: Array[BuildingTiles] = []
 
 # Peer managment
-var connected = false
+var connected = false # Lobby/Game
+var connectedToServer = false # Server
 var ownID: int = -1
 var isHost = false
 var lobbyCode: int = -1
@@ -44,13 +45,18 @@ func _ready():
 	multiplayer.connected_to_server.connect(self._on_join_succeed)
 	multiplayer.connection_failed.connect(self._on_join_failure)
 	
-func _on_host_pressed():
-	isHost = true
-	
+func _connect_to_server():
+	if connectedToServer:
+		return
+	connected = false
+	connectedToServer = false # disable menu buttons if false
 	multiplayer_peer.create_client(Adress, Port)
 	multiplayer.multiplayer_peer = multiplayer_peer
 	
+func _on_host_pressed():
+	isHost = true
 	print_signed("created host id: ", multiplayer.get_unique_id())
+	rpc_id(1,"on_lobby_create")
 	
 	return # TODO: let server ahndle that? not sure
 	multiplayer_peer.peer_connected.connect(
@@ -66,29 +72,27 @@ func _on_host_pressed():
 			rpc("_on_player_diconnected", old_peer_id)
 			removePlayer(old_peer_id)
 	)
-	
+func _on_join_lobby_pressed(lobbyCode):
+	rpc_id(1,"on_lobby_joined", lobbyCode)
+	print("Trying to join selected lobby")
 	
 func _on_join_pressed():
-	multiplayer_peer.create_client(Adress, Port)
-	multiplayer.multiplayer_peer = multiplayer_peer
+	rpc_id(1,"on_random_lobby_joined")
+	#print("Trying to join random lobby")
 	
 func _on_join_succeed():
 	multiplayer.multiplayer_peer = multiplayer_peer
 	get_tree().set_multiplayer(multiplayer)
-	ownID = multiplayer.get_unique_id()
 
-	print_signed("joined as: ", multiplayer.get_unique_id())
+	ownID = multiplayer.get_unique_id()
+	print_signed("connected to server as: ", multiplayer.get_unique_id())
 	
-	connected = true
+	connectedToServer = true
 	EventSystem.CONNECTED_SUCCESSFULL.emit()
-	
-	if isHost:
-		rpc_id(1,"on_lobby_create")
-	else:
-		rpc_id(1,"on_random_lobby_joined")
-		# TODO: if lobbyCode is there send this instead
 
 func _on_join_failure():
+	connectedToServer = false
+	connected = false
 	print("Failed to connect to Server")
 	
 	
@@ -105,7 +109,9 @@ func on_random_lobby_joined(lobby):
 	
 @rpc("authority", "reliable")
 func lobby_found(lobbyID):
+	GamManager.connected = true
 	lobbyCode = lobbyID
+	EventSystem.LOBBY_JOINED.emit()
 	
 @rpc("any_peer", "reliable")
 func request_lobbys():

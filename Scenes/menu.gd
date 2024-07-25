@@ -1,5 +1,6 @@
 extends Node2D
 @onready var version_label = $VersionLabel
+@onready var v_box_container = $VBoxContainer
 
 func _ready():
 	# Load version Info
@@ -8,9 +9,22 @@ func _ready():
 	file.close()
 	version_label.text = version
 	EventSystem.CONNECTED_SUCCESSFULL.connect(_change_to_peer_view)
+	GamManager._connect_to_server()
+	
+var lastDisabled = false
+func _process(delta):
+	var disabled = true
+	if GamManager.connectedToServer:
+		disabled = false
+
+	if lastDisabled == disabled:
+		return
+	
+	for child in v_box_container.get_children():
+		child.disabled = disabled
+	lastDisabled = disabled
 	
 func _on_join_button_pressed():
-	GamManager._on_join_pressed()
 	GamManager._request_lobbies()
 	get_tree().change_scene_to_file(SceneManager.OPENGAMESSELECTION)
 	

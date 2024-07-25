@@ -3,6 +3,7 @@ extends Node
 # Lobby
 signal CONNECTED_SUCCESSFULL
 signal FOUND_OPEN_LOBBYS(lobbys)
+signal LOBBY_JOINED
 
 # Host
 signal PHASE_UPDATED(phase)
