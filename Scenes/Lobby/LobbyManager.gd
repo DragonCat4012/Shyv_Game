@@ -44,7 +44,7 @@ func _start_game(mapSeed): #  only called by host
 	get_tree().change_scene_to_file(SceneManager.HOSTGAMESCENE) # TODO: move into hostView!?
 		
 @rpc("any_peer", "reliable") 
-func start_game(mapSeed, nations): # For server
+func start_game(_mapSeed, _nations): # For server
 	pass
 
 @rpc("authority", "reliable") 

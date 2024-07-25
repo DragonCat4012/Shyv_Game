@@ -80,7 +80,7 @@ func _process(_delta):
 	_update_tile_buildings()
 	oldTileBuildings = GamManager.building_tiles
 	
-func _on_control_gui_input(event):
+func _on_control_gui_input(_event):
 	if Input.is_action_just_released("left_click"):
 		tile_map.local_to_map(to_local(get_global_mouse_position()))
 		_select_tile(get_global_mouse_position())
@@ -186,7 +186,7 @@ func _toggle_views_for_event_selection(isEventVisible: bool):
 		EventSystem.ENABLE_ACTIONS.emit()
 	player_list_button.disabled = isEventVisible
 	
-func _on_event_occured(eventName):
+func _on_event_occured(_eventName):
 	event_dialogue_scene.visible = true
 	_toggle_views_for_event_selection(true)
 
