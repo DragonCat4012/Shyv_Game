@@ -16,3 +16,7 @@ signal EVENT_SELECTED(name)
 # Client
 signal EVENT_OCCURED(eventName)
 signal EVENT_ACCEPTED()
+
+# Event
+signal DISABLE_ACTIONS
+signal ENABLE_ACTIONS

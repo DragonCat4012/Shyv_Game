@@ -8,11 +8,13 @@ anchors_preset = 0
 script = ExtResource("1_rd0do")
 
 [node name="Button" type="Button" parent="."]
+layout_mode = 0
 offset_right = 150.0
 offset_bottom = 31.0
 text = "End turn"
 
 [node name="NextPhaseButton" type="Button" parent="."]
+layout_mode = 0
 offset_right = 150.0
 offset_bottom = 31.0
 text = "next Game Phase?"

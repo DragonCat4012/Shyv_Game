@@ -179,10 +179,12 @@ func _on_event_selected(eventName):
 	
 func _toggle_views_for_event_selection(isEventVisible: bool):
 	if isEventVisible == true:
+		EventSystem.DISABLE_ACTIONS.emit()
 		tile_info_panel.visible = !isEventVisible
 		player_list_scene.visible = !isEventVisible
+	else:
+		EventSystem.ENABLE_ACTIONS.emit()
 	player_list_button.disabled = isEventVisible
-	turn_view.disable_interaction(isEventVisible)
 	
 func _on_event_occured(eventName):
 	event_dialogue_scene.visible = true
