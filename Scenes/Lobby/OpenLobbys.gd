@@ -15,6 +15,8 @@ func _ready():
 	
 func _updated_lobbys(newLobbies):
 	lobbys = newLobbies
+	for x in v_box_container.get_children():
+		v_box_container.remove_child(x)
 	
 	for i in lobbys:
 		var box = h_box_container.duplicate()
@@ -31,3 +33,7 @@ func _on_join_pressed(lobby):
 
 func _navigate_to_lobby():
 	get_tree().change_scene_to_file(SceneManager.PEERSCENE)
+
+func _on_exit_button_pressed():
+	GamManager._leave_watchlist()
+	get_tree().change_scene_to_file(SceneManager.MENUSCENE)

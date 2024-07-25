@@ -4,6 +4,7 @@ extends Node
 signal CONNECTED_SUCCESSFULL
 signal FOUND_OPEN_LOBBYS(lobbys)
 signal LOBBY_JOINED
+signal LOBBY_CLOSED
 
 # Host
 signal PHASE_UPDATED(phase)

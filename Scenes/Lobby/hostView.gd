@@ -7,7 +7,7 @@ extends Node2D
 
 var lastArr = ""
 
-func _process(delta):
+func _process(_delta):
 	start_button.disabled = GamManager.connected_peer_ids.size() != GamManager.ready_peer_ids.size() or GamManager.connected_peer_ids.size() == 0
 		
 	#if str(GamManager.connected_peer_ids) != lastArr:
@@ -35,5 +35,5 @@ func _on_start_button_pressed():
 	LobbyManager.start_game(mapSeed)
 
 func _on_exit_button_pressed():
-	GamManager._diconnect_all_peers_from_host()
+	GamManager.close_lobby()
 	get_tree().change_scene_to_file(SceneManager.MENUSCENE)

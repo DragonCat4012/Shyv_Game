@@ -8,11 +8,11 @@ func _ready():
 	var version = file.get_as_text()
 	file.close()
 	version_label.text = version
-	EventSystem.CONNECTED_SUCCESSFULL.connect(_change_to_peer_view)
 	GamManager._connect_to_server()
+	EventSystem.LOBBY_JOINED.connect(_change_to_peer_view)
 	
 var lastDisabled = false
-func _process(delta):
+func _process(_delta):
 	var disabled = true
 	if GamManager.connectedToServer:
 		disabled = false

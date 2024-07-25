@@ -55,7 +55,7 @@ func _on_ready_button_pressed():
 		ready_button.theme = RessourceManager.THEME_BUTTON_DELETE
 
 func _on_exit_button_pressed():
-	GamManager._diconnect()
+	GamManager._leave_lobby()
 	_exitScene()
 
 func _exitScene():

@@ -54,26 +54,17 @@ func _connect_to_server():
 	multiplayer.multiplayer_peer = multiplayer_peer
 	
 func _on_host_pressed():
+	if not connectedToServer:
+		print("Not connected to Server")
+		return
 	isHost = true
 	print_signed("created host id: ", multiplayer.get_unique_id())
 	rpc_id(1,"on_lobby_create")
 	
 	return # TODO: let server ahndle that? not sure
-	multiplayer_peer.peer_connected.connect(
-		func(new_peer_id):
-			rpc("_on_player_connected", new_peer_id)
-			rpc_id(new_peer_id, "add_previously_connected_player_character", connected_peer_ids)
-			rpc_id(new_peer_id, "add_previously_send_messages", messages)
-			addPlayer(new_peer_id)
-			connected = true
-	)
-	multiplayer_peer.peer_disconnected.connect(
-		func(old_peer_id):
-			rpc("_on_player_diconnected", old_peer_id)
-			removePlayer(old_peer_id)
-	)
-func _on_join_lobby_pressed(lobbyCode):
-	rpc_id(1,"on_lobby_joined", lobbyCode)
+
+func _on_join_lobby_pressed(newLobbyCode):
+	rpc_id(1,"on_lobby_joined", newLobbyCode)
 	print("Trying to join selected lobby")
 	
 func _on_join_pressed():
@@ -88,39 +79,62 @@ func _on_join_succeed():
 	print_signed("connected to server as: ", multiplayer.get_unique_id())
 	
 	connectedToServer = true
-	EventSystem.CONNECTED_SUCCESSFULL.emit()
 
 func _on_join_failure():
 	connectedToServer = false
 	connected = false
 	print("Failed to connect to Server")
 	
+func close_lobby():
+	rpc_id(1, "on_lobby_close")
 	
+func _request_lobbies():
+	rpc_id(1, "request_lobbys")
+	
+func _leave_lobby():
+	rpc_id(1, "leave_lobby", lobbyCode)
+	lobbyCode = -1
+	
+func _leave_watchlist():
+	rpc_id(1, "leave_watchlist")
 # Server RPCS
+@rpc("any_peer", "reliable")
+func leave_watchlist():
+	pass
+@rpc("any_peer", "reliable")
+func leave_lobby(_lobby):
+	pass
+@rpc("any_peer", "reliable")
+func on_lobby_close():
+	pass
 @rpc("any_peer", "reliable")
 func on_lobby_create():
 	pass
 @rpc("any_peer", "reliable")
-func on_lobby_joined(lobby):
+func on_lobby_joined(_lobby):
 	pass	
 @rpc("any_peer", "reliable")
-func on_random_lobby_joined(lobby):
+func on_random_lobby_joined(_lobby):
+	pass
+@rpc("any_peer", "reliable")
+func request_lobbys():
 	pass
 	
+# From Server	
 @rpc("authority", "reliable")
 func lobby_found(lobbyID):
 	GamManager.connected = true
 	lobbyCode = lobbyID
 	EventSystem.LOBBY_JOINED.emit()
 	
-@rpc("any_peer", "reliable")
-func request_lobbys():
-	pass
+@rpc("authority", "reliable")
+func lobby_closed_by_host():
+	GamManager.connected = false
+	lobbyCode = -1
+	print("lobby closed :c")
+	EventSystem.LOBBY_CLOSED.emit()
 	
 # Sync RPCs
-func _request_lobbies():
-	rpc_id(1, "request_lobbys")
-	
 @rpc("authority", "reliable")
 func sync_players_in_lobby(players):
 	print("Synced Players: ", players)
@@ -130,63 +144,8 @@ func sync_players_in_lobby(players):
 func open_lobbys(lobbys):
 	EventSystem.FOUND_OPEN_LOBBYS.emit(lobbys)
 	print("found lobbys: ", lobbys)
-# MARK: RPc
-#@rpc
-func _on_peer_disconnect(peerID):
-	print_signed("peer disconnected: ", peerID)
-	if peerID == multiplayer.get_unique_id(): # when disconnected from host
-		print("Server closed connection")
-		connected = false
-		multiplayer_peer.close()
-	removePlayer(peerID)
 
-func _diconnect():
-	connected = false
-	var id = multiplayer.get_unique_id()
-	multiplayer_peer.close()
-	reset_after_disconnect()
-	rpc("_on_peer_disconnect", id)
 
-func _diconnect_all_peers_from_host():
-	for peer in connected_peer_ids:
-		rpc("_on_peer_disconnect", peer)
-		#OS.delay_msec(1000)
-		#multiplayer_peer.disconnect_peer(peer, false)
-		
-	connected = false
-	multiplayer_peer.close()
-	reset_after_disconnect()
-
-func addPlayer(peer_id):
-	connected_peer_ids.append(peer_id)
-	messages[peer_id] = ""
-	
-func removePlayer(peer_id):
-	connected_peer_ids.erase(peer_id)
-	messages.erase(peer_id)
-	ready_peer_ids.erase(peer_id)
-
-#@rpc
-func _on_player_connected(new_per_id):
-	'''Called on every peer'''
-	print_signed("Added player: ", new_per_id)
-	addPlayer(new_per_id)
-	
-#@rpc
-func _on_player_diconnected(new_per_id):
-	'''Called on every peer'''
-	print_signed("remove player: ", new_per_id)
-	removePlayer(new_per_id)
-
-#@rpc # only server can call it
-func add_previously_connected_player_character(peer_ids):
-	print_signed("added a few: ", peer_ids)
-	for peer_id in peer_ids:
-		addPlayer(peer_id)
-#@rpc
-func add_previously_send_messages(msgs):
-	messages = msgs
-	
 # Manga Lobby Nations 
 func _remove_player_nation_in_lobby(peerID):
 	allNations.erase(nationMapping[str(peerID)])
