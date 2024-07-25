@@ -174,8 +174,8 @@ func _on_player_list_button_pressed():
 func _on_event_selected(eventName):
 	_toggle_views_for_event_selection(false)
 	event_options_scene.visible = false
-	PhaseManager.send_event(eventName)
-	PhaseManager.update_phase()
+	PhaseManager._send_event(eventName)
+	PhaseManager._update_phase()
 	
 func _toggle_views_for_event_selection(isEventVisible: bool):
 	if isEventVisible == true:
