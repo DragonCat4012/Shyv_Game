@@ -6,7 +6,9 @@ extends Node2D
 
 @onready var ready_button = $ReadyButton
 @onready var name_field := $nameField
+@onready var nation_descript = $CreateNation/nationDescript
 var isReady = false
+
 
 # Create Nation
 var nation = RessourceManager.LOADED_NATION_MODEL.new()
@@ -22,11 +24,8 @@ func _process(_delta):
 		_exitScene()
 	peer_list.text = show_messages()
 	host_name.text = "Joined as: " + str(GamManager.multiplayer.get_unique_id())
-	isReady = GamManager.ready_peer_ids.has(GamManager.multiplayer.get_unique_id())
-	
-	ready_button.text = "Wait!" if isReady else "Ready"
-	color_picker.disabled = isReady
-	nation_name.editable = !isReady
+	#isReady = GamManager.ready_peer_ids.has(GamManager.multiplayer.get_unique_id())
+	_update_ready_button(isReady)
 	lobby_label.text = str(GamManager.lobbyCode)
 	
 func display_message(message):
@@ -50,13 +49,23 @@ func _on_ready_button_pressed():
 	if isReady:
 		LobbyManager.send_un_ready()
 		ready_button.theme = null
+		isReady = false
 	else: 
+		isReady = true
 		LobbyManager.send_ready(nation)
 		ready_button.theme = RessourceManager.THEME_BUTTON_DELETE
 
 func _on_exit_button_pressed():
+	_update_ready_button(false)
 	GamManager._leave_lobby()
 	_exitScene()
+
+func _update_ready_button(toReady):
+	isReady = toReady
+	ready_button.text = "Wait!" if isReady else "Ready"
+	color_picker.disabled = isReady
+	nation_name.editable = !isReady
+	nation_descript.editable = !isReady
 
 func _exitScene():
 	get_tree().change_scene_to_file(SceneManager.MENUSCENE)

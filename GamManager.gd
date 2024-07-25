@@ -60,15 +60,16 @@ func _on_host_pressed():
 	isHost = true
 	print_signed("created host id: ", multiplayer.get_unique_id())
 	rpc_id(1,"on_lobby_create")
-	
-	return # TODO: let server ahndle that? not sure
+	EventSystem.START_CONNECTING.emit()
 
 func _on_join_lobby_pressed(newLobbyCode):
 	rpc_id(1,"on_lobby_joined", newLobbyCode)
 	print("Trying to join selected lobby")
+	EventSystem.START_CONNECTING.emit()
 	
 func _on_join_pressed():
 	rpc_id(1,"on_random_lobby_joined")
+	EventSystem.START_CONNECTING.emit()
 	#print("Trying to join random lobby")
 	
 func _on_join_succeed():
@@ -126,6 +127,7 @@ func lobby_found(lobbyID):
 	GamManager.connected = true
 	lobbyCode = lobbyID
 	EventSystem.LOBBY_JOINED.emit()
+	EventSystem.STOP_CONNECTING.emit()
 	
 @rpc("authority", "reliable")
 func lobby_closed_by_host():
@@ -138,6 +140,9 @@ func lobby_closed_by_host():
 @rpc("authority", "reliable")
 func sync_players_in_lobby(players):
 	print("Synced Players: ", players)
+	for beforePlayer in ready_peer_ids:
+		if not beforePlayer in players:
+			ready_peer_ids.erase(beforePlayer)
 	connected_peer_ids.assign(players)
 
 @rpc("authority", "reliable")
