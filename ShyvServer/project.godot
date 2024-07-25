@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 GamManager="*res://GamManager.gd"
 LobbyManager="*res://Scenes/Lobby/LobbyManager.gd"
 MapManager="*res://Scenes/Game/MapManager.gd"
+PhaseManager="*res://Scenes/Overlays/PhaseManager.gd"
 
 [rendering]
 
