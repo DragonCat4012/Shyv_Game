@@ -17,13 +17,10 @@ func start_server():
 	network.create_server(port, 100)
 	multiplayer.multiplayer_peer = network
 	get_tree().set_multiplayer(multiplayer)
-	print("Server started")
-	#print(IP.get_local_addresses())
-	print(IP.resolve_hostname(str(OS.get_environment("COMPUTERNAME")),1))
+	print("Server started at ", IP.resolve_hostname(str(OS.get_environment("COMPUTERNAME")),1))
 
 func _peer_connected(player_id):
 	print("> ", player_id, " Connected")
-	# TODO: advertise lobbies
 	
 func _peer_disconnected(player_id):
 	print("> ", player_id, " Disconnected")
@@ -124,13 +121,6 @@ func _update_player_list(lobbyID):
 		rpc_id(user, "sync_players_in_lobby", lobbies[lobbyID])
 		peer_to_game_map[user] = lobbyID
 	
-@rpc("authority", "reliable")
-func sync_players_in_lobby(players):
-	pass # TODO: publsih othger joined players
-@rpc("authority", "reliable")
-func lobby_closed_by_host():
-	pass
-	
 @rpc("any_peer", "reliable")
 func request_lobbys():
 	var peer_id = multiplayer.get_remote_sender_id()
@@ -150,25 +140,10 @@ func lobby_found(_lobbyID):
 @rpc("authority", "reliable")
 func open_lobbys(_l):
 	pass
-# MARK idk
-
-#@rpc
-func _on_peer_disconnect(peerID):
+@rpc("authority", "reliable")
+func sync_players_in_lobby(_players):
 	pass
-
-#@rpc
-func _on_player_connected(new_per_id):
-	pass
-	
-#@rpc
-func _on_player_diconnected(new_per_id):
-	pass
-
-#@rpc # only server can call it
-func add_previously_connected_player_character(peer_ids):
-	pass
-	
-#@rpc
-func add_previously_send_messages(msgs):
+@rpc("authority", "reliable")
+func lobby_closed_by_host():
 	pass
 	
