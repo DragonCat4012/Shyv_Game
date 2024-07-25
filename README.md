@@ -13,6 +13,14 @@ Multipeer Tile Game
 # Game Loop
 tba
 
+## RPC Connection
+### Example Syncing Fractions on Game Start
+1. Every player sends its nations name and color etc. to the server
+2. Server forwards this to the host client who saves them all and on start assigns every fraction an id
+3. the server forwards every player all fractions sent by the host
+
+<img src="https://kiarar.moe/images/shyv/exmaple_routing.png" width="400">
+
 ## Contributors
 <a href = "https://github.com/DragonCat4012/Shyv_Game/graphs/contributors">
   <img src = "https://contrib.rocks/image?repo=DragonCat4012/Shyv_Game"/>
