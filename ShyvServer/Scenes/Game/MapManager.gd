@@ -10,6 +10,7 @@ func send_tile_update(tileJSON):
 	print("send tileupdate for lobby: ", lobby)
 	for player in GamManager.lobbies[lobby]:
 		rpc_id(player, "tile_updated", tileJSON)
+	rpc_id(lobby, "tile_updated", tileJSON)
 
 @rpc("authority", "reliable")
 func tile_updated(_tileJSON): # gets called by server
