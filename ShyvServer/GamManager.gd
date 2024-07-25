@@ -26,6 +26,8 @@ func _peer_connected(player_id):
 	
 func _peer_disconnected(player_id):
 	print("> ", player_id, " Disconnected")
+	if player_id in lobbies.keys():
+		lobbies.erase(player_id)
 
 '''
 Server → Client: @rpc("authority", "call_remote", "reliable")
@@ -53,6 +55,8 @@ func on_lobby_joined(lobbyID): # TODO:!!!
 	oldPlayers.append(peer_id)
 	lobbies[lobbyID] = oldPlayers
 	
+	_update_player_list(lobbyID)
+	
 	peer_to_game_map[peer_id] = lobbyID
 	rpc_id(peer_id, "lobby_found", lobbyID)
 	
@@ -73,7 +77,9 @@ func on_random_lobby_joined():
 	# TODO: on player disconnet message all peers they left
 
 func _update_player_list(lobbyID):
+	print("Resync lobby: ", lobbyID)
 	rpc_id(lobbyID, "sync_players_in_lobby", lobbies[lobbyID])
+	
 	for user in lobbies[lobbyID]:
 		rpc_id(user, "sync_players_in_lobby", lobbies[lobbyID])
 	
@@ -90,10 +96,10 @@ func request_lobbys():
 	
 # CLient RPCs
 @rpc("authority", "reliable")
-func lobby_found(lobbyID):
+func lobby_found(_lobbyID):
 	pass
 @rpc("authority", "reliable")
-func open_lobbys(lobbies):
+func open_lobbys(_l):
 	pass
 # MARK idk
 
