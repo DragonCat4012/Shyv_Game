@@ -47,12 +47,12 @@ func show_messages() -> String:
 
 func _on_ready_button_pressed():
 	if isReady:
-		LobbyManager.send_un_ready()
+		LobbyManager._publish_unready()
 		ready_button.theme = null
 		isReady = false
 	else: 
 		isReady = true
-		LobbyManager.send_ready(nation)
+		LobbyManager._publish_ready(nation)
 		ready_button.theme = RessourceManager.THEME_BUTTON_DELETE
 
 func _on_exit_button_pressed():
