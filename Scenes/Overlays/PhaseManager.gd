@@ -1,21 +1,23 @@
 extends Node
 
 # Manage Turns
-@rpc("any_peer", "call_local") 
-func on_player_has_end_turn(nationID):
+func _end_turn(): # Should only be called by peer
+	GamManager.hasEndedTurn = true
+	rpc_id(1, "send_end_turn", GamManager.ownNation.assignedID)
+	
+@rpc("any_peer", "reliable") 
+func send_end_turn(nationID): # received by server
+	pass
+	
+@rpc("authority", "reliable") 
+func on_player_has_end_turn(nationID): # should only be received by host
 	print(nationID, " has ended their turn")
 	if not str(nationID) in GamManager.endedTurnNations:
 		GamManager.endedTurnNations.append(str(nationID))
-	
-func end_turn(): # Should only be called by peer
-	if !GamManager.connected:
-		print("Player not connected")
-		return
-	GamManager.hasEndedTurn = true
-	rpc("on_player_has_end_turn", GamManager.ownNation.assignedID)
+
 	
 # Update Phase
-@rpc("any_peer", "call_local") 
+@rpc("any_peer", "reliable") 
 func on_phase_update(phase):
 	GamManager.currentPhase = phase
 	EventSystem.PHASE_UPDATED.emit(phase)
@@ -34,7 +36,7 @@ func update_phase(): # Should only be called by server
 
 
 # NOTE: Events
-@rpc("any_peer", "call_local") 
+@rpc("any_peer", "reliable") 
 func on_event_occured(eventName):
 	print(eventName, " has occured")
 	EventSystem.EVENT_OCCURED.emit(eventName)
