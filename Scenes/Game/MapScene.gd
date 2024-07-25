@@ -52,7 +52,7 @@ const layerSelect = 3
 
 func _ready():
 	noise = noise_height_texture.noise
-	noise.seed = GamManager.seed
+	noise.seed = GamManager.mapSeed
 	_generate_world()
 	peer_id.text = str(GamManager.ownID)
 	
