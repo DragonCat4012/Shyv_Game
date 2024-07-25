@@ -30,29 +30,29 @@ func on_client_unready(peerID): # host updates his nations
 	GamManager.ready_peer_ids.erase(peerID)
 	GamManager._remove_player_nation_in_lobby(peerID)
 	
-# Host advertises nations & seed on start
+# Host advertises nations & mapSeed on start
 # Start
-func _start_game(seed): #  only called by host
+func _start_game(mapSeed): #  only called by host
 	if not GamManager.isHost:
 		print("youre not host :c")
 		return
-	GamManager.seed = seed
+	GamManager.mapSeed = mapSeed
 	GamManager.currentPhase = 1
 	
 	var data = _get_nations_to_send()
-	rpc_id(1, "start_game", seed, data[0], data[1])
+	rpc_id(1, "start_game", mapSeed, data[0], data[1])
 	get_tree().change_scene_to_file(SceneManager.HOSTGAMESCENE) # TODO: move into hostView!?
 		
 @rpc("any_peer", "reliable") 
-func start_game(seed, nations): # For server
+func start_game(_mapSeed, _nations): # For server
 	pass
 
 @rpc("authority", "reliable") 
-func _on_start_game(seed, nationsJSON, nationsMappingJSON): # All clients should get this exept host
+func _on_start_game(mapSeed, nationsJSON, nationsMappingJSON): # All clients should get this exept host
 	if GamManager.isHost:
 		return
 	GamManager.currentPhase = 1
-	GamManager.seed = seed
+	GamManager.mapSeed = mapSeed
 	
 	GamManager.allNations = Jsonutil.nations_from_JSON(nationsJSON)
 	GamManager.nationMapping = Jsonutil.nationMapping_from_JSON(nationsMappingJSON)

@@ -1,10 +1,7 @@
 extends Node2D
 
-@onready var h_box_container = $VBoxContainer/HBoxContainer
-@onready var button = $VBoxContainer/HBoxContainer/Button
-@onready var label = $VBoxContainer/HBoxContainer/Label
-
 @onready var v_box_container = $VBoxContainer
+@onready var button = $VBoxContainer/Button
 
 var lobbys = []
 
@@ -19,14 +16,11 @@ func _updated_lobbys(newLobbies):
 		v_box_container.remove_child(x)
 	
 	for i in lobbys:
-		var box = h_box_container.duplicate()
-		box.visible = true
-		for ch in box.get_children():
-			if ch.name == "Button":
-				ch.pressed.connect(self._on_join_pressed.bind(i))
-			elif ch.name == "Label":
-				ch.text = str(i)
-		v_box_container.add_child(box)
+		var button = button.duplicate()
+		button.visible = true
+		button.pressed.connect(self._on_join_pressed.bind(i))
+		button.text = "Join " + str(i)
+		v_box_container.add_child(button)
 		
 func _on_join_pressed(lobby):
 	GamManager._on_join_lobby_pressed(lobby)

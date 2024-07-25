@@ -27,12 +27,12 @@ func on_client_unready(_peerId): # host updates his nations
 
 # Start game rpcs
 @rpc("any_peer", "reliable") 
-func start_game(seed, nations, mapping): # host started game, send event to all players
+func start_game(mapSeed, nations, mapping): # host started game, send event to all players
 	var lobby = multiplayer.get_remote_sender_id()
 	print("send start for lobby: ", lobby)
 	for player in GamManager.lobbies[lobby]:
-		rpc_id(player, "_on_start_game", seed, nations, mapping)
+		rpc_id(player, "_on_start_game", mapSeed, nations, mapping)
 	
 @rpc("authority", "reliable") 
-func _on_start_game(_seed, _nations, _mapping):
+func _on_start_game(_mapSeed, _nations, _mapping):
 	pass# send start game to lobby

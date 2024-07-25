@@ -6,7 +6,7 @@ func _end_turn(): # Should only be called by peer
 	rpc_id(1, "send_end_turn", GamManager.ownNation.assignedID)
 	
 @rpc("any_peer", "reliable") 
-func send_end_turn(nationID): # received by server
+func send_end_turn(_nationID): # received by server
 	pass
 	
 @rpc("authority", "reliable") 
@@ -31,7 +31,7 @@ func _update_phase():
 	GamManager.endedTurnNations = []
 	
 @rpc("any_peer", "reliable") 
-func update_phase(phase):
+func update_phase(_phase):
 	pass
 	
 @rpc("authority", "reliable") 
@@ -49,7 +49,7 @@ func on_event_occured(eventName):
 	EventSystem.EVENT_OCCURED.emit(eventName)
 	
 @rpc("any_peer", "reliable") 
-func send_event(eventName):
+func send_event(_eventName):
 	pass
 	
 func _send_event(eventName):

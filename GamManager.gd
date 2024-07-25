@@ -10,7 +10,7 @@ var ready_peer_ids: Array[int] = []
 var messages = {} # Lobby messages
 
 # Map
-var seed = 0
+var mapSeed = 0
 var land_tiles: Array[Vector2] = [] # tiles where player can start
 var building_tiles: Array[BuildingTiles] = []
 

@@ -7,4 +7,5 @@ func get_random_events() -> Array[String]: # TODO: implement
 	return [exampleEvents.pick_random(),exampleEvents.pick_random(),exampleEvents.pick_random()]
 
 func get_event_description_from_name(eventName) -> String: # TODO: implement
+	print("get desc for Event: ", eventName)
 	return exampleDescriptions[0]
