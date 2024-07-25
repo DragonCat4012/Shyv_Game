@@ -12,4 +12,4 @@ func _ready():
 		tile.coords = generatedstartPositions[nationID]
 		tile.ownedByNationID = nationID
 		tile.building = BuildingModel.new()
-		MapManager.send_tile_update(tile)
+		MapManager._send_tile_update(tile)
