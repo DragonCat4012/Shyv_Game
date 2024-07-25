@@ -5,6 +5,7 @@ var port = 9999
 
 var lobbies = {} # hostID: [connectedIDS]
 var peer_to_game_map = {} # peer_id: lobbyId
+var waiting_Peers = [] # peers who watch open loobies
 
 func _ready():
 	multiplayer.peer_connected.connect(_peer_connected)
@@ -26,8 +27,14 @@ func _peer_connected(player_id):
 	
 func _peer_disconnected(player_id):
 	print("> ", player_id, " Disconnected")
+	
 	if player_id in lobbies.keys():
-		lobbies.erase(player_id)
+		print("Host disconnected")
+		_close_lobby(player_id)
+		
+	if player_id in peer_to_game_map.keys(): # TODO: whyyy
+		print("Client disconnected")
+		_leave_lobby(peer_to_game_map[player_id], player_id)
 
 '''
 Server → Client: @rpc("authority", "call_remote", "reliable")
@@ -37,6 +44,37 @@ Authority Client → Server: @rpc("authority", "call_remote", "reliable")
 '''
 
 # Lobbies
+@rpc("any_peer", "reliable")
+func leave_lobby(lobby):
+	var peer_id = multiplayer.get_remote_sender_id()
+	print(lobby, " lobby leaved by: ", peer_id)
+	_leave_lobby(lobby, peer_id)
+	
+@rpc("any_peer", "reliable")
+func on_lobby_close():
+	var peer_id = multiplayer.get_remote_sender_id()
+	print("lobby closed: ", peer_id)
+	_close_lobby(peer_id)
+
+func _leave_lobby(lobbyID, peerID):
+	if not lobbyID in lobbies.keys():
+		return
+	var withOutArr = lobbies[lobbyID]
+	withOutArr.erase(peerID)
+	lobbies[lobbyID] = withOutArr
+	_update_player_list(lobbyID)
+	
+func _close_lobby(lobbyID):
+	print("closed lobby: ", lobbyID)
+	# remove host TODO: notify clients
+	for peer in lobbies[lobbyID]:
+		rpc_id(peer, "lobby_closed_by_host")
+	
+	lobbies.erase(lobbyID) 
+	
+	for waitingPeer in waiting_Peers:
+		rpc_id(waitingPeer, "open_lobbys", lobbies.keys())
+	
 @rpc("any_peer", "reliable")
 func on_lobby_create():
 	var peer_id = multiplayer.get_remote_sender_id()
@@ -50,6 +88,8 @@ func on_lobby_create():
 func on_lobby_joined(lobbyID): # TODO:!!!
 	var peer_id = multiplayer.get_remote_sender_id()
 	print(peer_id," joined lobby ", lobbyID)
+	if peer_id in waiting_Peers:
+		waiting_Peers.erase(peer_id) # remove if joined per code
 	
 	var oldPlayers = lobbies[lobbyID]
 	oldPlayers.append(peer_id)
@@ -82,17 +122,26 @@ func _update_player_list(lobbyID):
 	
 	for user in lobbies[lobbyID]:
 		rpc_id(user, "sync_players_in_lobby", lobbies[lobbyID])
+		peer_to_game_map[user] = lobbyID
 	
 @rpc("authority", "reliable")
 func sync_players_in_lobby(players):
 	pass # TODO: publsih othger joined players
-
+@rpc("authority", "reliable")
+func lobby_closed_by_host():
+	pass
+	
 @rpc("any_peer", "reliable")
 func request_lobbys():
-	print("e")
 	var peer_id = multiplayer.get_remote_sender_id()
 	print("requestd lobbys by: ", peer_id)
 	rpc_id(peer_id, "open_lobbys", lobbies.keys())
+	waiting_Peers.append(peer_id)
+	
+@rpc("any_peer", "reliable")
+func leave_watchlist():
+	var peer_id = multiplayer.get_remote_sender_id()
+	waiting_Peers.erase(peer_id)
 	
 # CLient RPCs
 @rpc("authority", "reliable")
