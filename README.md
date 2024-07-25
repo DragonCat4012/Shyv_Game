@@ -19,7 +19,7 @@ tba
 2. Server forwards this to the host client who saves them all and on start assigns every fraction an id
 3. the server forwards every player all fractions sent by the host
 
-<img src="https://kiarar.moe/images/shyv/exmaple_routing.png" width="400">
+<img src="https://kiarar.moe/images/shyv/example_routing.png" width="400">
 
 ## Contributors
 <a href = "https://github.com/DragonCat4012/Shyv_Game/graphs/contributors">
