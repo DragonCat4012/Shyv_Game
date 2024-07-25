@@ -12,5 +12,5 @@ func send_tile_update(tileJSON):
 		rpc_id(player, "tile_updated", tileJSON)
 
 @rpc("authority", "reliable")
-func tile_updated(tileJSON): # gets called by server
+func tile_updated(_tileJSON): # gets called by server
 	pass

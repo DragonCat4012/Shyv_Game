@@ -34,5 +34,5 @@ func start_game(seed, nations, mapping): # host started game, send event to all 
 		rpc_id(player, "_on_start_game", seed, nations, mapping)
 	
 @rpc("authority", "reliable") 
-func _on_start_game(seed, nations, mapping):
+func _on_start_game(_seed, _nations, _mapping):
 	pass# send start game to lobby
