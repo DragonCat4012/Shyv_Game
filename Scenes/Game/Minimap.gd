@@ -8,6 +8,8 @@ func _ready():
 
 func updateRect(pos):
 	print(pos)	
+	var x  = sub_viewport.get_visible_rect()
+	print(x)
 
 func _generate_world(): # TODO: move pls
 	var width = map_node.width
