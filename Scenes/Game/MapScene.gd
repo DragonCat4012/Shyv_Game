@@ -83,6 +83,7 @@ func _process(_delta):
 func _on_control_gui_input(_event):
 	if Input.is_action_just_released("left_click"):
 		tile_map.local_to_map(to_local(get_global_mouse_position()))
+		#%Minimap.updateRect(to_local(get_global_mouse_position())) # TODO: highlight selected?
 		_select_tile(get_global_mouse_position())
 				
 func _select_tile(global: Vector2):
@@ -114,6 +115,7 @@ func _generate_world():
 				GamManager.land_tiles.append(Vector2(x,y))
 			elif noiseValue < 0.0: # water
 				tile_map.set_cell(layerTerrain, Vector2(x,y), source_id, water_atlas)
+	%Minimap._generate_world()
 
 func _update_tile_buildings():
 	tile_map.clear_layer(layerIcon)

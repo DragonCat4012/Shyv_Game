@@ -1,6 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://7j7no5evfsjn"]
+[gd_scene load_steps=17 format=3 uid="uid://7j7no5evfsjn"]
 
 [ext_resource type="Script" path="res://Scenes/Game/MapScene.gd" id="1_jltnr"]
+[ext_resource type="TileSet" uid="uid://cbyt82wxj56is" path="res://Graphics/map_mini.tres" id="2_qsvb2"]
 [ext_resource type="Script" path="res://Scenes/Game/Camera2D.gd" id="3_nnm0c"]
 [ext_resource type="TileSet" uid="uid://bly1nmde8eksv" path="res://Graphics/map.tres" id="3_tbyt8"]
 [ext_resource type="Texture2D" uid="uid://f2ambigpxlwv" path="res://Graphics/Overlays/corner.png" id="4_0ip84"]
@@ -10,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://cqu4dqw8hmixw" path="res://Scenes/Overlays/PlayerList/PlayerListScene.tscn" id="5_u20ln"]
 [ext_resource type="PackedScene" uid="uid://jc0rwis1gjgx" path="res://Scenes/Overlays/TurnView/TurnView.tscn" id="6_nh4wk"]
 [ext_resource type="Texture2D" uid="uid://dgtgp651xlux" path="res://Graphics/Overlays/title.png" id="8_lbnwj"]
+[ext_resource type="Script" path="res://Scenes/Game/Minimap.gd" id="11_u4x2y"]
 
 [sub_resource type="Gradient" id="Gradient_6mp1p"]
 interpolation_mode = 1
@@ -23,6 +25,14 @@ width = 200
 height = 200
 color_ramp = SubResource("Gradient_6mp1p")
 noise = SubResource("FastNoiseLite_41tvk")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tusgc"]
+bg_color = Color(0.6, 0.6, 0.6, 0.0392157)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.281874, 0.147868, 0.988281, 1)
 
 [node name="MapNode" type="Node2D"]
 position = Vector2(574, 324)
@@ -207,6 +217,43 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "-1"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Camera2D/Control"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 52.0
+offset_right = 228.0
+offset_bottom = 211.0
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="Camera2D/Control/SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(217, 159)
+size_2d_override_stretch = true
+render_target_update_mode = 4
+
+[node name="Minimap" type="TileMap" parent="Camera2D/Control/SubViewportContainer/SubViewport"]
+unique_name_in_owner = true
+position = Vector2(574, 324)
+scale = Vector2(0.04, 0.04)
+tile_set = ExtResource("2_qsvb2")
+format = 2
+script = ExtResource("11_u4x2y")
+
+[node name="Focus" type="Panel" parent="Camera2D/Control/SubViewportContainer/SubViewport"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 30.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tusgc")
 
 [connection signal="gui_input" from="Camera2D/Control" to="." method="_on_control_gui_input"]
 [connection signal="pressed" from="Camera2D/Control/PlayerListButton" to="." method="_on_player_list_button_pressed"]

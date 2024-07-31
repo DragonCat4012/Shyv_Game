@@ -24,6 +24,8 @@ func _process(_delta):
 		return
 	
 	for child in v_box_container.get_children():
+		if child.name == "Test":
+			continue
 		child.disabled = disabled
 	lastDisabled = disabled
 	
