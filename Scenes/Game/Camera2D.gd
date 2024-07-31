@@ -5,6 +5,7 @@ var screen_start_position
 
 var dragging = false
 const maxDraggingVal = 2500
+const maxDraggingValY = 2000
 
 func _input(event):
 	if event.is_action("drag"):
@@ -22,11 +23,11 @@ func _input(event):
 		if position.x < -maxDraggingVal:
 			position.x = -maxDraggingVal
 			
-		if position.y > maxDraggingVal:
-			position.y = maxDraggingVal
-		if position.y < -maxDraggingVal:
-			position.y = -maxDraggingVal
+		if position.y > maxDraggingValY:
+			position.y = maxDraggingValY
+		if position.y < -maxDraggingValY:
+			position.y = -maxDraggingValY
 			
-		%Minimap.updateRect(position)
+		%Minimap.update_minimap_focus(position)
 		
 	#print(zoom)

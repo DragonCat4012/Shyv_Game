@@ -4,13 +4,13 @@ extends TileMap
 @onready var sub_viewport = $".."
 
 func _ready():
-	pass
+	var frame  = sub_viewport.get_visible_rect()
+	position = frame.position +  Vector2(frame.size.x/2, frame.size.y/2)
 
-func updateRect(pos):
-	print(pos)	
-	var x  = sub_viewport.get_visible_rect()
-	print(x)
-
+func update_minimap_focus(cameraPosition): # max x = 2500, min x = -2500
+	# Translate camera to map, then scale?
+	focus.position = (cameraPosition + Vector2(2500, 1800))  /28
+		
 func _generate_world(): # TODO: move pls
 	var width = map_node.width
 	var height = map_node.height
