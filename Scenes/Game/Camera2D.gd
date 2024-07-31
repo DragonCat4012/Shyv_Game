@@ -26,5 +26,7 @@ func _input(event):
 			position.y = maxDraggingVal
 		if position.y < -maxDraggingVal:
 			position.y = -maxDraggingVal
+			
+		%Minimap.updateRect(position)
 		
 	#print(zoom)
