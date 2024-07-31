@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://7j7no5evfsjn"]
+[gd_scene load_steps=19 format=3 uid="uid://7j7no5evfsjn"]
 
 [ext_resource type="Script" path="res://Scenes/Game/MapScene.gd" id="1_jltnr"]
 [ext_resource type="TileSet" uid="uid://cbyt82wxj56is" path="res://Graphics/map_mini.tres" id="2_qsvb2"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://md3mc5jmctsj" path="res://Scenes/Overlays/GamePhasesScene.tscn" id="4_v3vhx"]
 [ext_resource type="PackedScene" uid="uid://d0rmtj5tqyayu" path="res://Scenes/Overlays/PlayerOverlays/EventDialogueScene.tscn" id="5_ab5be"]
 [ext_resource type="PackedScene" uid="uid://cqu4dqw8hmixw" path="res://Scenes/Overlays/PlayerList/PlayerListScene.tscn" id="5_u20ln"]
+[ext_resource type="Texture2D" uid="uid://csht2jkgxicn" path="res://Graphics/Overlays/wood.png" id="6_bkvd1"]
 [ext_resource type="PackedScene" uid="uid://jc0rwis1gjgx" path="res://Scenes/Overlays/TurnView/TurnView.tscn" id="6_nh4wk"]
 [ext_resource type="Texture2D" uid="uid://dgtgp651xlux" path="res://Graphics/Overlays/title.png" id="8_lbnwj"]
 [ext_resource type="Script" path="res://Scenes/Game/Minimap.gd" id="11_u4x2y"]
@@ -25,6 +26,9 @@ width = 200
 height = 200
 color_ramp = SubResource("Gradient_6mp1p")
 noise = SubResource("FastNoiseLite_41tvk")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2pf4g"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tusgc"]
 bg_color = Color(0.6, 0.6, 0.6, 0.0392157)
@@ -75,95 +79,109 @@ offset_left = -2.0
 offset_top = 442.0
 offset_right = 277.0
 offset_bottom = 650.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_2pf4g")
+
+[node name="WoodTexture" type="TextureRect" parent="Camera2D/Control/TileInfoPanel"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = -16.0
+offset_right = 597.0
+offset_bottom = 322.0
+texture = ExtResource("6_bkvd1")
+expand_mode = 2
+stretch_mode = 4
 
 [node name="Label" type="Label" parent="Camera2D/Control/TileInfoPanel"]
 layout_mode = 0
-offset_right = 278.0
-offset_bottom = 48.0
+offset_left = 22.0
+offset_top = -1.0
+offset_right = 167.0
+offset_bottom = 30.0
+theme_override_colors/font_color = Color(0.64574, 0.66951, 1, 1)
 text = "Tile Info"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="_TileOwner" type="Label" parent="Camera2D/Control/TileInfoPanel"]
 layout_mode = 0
-offset_left = 15.0
-offset_top = 48.0
-offset_right = 72.0
-offset_bottom = 71.0
+offset_left = 39.0
+offset_top = 49.0
+offset_right = 96.0
+offset_bottom = 72.0
 text = "Owner:"
 
 [node name="TileOwner" type="Label" parent="Camera2D/Control/TileInfoPanel"]
 layout_mode = 0
-offset_left = 106.0
-offset_top = 48.0
-offset_right = 163.0
-offset_bottom = 71.0
+offset_left = 130.0
+offset_top = 49.0
+offset_right = 187.0
+offset_bottom = 72.0
 text = "-"
 
 [node name="_TileLevel" type="Label" parent="Camera2D/Control/TileInfoPanel"]
 layout_mode = 0
-offset_left = 14.0
-offset_top = 158.0
-offset_right = 71.0
-offset_bottom = 181.0
+offset_left = 38.0
+offset_top = 159.0
+offset_right = 95.0
+offset_bottom = 182.0
 text = "Level:"
 
 [node name="TileLevel" type="Label" parent="Camera2D/Control/TileInfoPanel"]
 layout_mode = 0
-offset_left = 105.0
-offset_top = 158.0
-offset_right = 162.0
-offset_bottom = 181.0
+offset_left = 129.0
+offset_top = 159.0
+offset_right = 186.0
+offset_bottom = 182.0
 text = "-"
 
 [node name="_TileStat" type="Label" parent="Camera2D/Control/TileInfoPanel"]
 layout_mode = 0
-offset_left = 16.0
-offset_top = 76.0
-offset_right = 73.0
-offset_bottom = 99.0
+offset_left = 40.0
+offset_top = 77.0
+offset_right = 97.0
+offset_bottom = 100.0
 text = "Stat:"
 
 [node name="TileStat" type="Label" parent="Camera2D/Control/TileInfoPanel"]
 layout_mode = 0
-offset_left = 104.0
-offset_top = 76.0
-offset_right = 161.0
-offset_bottom = 99.0
+offset_left = 128.0
+offset_top = 77.0
+offset_right = 185.0
+offset_bottom = 100.0
 text = "-"
 
 [node name="TileStatModifier" type="Label" parent="Camera2D/Control/TileInfoPanel"]
 layout_mode = 0
-offset_left = 104.0
-offset_top = 101.0
-offset_right = 161.0
-offset_bottom = 124.0
+offset_left = 128.0
+offset_top = 102.0
+offset_right = 185.0
+offset_bottom = 125.0
 text = "-"
 
 [node name="_Coordinates" type="Label" parent="Camera2D/Control/TileInfoPanel"]
 layout_mode = 0
-offset_left = 15.0
-offset_top = 121.0
-offset_right = 82.0
-offset_bottom = 144.0
+offset_left = 39.0
+offset_top = 122.0
+offset_right = 106.0
+offset_bottom = 145.0
 text = "Position:"
 
 [node name="CoordinateTracker" type="Label" parent="Camera2D/Control/TileInfoPanel"]
 layout_mode = 0
-offset_left = 100.0
-offset_top = 124.0
-offset_right = 167.0
-offset_bottom = 147.0
+offset_left = 124.0
+offset_top = 125.0
+offset_right = 191.0
+offset_bottom = 148.0
 text = "(-,-)"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="Camera2D/Control/TileInfoPanel"]
 layout_mode = 0
-offset_left = 157.0
-offset_top = -2.0
-offset_right = 279.0
-offset_bottom = 119.0
+offset_left = 161.0
+offset_top = 1.0
+offset_right = 283.0
+offset_bottom = 122.0
 texture = ExtResource("4_0ip84")
 expand_mode = 1
 flip_h = true
