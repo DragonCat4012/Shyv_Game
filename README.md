@@ -11,7 +11,8 @@ Multipeer Tile Game
 <img src="https://kiarar.moe/images/shyv/image.png" width="400">
 
 # Game Loop
-tba
+## Game Phases
+* 4 Phases
 
 ## RPC Connection
 ### Example Syncing Fractions on Game Start
@@ -28,3 +29,6 @@ tba
 
 # Requierements
 Godot v4.2.0
+
+# Assets 
+[Rubik Font](https://fonts.google.com/specimen/Rubik/about)
