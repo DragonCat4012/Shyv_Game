@@ -1,29 +1,32 @@
-[gd_resource type="Theme" load_steps=3 format=3 uid="uid://41ggext22ekn"]
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://41ggext22ekn"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a27g6"]
-bg_color = Color(0.533333, 0.682353, 0.901961, 1)
-border_width_bottom = 5
-border_color = Color(0.34902, 0.533333, 0.803922, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
+[ext_resource type="Texture2D" uid="uid://hnua8rb811yb" path="res://Graphics/Themes/button_disabled.PNG" id="1_0h3jj"]
+[ext_resource type="Texture2D" uid="uid://k40ai3a38dj" path="res://Graphics/Themes/button.PNG" id="1_rm34y"]
+[ext_resource type="Texture2D" uid="uid://bfuec4r8725xd" path="res://Graphics/Themes/button_hover.PNG" id="2_e1vot"]
+[ext_resource type="FontFile" uid="uid://dmuj4veefkhr5" path="res://Graphics/Themes/Rubik-VariableFont_wght.ttf" id="3_5r4nt"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_isc0i"]
-bg_color = Color(0.350321, 0.532286, 0.802789, 1)
-border_width_bottom = 5
-border_color = Color(0.213559, 0.374352, 0.609482, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qpw25"]
+texture = ExtResource("1_0h3jj")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_b6jdd"]
+texture = ExtResource("2_e1vot")
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qm05h"]
+texture = ExtResource("1_rm34y")
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
 
 [resource]
-Button/styles/hover = SubResource("StyleBoxFlat_a27g6")
-Button/styles/normal = SubResource("StyleBoxFlat_isc0i")
-Label/colors/font_color = Color(0.583533, 0.570718, 0.967615, 1)
-Label/colors/font_outline_color = Color(0.551482, 0.386425, 0.999993, 0.811765)
-Label/colors/font_shadow_color = Color(0.203922, 0.203922, 0.203922, 0.788235)
+Button/font_sizes/font_size = 26
+Button/fonts/font = null
+Button/styles/disabled = SubResource("StyleBoxTexture_qpw25")
+Button/styles/hover = SubResource("StyleBoxTexture_b6jdd")
+Button/styles/normal = SubResource("StyleBoxTexture_qm05h")
+Label/colors/font_color = Color(0.230945, 0.1683, 0.51, 1)
+Label/colors/font_shadow_color = Color(0.215902, 0.215902, 0.215902, 0.788235)
 Label/constants/shadow_offset_y = 2
 Label/constants/shadow_outline_size = 2
 Label/font_sizes/font_size = 45
+Label/fonts/font = ExtResource("3_5r4nt")

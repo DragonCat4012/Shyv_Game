@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://c8f3bpbraylal"]
+
+[ext_resource type="Shader" path="res://Scenes/menuBackground.gdshader" id="1_lpv18"]
+
+[resource]
+shader = ExtResource("1_lpv18")
+shader_parameter/north = null
+shader_parameter/dir = 0.0

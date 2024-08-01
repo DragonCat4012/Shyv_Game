@@ -30,7 +30,7 @@ EventManager="*res://Global/EventManager.gd"
 
 [display]
 
-window/size/resizable=false
+window/stretch/mode="viewport"
 
 [input]
 
