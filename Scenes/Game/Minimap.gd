@@ -9,7 +9,7 @@ func _ready():
 
 func update_minimap_focus(cameraPosition): # max x = 2500, min x = -2500
 	# Translate camera to map, then scale?
-	focus.position = (cameraPosition + Vector2(2500, 1800))  /28
+	focus.position = (cameraPosition + Vector2(1860, 1400))  /28
 		
 func _generate_world(): # TODO: move pls
 	var width = map_node.width
