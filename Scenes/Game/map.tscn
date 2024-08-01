@@ -187,7 +187,7 @@ expand_mode = 1
 flip_h = true
 
 [node name="GamePhasesScene" parent="Camera2D/Control" instance=ExtResource("4_v3vhx")]
-position = Vector2(487, 6)
+position = Vector2(895, 511)
 
 [node name="PlayerListScene" parent="Camera2D/Control" instance=ExtResource("5_u20ln")]
 layout_mode = 0

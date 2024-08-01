@@ -1,6 +1,8 @@
 extends Node2D
 @onready var version_label = $VersionLabel
 @onready var v_box_container = $VBoxContainer
+@onready var texture_rect = $TextureRect
+
 var isLoading = false 
 
 func _ready():
@@ -28,6 +30,7 @@ func _process(_delta):
 			continue
 		child.disabled = disabled
 	lastDisabled = disabled
+	texture_rect.material.set_shader_parameter("dir", deg_to_rad(50))
 	
 func _on_join_button_pressed():
 	GamManager._request_lobbies()

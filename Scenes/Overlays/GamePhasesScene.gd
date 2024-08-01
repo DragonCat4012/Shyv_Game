@@ -1,22 +1,27 @@
 extends Node2D
-@onready var p_1 := $HBoxContainer/P1
-@onready var p_2 := $HBoxContainer/P2
-@onready var p_3 := $HBoxContainer/P3
-@onready var p_4 := $HBoxContainer/P4
-@onready var allPhases = [p_1,p_2,p_3, p_4]
-@onready var label = $HBoxContainer/Label
+
+@onready var phaseTexture = $StatusPhase
+@onready var label = $Label
 
 func _ready():
 	label.text = GamManager.phaseNames[GamManager.currentPhase]
 	update_to_phase(1)
-
+	
 func update_to_phase(phase: int):
 	if phase < 1 or phase > 4:
 		print("Error invalid phase: ", phase)
 		return
-		
-	for e in allPhases:
-		e.texture = RessourceManager.GAMEPHASES
-	
-	allPhases[phase-1].texture = RessourceManager.GAMEPHASES_ACTIVE
+	if phase == 2:
+		phaseTexture.modulate = Color("#e0932d")
+		phaseTexture.rotation_degrees = 90
+	elif phase == 3:
+		phaseTexture.modulate = Color("#c94080")
+		phaseTexture.rotation_degrees = 180
+	elif phase == 4:
+		phaseTexture.rotation_degrees = 270
+		phaseTexture.modulate = Color("#60c467")
+	else:
+		phaseTexture.modulate = Color("#4D8CFF")
+		phaseTexture.rotation_degrees = 0
+
 	label.text = GamManager.phaseNames[phase]

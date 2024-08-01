@@ -1,40 +1,60 @@
-[gd_scene load_steps=4 format=3 uid="uid://md3mc5jmctsj"]
+[gd_scene load_steps=5 format=3 uid="uid://md3mc5jmctsj"]
 
-[ext_resource type="Texture2D" uid="uid://b76nbb4ivdjk0" path="res://Graphics/gamephases.png" id="1_2kdg2"]
-[ext_resource type="Texture2D" uid="uid://qu5xdn3tttpg" path="res://Graphics/gamephases_active.png" id="1_g7b6r"]
 [ext_resource type="Script" path="res://Scenes/Overlays/GamePhasesScene.gd" id="1_s0ojv"]
+[ext_resource type="Texture2D" uid="uid://cgb7juc4omgbl" path="res://Graphics/Phases/Phase.PNG" id="2_hq2kq"]
+[ext_resource type="Texture2D" uid="uid://cmuwbf01ps34t" path="res://Graphics/Phases/empty.PNG" id="2_yf3ic"]
+[ext_resource type="Texture2D" uid="uid://druw24dn3ywxp" path="res://Graphics/Phases/0.PNG" id="3_o6as6"]
 
 [node name="GamePhasesScene" type="Node2D"]
 script = ExtResource("1_s0ojv")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="P1" type="TextureRect" parent="HBoxContainer"]
-layout_mode = 2
+[node name="StatusPhaseEmpty" type="TextureRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 139.0
+offset_top = 17.0
+offset_right = 246.0
+offset_bottom = 122.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
 tooltip_text = "Event"
-texture = ExtResource("1_g7b6r")
+texture = ExtResource("2_yf3ic")
 expand_mode = 2
 
-[node name="P2" type="TextureRect" parent="HBoxContainer"]
-layout_mode = 2
-tooltip_text = "Building"
-texture = ExtResource("1_2kdg2")
+[node name="StatusPhase" type="TextureRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 129.0
+offset_top = 14.0
+offset_right = 253.0
+offset_bottom = 125.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.908752, 0.930497)
+pivot_offset = Vector2(62, 55.5)
+size_flags_vertical = 4
+tooltip_text = "Event"
+texture = ExtResource("3_o6as6")
 expand_mode = 2
 
-[node name="P3" type="TextureRect" parent="HBoxContainer"]
-layout_mode = 2
-tooltip_text = "Movement"
-texture = ExtResource("1_2kdg2")
+[node name="Phase" type="TextureRect" parent="."]
+offset_right = 270.0
+offset_bottom = 188.0
+tooltip_text = "Event"
+texture = ExtResource("2_hq2kq")
 expand_mode = 2
+stretch_mode = 4
 
-[node name="P4" type="TextureRect" parent="HBoxContainer"]
-layout_mode = 2
-tooltip_text = "Endphase"
-texture = ExtResource("1_2kdg2")
-expand_mode = 2
-
-[node name="Label" type="Label" parent="HBoxContainer"]
-layout_mode = 2
+[node name="Label" type="Label" parent="."]
+offset_left = 29.0
+offset_top = 46.0
+offset_right = 134.0
+offset_bottom = 69.0
 text = "Some Phase"

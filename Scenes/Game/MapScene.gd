@@ -26,7 +26,9 @@ extends Node2D
 var source_id = 1
 
 var water_atlas = Vector2i(0,0)
+var water_atlas2 = Vector2i(0,4)
 var land_atlas = Vector2i(0,1)
+var land_atlas2 = Vector2i(1,1)
 var dessert_atlas = Vector2i(0,2)
 var high_land_atlas = Vector2i(0,3)
 
@@ -109,12 +111,22 @@ func _generate_world():
 			var noiseValue := noise.get_noise_2d(2*x, 2*y)
 			if noiseValue >= 0.0: # land
 				tile_map.set_cell(layerTerrain, Vector2(x,y), source_id, land_atlas)
+				if randi() % 2:
+					tile_map.set_cell(layerTerrain, Vector2(x,y), source_id, land_atlas2)
 				GamManager.land_tiles.append(Vector2(x,y))
 			if noiseValue >= 0.4: # high land
 				tile_map.set_cell(layerTerrain, Vector2(x,y), source_id, high_land_atlas)
 				GamManager.land_tiles.append(Vector2(x,y))
 			elif noiseValue < 0.0: # water
 				tile_map.set_cell(layerTerrain, Vector2(x,y), source_id, water_atlas)
+				var touchesLand = false
+				var neighbors = [Vector2(2*x+1, 2*y), Vector2(2*x, 2*y+1), Vector2(2*x-1, 2*y),Vector2(2*x, 2*y-1),
+				Vector2(2*x-1, 2*y-1),Vector2(2*x+1, 2*y-1),Vector2(2*x+1, 2*y+1),Vector2(2*x-1, 2*y+1)]
+				for n in neighbors:
+					if noise.get_noise_2d(n.x, n.y) >= 0:
+						touchesLand = true
+				if touchesLand:
+					tile_map.set_cell(layerTerrain, Vector2(x,y), source_id, water_atlas2)
 	%Minimap._generate_world()
 
 func _update_tile_buildings():
