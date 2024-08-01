@@ -112,11 +112,13 @@ text = "Owner:"
 
 [node name="TileOwner" type="Label" parent="Camera2D/Control/TileInfoPanel"]
 layout_mode = 0
-offset_left = 130.0
+offset_left = 114.0
 offset_top = 49.0
-offset_right = 187.0
+offset_right = 246.0
 offset_bottom = 72.0
 text = "-"
+horizontal_alignment = 1
+clip_text = true
 
 [node name="_TileLevel" type="Label" parent="Camera2D/Control/TileInfoPanel"]
 layout_mode = 0
@@ -128,10 +130,10 @@ text = "Level:"
 
 [node name="TileLevel" type="Label" parent="Camera2D/Control/TileInfoPanel"]
 layout_mode = 0
-offset_left = 129.0
-offset_top = 159.0
-offset_right = 186.0
-offset_bottom = 182.0
+offset_left = 115.0
+offset_top = 160.0
+offset_right = 172.0
+offset_bottom = 183.0
 text = "-"
 
 [node name="_TileStat" type="Label" parent="Camera2D/Control/TileInfoPanel"]
@@ -144,17 +146,17 @@ text = "Stat:"
 
 [node name="TileStat" type="Label" parent="Camera2D/Control/TileInfoPanel"]
 layout_mode = 0
-offset_left = 128.0
+offset_left = 114.0
 offset_top = 77.0
-offset_right = 185.0
+offset_right = 171.0
 offset_bottom = 100.0
 text = "-"
 
 [node name="TileStatModifier" type="Label" parent="Camera2D/Control/TileInfoPanel"]
 layout_mode = 0
-offset_left = 128.0
+offset_left = 114.0
 offset_top = 102.0
-offset_right = 185.0
+offset_right = 171.0
 offset_bottom = 125.0
 text = "-"
 
@@ -168,9 +170,9 @@ text = "Position:"
 
 [node name="CoordinateTracker" type="Label" parent="Camera2D/Control/TileInfoPanel"]
 layout_mode = 0
-offset_left = 124.0
+offset_left = 112.0
 offset_top = 125.0
-offset_right = 191.0
+offset_right = 179.0
 offset_bottom = 148.0
 text = "(-,-)"
 horizontal_alignment = 1
@@ -187,35 +189,18 @@ expand_mode = 1
 flip_h = true
 
 [node name="GamePhasesScene" parent="Camera2D/Control" instance=ExtResource("4_v3vhx")]
-position = Vector2(895, 511)
-
-[node name="PlayerListScene" parent="Camera2D/Control" instance=ExtResource("5_u20ln")]
-layout_mode = 0
-offset_left = 946.0
-offset_right = 1151.0
-
-[node name="PlayerListButton" type="Button" parent="Camera2D/Control"]
-layout_mode = 0
-offset_left = 429.0
-offset_top = 8.0
-offset_right = 459.0
-offset_bottom = 39.0
-text = "i"
-
-[node name="TurnView" parent="Camera2D/Control" instance=ExtResource("6_nh4wk")]
-offset_left = 265.0
-offset_top = 8.0
-offset_right = 265.0
-offset_bottom = 8.0
+position = Vector2(860, 494)
+scale = Vector2(1.13118, 1.13118)
 
 [node name="NameBox" type="Control" parent="Camera2D/Control"]
 anchors_preset = 0
-offset_left = 4.0
-offset_top = 6.0
-offset_right = 263.0
-offset_bottom = 48.0
+offset_left = 771.0
+offset_top = 600.0
+offset_right = 1030.0
+offset_bottom = 642.0
 
 [node name="TextureRect" type="TextureRect" parent="Camera2D/Control/NameBox"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -229,19 +214,40 @@ expand_mode = 1
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 23.0
+offset_left = 112.0
+offset_top = -18.0
+offset_right = -32.0
+offset_bottom = 5.0
 grow_horizontal = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "-1"
-horizontal_alignment = 1
+horizontal_alignment = 2
 vertical_alignment = 1
+
+[node name="PlayerListScene" parent="Camera2D/Control" instance=ExtResource("5_u20ln")]
+layout_mode = 0
+offset_left = 946.0
+offset_right = 1151.0
+
+[node name="PlayerListButton" type="Button" parent="Camera2D/Control"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 141.0
+offset_right = 40.0
+offset_bottom = 172.0
+text = "i"
+
+[node name="TurnView" parent="Camera2D/Control" instance=ExtResource("6_nh4wk")]
+offset_left = 210.0
+offset_top = 12.0
+offset_right = 210.0
+offset_bottom = 12.0
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="Camera2D/Control"]
 layout_mode = 0
-offset_left = 27.0
-offset_top = 52.0
-offset_right = 213.0
-offset_bottom = 177.0
+offset_left = 8.0
+offset_top = 9.0
+offset_right = 194.0
+offset_bottom = 134.0
 stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="Camera2D/Control/SubViewportContainer"]
