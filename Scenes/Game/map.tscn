@@ -281,5 +281,33 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_tusgc")
 
+[node name="MapOverlayBorders" type="Control" parent="Camera2D/Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 41.0
+offset_bottom = 41.0
+
+[node name="TextureRect" type="TextureRect" parent="Camera2D/Control/MapOverlayBorders"]
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 405.0
+offset_bottom = 403.0
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("4_0ip84")
+stretch_mode = 4
+
+[node name="TextureRect2" type="TextureRect" parent="Camera2D/Control/MapOverlayBorders"]
+offset_left = 116.0
+offset_top = 58.0
+offset_right = 518.0
+offset_bottom = 458.0
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("4_0ip84")
+stretch_mode = 4
+flip_h = true
+flip_v = true
+
 [connection signal="gui_input" from="Camera2D/Control" to="." method="_on_control_gui_input"]
 [connection signal="pressed" from="Camera2D/Control/PlayerListButton" to="." method="_on_player_list_button_pressed"]

@@ -28,7 +28,7 @@ var noise: FastNoiseLite
 func _ready():
 	tile_map.init_data(GamManager.mapSeed, noise_height_texture)
 	tile_map.generate_world()
-	%Minimap._generate_world()
+	%Minimap.generate_world()
 	
 	peer_id.text = str(GamManager.ownID)
 	
