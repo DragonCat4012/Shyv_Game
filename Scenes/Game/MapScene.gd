@@ -1,7 +1,6 @@
 extends Node2D
 
 @onready var peer_id =$Camera2D/Control/NameBox/PeerID
-
 @onready var name_box = $Camera2D/Control/NameBox
 
 # Tile Info
@@ -23,39 +22,14 @@ extends Node2D
 @onready var turn_view = $Camera2D/Control/TurnView
 @onready var event_dialogue_scene = $Camera2D/Control/EventDialogueScene
 
-var source_id = 1
-
-var water_atlas = Vector2i(0,0)
-var water_atlas2 = Vector2i(0,4)
-var land_atlas = Vector2i(0,1)
-var land_atlas2 = Vector2i(1,1)
-var dessert_atlas = Vector2i(0,2)
-var high_land_atlas = Vector2i(0,3)
-
-var select_atlas = Vector2i(1,0)
-var building_atlas = Vector2i(2,0)
-var level_atlas = Vector2i(3,0)
-
 @export var noise_height_texture: NoiseTexture2D
 var noise: FastNoiseLite
 
-var width := 50
-var height := 50
-
-# caching
-var oldSeelctedTile = null#Vector2i(-999,-999)
-var oldTileBuildings = []
-
-# Layers
-const layerTerrain = 0
-const layerLevel = 1
-const layerIcon = 2 
-const layerSelect = 3
-
 func _ready():
-	noise = noise_height_texture.noise
-	noise.seed = GamManager.mapSeed
-	_generate_world()
+	tile_map.init_data(GamManager.mapSeed, noise_height_texture)
+	tile_map.generate_world()
+	%Minimap._generate_world()
+	
 	peer_id.text = str(GamManager.ownID)
 	
 	if GamManager.ownNation:
@@ -80,77 +54,32 @@ func _ready():
 	EventSystem.ENABLE_ACTIONS.connect(_toggle_views_for_event_selection.bind(false))
 
 func _process(_delta):
-	if oldTileBuildings == GamManager.building_tiles:
+	if tile_map.oldTileBuildings == GamManager.building_tiles:
 		return
-	_update_tile_buildings()
-	oldTileBuildings = GamManager.building_tiles
+	tile_map.update_tile_buildings()
+	tile_map.oldTileBuildings = GamManager.building_tiles
 	
 func _on_control_gui_input(_event):
 	if Input.is_action_just_released("left_click"):
 		tile_map.local_to_map(to_local(get_global_mouse_position()))
-		#%Minimap.updateRect(to_local(get_global_mouse_position())) # TODO: highlight selected?
 		_select_tile(get_global_mouse_position())
 				
 func _select_tile(global: Vector2):
 	var tilePos = tile_map.local_to_map(to_local(global))
-	tile_map.clear_layer(layerSelect) # clear previous seelction
+	tile_map.clear_layer(tile_map.layerSelect) # clear previous selection
 
-	if tilePos == oldSeelctedTile:
-		oldSeelctedTile = null
+	if tilePos == tile_map.oldSeelctedTile:
+		tile_map.oldSeelctedTile = null
 		_toggle_tile_info_visibillity(false)
 		return
-		
-	oldSeelctedTile = tilePos
-	var buildingAtlasCoordinates = tile_map.get_cell_atlas_coords(layerTerrain, tilePos)
+	
+	var buildingAtlasCoordinates = tile_map.get_building_atlas_coordinates(tilePos)
 	_toggle_tile_info_visibillity(true, buildingAtlasCoordinates)
 	
-	tile_map.set_cell(layerSelect, tilePos, source_id, select_atlas)
+	tile_map.select_tile(tilePos)
+	tile_map.oldSeelctedTile = tilePos
 	coordinate_tracker.text = str(tilePos)
 	_style_selected_tile_info(tilePos)
-	
-func _generate_world():
-	for x in range(-width/2 , width/2):
-		for y in range(-height/2, height/2):
-			var noiseValue := noise.get_noise_2d(2*x, 2*y)
-			if noiseValue >= 0.0: # land
-				tile_map.set_cell(layerTerrain, Vector2(x,y), source_id, land_atlas)
-				if randi() % 2:
-					tile_map.set_cell(layerTerrain, Vector2(x,y), source_id, land_atlas2)
-				GamManager.land_tiles.append(Vector2(x,y))
-			if noiseValue >= 0.4: # high land
-				tile_map.set_cell(layerTerrain, Vector2(x,y), source_id, high_land_atlas)
-				GamManager.land_tiles.append(Vector2(x,y))
-			elif noiseValue < 0.0: # water
-				tile_map.set_cell(layerTerrain, Vector2(x,y), source_id, water_atlas)
-				var touchesLand = false
-				var neighbors = [Vector2(2*x+1, 2*y), Vector2(2*x, 2*y+1), Vector2(2*x-1, 2*y),Vector2(2*x, 2*y-1),
-				Vector2(2*x-1, 2*y-1),Vector2(2*x+1, 2*y-1),Vector2(2*x+1, 2*y+1),Vector2(2*x-1, 2*y+1)]
-				for n in neighbors:
-					if noise.get_noise_2d(n.x, n.y) >= 0:
-						touchesLand = true
-				if touchesLand:
-					tile_map.set_cell(layerTerrain, Vector2(x,y), source_id, water_atlas2)
-	%Minimap._generate_world()
-
-func _update_tile_buildings():
-	tile_map.clear_layer(layerIcon)
-
-	for tile in GamManager.building_tiles:
-		var nation = GamManager.get_nation_to_tile(tile.coords)
-		var newAtlas = Vector2i(building_atlas.x, nation.building_tile_row)
-		var levelAtlas = Vector2i(level_atlas.x, tile.building.currentLevel)
-		
-		tile_map.set_cell(layerIcon, tile.coords, source_id, newAtlas)
-		tile_map.set_cell(layerLevel, tile.coords, source_id, levelAtlas)
-		
-		# Add nation colors to tiles
-		var modulatedIcon = tile_map.get_cell_tile_data(layerIcon, tile.coords)
-		if modulatedIcon:
-			modulatedIcon.modulate = nation.color
-		
-		var modulatedLevel = tile_map.get_cell_tile_data(layerLevel, tile.coords)
-		if modulatedLevel:
-			modulatedLevel.modulate = nation.color
 		
 func _toggle_tile_info_visibillity(on, atlasOwner=Vector2i(-1,-1)):
 	var ownerStr = "-"

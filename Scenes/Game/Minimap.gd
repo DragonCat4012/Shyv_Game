@@ -1,5 +1,6 @@
 extends TileMap
-@onready var map_node = $"../../../../.."
+@onready var map_node = $"../../../../../TileMap"
+
 @onready var focus = $"../Focus"
 @onready var sub_viewport = $".."
 
