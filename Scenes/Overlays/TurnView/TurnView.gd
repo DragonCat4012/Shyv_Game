@@ -1,5 +1,5 @@
 extends Control
-@onready var button = $Button
+@onready var end_turn_button = $EndTurnButton
 @onready var next_phase_button = $NextPhaseButton
 
 var forceDisabeld = false
@@ -8,11 +8,8 @@ func _ready():
 	next_phase_button.visible = GamManager.isHost
 	next_phase_button.disabled = true
 	
-	button.disabled = GamManager.isHost
-	button.visible = !GamManager.isHost
-	
-	EventSystem.DISABLE_ACTIONS.connect(_toggle_disabeld.bind(true))
-	EventSystem.ENABLE_ACTIONS.connect(_toggle_disabeld.bind(false))
+	end_turn_button.disabled = GamManager.isHost
+	end_turn_button.visible = !GamManager.isHost
 
 func _process(_delta):
 	if GamManager.isHost:
@@ -23,12 +20,12 @@ func _process(_delta):
 		return
 	
 	if not forceDisabeld:
-		button.disabled = GamManager.hasEndedTurn
-		button.visible = !GamManager.hasEndedTurn
+		end_turn_button.disabled = GamManager.hasEndedTurn
+		end_turn_button.visible = !GamManager.hasEndedTurn
 	else:
-		button.disabled = true
+		end_turn_button.disabled = true
 		next_phase_button.disabled = true
-	
+		
 func _on_button_pressed():
 	next_phase_button.focus_mode = FOCUS_NONE
 	PhaseManager._end_turn()
@@ -39,3 +36,5 @@ func _on_next_phase_button_pressed():
 
 func _toggle_disabeld(status):
 	forceDisabeld = status
+	end_turn_button.disabled = status
+	next_phase_button.disabled = status

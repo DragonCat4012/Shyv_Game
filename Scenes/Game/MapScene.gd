@@ -75,6 +75,9 @@ func _ready():
 	EventSystem.EVENT_SELECTED.connect(_on_event_selected)
 	EventSystem.EVENT_OCCURED.connect(_on_event_occured)
 	EventSystem.EVENT_ACCEPTED.connect(_on_event_accepted)
+	
+	EventSystem.DISABLE_ACTIONS.connect(_toggle_views_for_event_selection.bind(true))
+	EventSystem.ENABLE_ACTIONS.connect(_toggle_views_for_event_selection.bind(false))
 
 func _process(_delta):
 	if oldTileBuildings == GamManager.building_tiles:
@@ -173,12 +176,14 @@ func _style_selected_tile_info(pos: Vector2):
 	tile_stat_modifier.text = str(snapped(building.building.randomBaseStatModifier,0.01))
 
 func _on_update_game_phase(phase: int):
-	print("Updated to new phase: ", phase)
 	game_phases_scene.update_to_phase(phase)
 	
-	if GamManager.isHost and GamManager.currentPhase == 1 and GamManager.phaseCount != 0:
-		_toggle_views_for_event_selection(true)
-		event_options_scene.visible = true
+	if phase == 1: # Handle event selection
+		turn_view._toggle_disabeld(true)
+		EventSystem.DISABLE_ACTIONS.emit()
+		
+		if GamManager.isHost and GamManager.phaseCount != 0:
+			event_options_scene.visible = true
 		
 func _on_player_list_button_pressed():
 	player_list_scene.visible = !player_list_scene.visible
@@ -193,17 +198,17 @@ func _on_event_selected(eventName):
 	
 func _toggle_views_for_event_selection(isEventVisible: bool):
 	if isEventVisible == true:
-		EventSystem.DISABLE_ACTIONS.emit()
 		tile_info_panel.visible = !isEventVisible
 		player_list_scene.visible = !isEventVisible
-	else:
-		EventSystem.ENABLE_ACTIONS.emit()
+				
 	player_list_button.disabled = isEventVisible
 	
 func _on_event_occured(_eventName):
 	event_dialogue_scene.visible = true
 	_toggle_views_for_event_selection(true)
+	turn_view._toggle_disabeld(true)
 
 func _on_event_accepted():
 	event_dialogue_scene.visible = false
 	_toggle_views_for_event_selection(false)
+	turn_view._toggle_disabeld(false)

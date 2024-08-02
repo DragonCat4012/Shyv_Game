@@ -1,8 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://7j7no5evfsjn"]
+[gd_scene load_steps=20 format=3 uid="uid://7j7no5evfsjn"]
 
 [ext_resource type="Script" path="res://Scenes/Game/MapScene.gd" id="1_jltnr"]
 [ext_resource type="TileSet" uid="uid://cbyt82wxj56is" path="res://Graphics/map_mini.tres" id="2_qsvb2"]
 [ext_resource type="Script" path="res://Scenes/Game/Camera2D.gd" id="3_nnm0c"]
+[ext_resource type="Script" path="res://Scenes/Game/TileMap.gd" id="3_o5exc"]
 [ext_resource type="TileSet" uid="uid://bly1nmde8eksv" path="res://Graphics/map.tres" id="3_tbyt8"]
 [ext_resource type="Texture2D" uid="uid://f2ambigpxlwv" path="res://Graphics/Overlays/corner.png" id="4_0ip84"]
 [ext_resource type="PackedScene" uid="uid://c5mos0a234w8p" path="res://Scenes/Overlays/GMOptions/EventOptions.tscn" id="4_6jsjd"]
@@ -53,6 +54,7 @@ layer_2/name = "level"
 layer_2/tile_data = PackedInt32Array()
 layer_3/name = "terrain"
 layer_3/tile_data = PackedInt32Array()
+script = ExtResource("3_o5exc")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 script = ExtResource("3_nnm0c")
