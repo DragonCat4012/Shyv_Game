@@ -59,16 +59,16 @@ func _on_host_pressed():
 		return
 	isHost = true
 	print_signed("created host id: ", multiplayer.get_unique_id())
-	rpc_id(1,"on_lobby_create")
+	rpc_id(1, "on_lobby_create")
 	EventSystem.START_CONNECTING.emit()
 
 func _on_join_lobby_pressed(newLobbyCode):
-	rpc_id(1,"on_lobby_joined", newLobbyCode)
+	rpc_id(1, "on_lobby_joined", newLobbyCode)
 	print("Trying to join selected lobby")
 	EventSystem.START_CONNECTING.emit()
 	
 func _on_join_pressed():
-	rpc_id(1,"on_random_lobby_joined")
+	rpc_id(1, "on_random_lobby_joined")
 	EventSystem.START_CONNECTING.emit()
 	#print("Trying to join random lobby")
 	
@@ -113,7 +113,7 @@ func on_lobby_create():
 	pass
 @rpc("any_peer", "reliable")
 func on_lobby_joined(_lobby):
-	pass	
+	pass
 @rpc("any_peer", "reliable")
 func on_random_lobby_joined(_lobby):
 	pass
@@ -154,18 +154,18 @@ func open_lobbys(lobbys):
 # Manga Lobby Nations 
 func _remove_player_nation_in_lobby(peerID):
 	allNations.erase(nationMapping[str(peerID)])
-	nationMapping.erase(str(peerID)) 
+	nationMapping.erase(str(peerID))
 
 func _add_player_nation_in_lobby(peerID, nation: NationModel):
 	nation.assignedID = currentNationIDCount
 	nationMapping[str(peerID)] = nation
 	allNations.append(nation)
 	
-	currentNationIDCount += 1 
+	currentNationIDCount += 1
 	
 # Util
 func print_signed(arg, arg2 = "", arg3 = "", arg4 = ""):
-	print("[",multiplayer.get_unique_id(), "]: ", arg, arg2, arg3, arg4)
+	print("[", multiplayer.get_unique_id(), "]: ", arg, arg2, arg3, arg4)
 
 func reset_after_disconnect():
 	multiplayer.multiplayer_peer = null
@@ -187,7 +187,7 @@ func get_nation_to_tile(tilePosition: Vector2) -> NationModel:
 		
 	for nat in allNations:
 		if nat.assignedID == id:
-			return nat 
+			return nat
 	return null
 
 func get_buildTile_from_pos(tilePosition: Vector2) -> BuildingTiles:

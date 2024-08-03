@@ -1,4 +1,4 @@
-class_name  StartPositionsGenerate extends Node
+class_name StartPositionsGenerate extends Node
 
 var tileMap: Array[Vector2]
 var nations: Array[int]

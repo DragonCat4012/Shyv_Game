@@ -17,7 +17,7 @@ func start_server():
 	network.create_server(port, 100)
 	multiplayer.multiplayer_peer = network
 	get_tree().set_multiplayer(multiplayer)
-	print("Server started at ", IP.resolve_hostname(str(OS.get_environment("COMPUTERNAME")),1))
+	print("Server started at ", IP.resolve_hostname(str(OS.get_environment("COMPUTERNAME")), 1))
 
 func _peer_connected(player_id):
 	print("> ", player_id, " Connected")
@@ -68,7 +68,7 @@ func _close_lobby(lobbyID):
 	for peer in lobbies[lobbyID]:
 		rpc_id(peer, "lobby_closed_by_host")
 	
-	lobbies.erase(lobbyID) 
+	lobbies.erase(lobbyID)
 	
 	for waitingPeer in waiting_Peers:
 		rpc_id(waitingPeer, "open_lobbys", lobbies.keys())
@@ -82,10 +82,10 @@ func on_lobby_create():
 	peer_to_game_map[peer_id] = peer_id
 	rpc_id(peer_id, "lobby_found", peer_id)
 	
-@rpc("any_peer",  "reliable")
-func on_lobby_joined(lobbyID): # TODO:!!!
+@rpc("any_peer", "reliable")
+func on_lobby_joined(lobbyID):
 	var peer_id = multiplayer.get_remote_sender_id()
-	print(peer_id," joined lobby ", lobbyID)
+	print(peer_id, " joined lobby ", lobbyID)
 	if peer_id in waiting_Peers:
 		waiting_Peers.erase(peer_id) # remove if joined per code
 	
@@ -98,11 +98,11 @@ func on_lobby_joined(lobbyID): # TODO:!!!
 	peer_to_game_map[peer_id] = lobbyID
 	rpc_id(peer_id, "lobby_found", lobbyID)
 	
-@rpc("any_peer",  "reliable")
+@rpc("any_peer", "reliable")
 func on_random_lobby_joined():
 	var lobbyID = lobbies.keys().pick_random()
 	var peer_id = multiplayer.get_remote_sender_id()
-	print(peer_id," joined lobby ", lobbyID)
+	print(peer_id, " joined lobby ", lobbyID)
 	
 	var oldPlayers = lobbies[lobbyID]
 	oldPlayers.append(peer_id)
@@ -147,4 +147,3 @@ func sync_players_in_lobby(_players):
 @rpc("authority", "reliable")
 func lobby_closed_by_host():
 	pass
-	
