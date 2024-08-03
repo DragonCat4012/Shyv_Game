@@ -4,12 +4,7 @@ extends Node2D
 @onready var name_box = $Camera2D/Control/NameBox
 
 # Tile Info
-@onready var tile_info_panel = $Camera2D/Control/TileInfoPanel
-@onready var coordinate_tracker = $Camera2D/Control/TileInfoPanel/CoordinateTracker
-@onready var tile_owner = $Camera2D/Control/TileInfoPanel/TileOwner
-@onready var tile_level = $Camera2D/Control/TileInfoPanel/TileLevel
-@onready var tile_stat = $Camera2D/Control/TileInfoPanel/TileStat
-@onready var tile_stat_modifier = $Camera2D/Control/TileInfoPanel/TileStatModifier
+@onready var tile_info_panel = $Camera2D/Control/TileInfo
 
 @onready var camera_2d = $Camera2D
 @onready var tile_map : TileMap = $TileMap
@@ -78,8 +73,8 @@ func _select_tile(global: Vector2):
 	
 	tile_map.select_tile(tilePos)
 	tile_map.oldSeelctedTile = tilePos
-	coordinate_tracker.text = str(tilePos)
-	_style_selected_tile_info(tilePos)
+	tile_info_panel.updateCoordinates(tilePos)
+	tile_info_panel._style_selected_tile_info(tilePos)
 		
 func _toggle_tile_info_visibillity(on, atlasOwner=Vector2i(-1,-1)):
 	var ownerStr = "-"
@@ -87,22 +82,7 @@ func _toggle_tile_info_visibillity(on, atlasOwner=Vector2i(-1,-1)):
 		ownerStr = str(atlasOwner.y)
 	
 	tile_info_panel.visible = on
-	tile_owner.text = ownerStr
-	
-func _style_selected_tile_info(pos: Vector2):
-	var nation = GamManager.get_nation_to_tile(pos)
-	var building = GamManager.get_buildTile_from_pos(pos)
-	
-	if not nation:
-		tile_owner.text = "?"
-		tile_owner.add_theme_color_override("font_color", Color.BLACK)
-		return
-	tile_owner.add_theme_color_override("font_color", nation.color)	
-	
-	tile_owner.text = nation.name + "[" + str(nation.assignedID) + "]"
-	tile_level.text = str(building.building.currentLevel)
-	tile_stat.text = str(snapped(building.building.randomBaseStat,0.01))
-	tile_stat_modifier.text = str(snapped(building.building.randomBaseStatModifier,0.01))
+	tile_info_panel.updateOwner(ownerStr) # TODO: remove maybe
 
 func _on_update_game_phase(phase: int):
 	game_phases_scene.update_to_phase(phase)
