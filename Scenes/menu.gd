@@ -6,11 +6,24 @@ extends Node2D
 var isLoading = false 
 
 func _ready():
+	# load server info 
+	var file2 = FileAccess.open("res://serverAdress.txt", FileAccess.READ)
+	var regex = RegEx.new()
+	regex.compile("\\S+")
+	var results = []
+	for result in regex.search_all(file2.get_as_text()):
+		results.push_back(result.get_string())
+
+	GamManager.Adress = results[0]
+	file2.close()
+	
 	# Load version Info
 	var file = FileAccess.open("res://version.txt", FileAccess.READ)
 	var version = file.get_as_text()
 	file.close()
 	version_label.text = version
+	print("connect")
+	
 	GamManager._connect_to_server()
 	EventSystem.LOBBY_JOINED.connect(_change_to_peer_view)
 	EventSystem.START_CONNECTING.connect(_update_loading_status.bind(true))
@@ -51,4 +64,5 @@ func _update_loading_status(newIsLoading):
 	
 #Scenes
 func _change_to_peer_view():
-	get_tree().change_scene_to_file(SceneManager.PEERSCENE)
+	if not GamManager.isHost:
+		get_tree().change_scene_to_file(SceneManager.PEERSCENE)

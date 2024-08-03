@@ -77,12 +77,7 @@ func _select_tile(global: Vector2):
 	tile_info_panel._style_selected_tile_info(tilePos)
 		
 func _toggle_tile_info_visibillity(on, atlasOwner=Vector2i(-1,-1)):
-	var ownerStr = "-"
-	if atlasOwner != Vector2i(-1,-1): # tile on this layer
-		ownerStr = str(atlasOwner.y)
-	
 	tile_info_panel.visible = on
-	tile_info_panel.updateOwner(ownerStr) # TODO: remove maybe
 
 func _on_update_game_phase(phase: int):
 	game_phases_scene.update_to_phase(phase)

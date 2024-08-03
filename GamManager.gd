@@ -2,7 +2,7 @@ extends Node
 
 var multiplayer_peer = ENetMultiplayerPeer.new()
 const Port = 9999
-const Adress = '192.168.1.144'
+var Adress = ""
 
 # Lobby managment
 var connected_peer_ids: Array[int] = []
