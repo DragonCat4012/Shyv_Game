@@ -73,7 +73,6 @@ func _select_tile(global: Vector2):
 	
 	tile_map.select_tile(tilePos)
 	tile_map.oldSeelctedTile = tilePos
-	tile_info_panel.updateCoordinates(tilePos)
 	tile_info_panel._style_selected_tile_info(tilePos)
 		
 func _toggle_tile_info_visibillity(on, atlasOwner=Vector2i(-1,-1)):

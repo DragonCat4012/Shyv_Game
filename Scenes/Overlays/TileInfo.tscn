@@ -16,7 +16,7 @@ script = ExtResource("1_pa6u1")
 offset_left = -2.0
 offset_top = 442.0
 offset_right = 277.0
-offset_bottom = 650.0
+offset_bottom = 751.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_34w8g")
 
 [node name="WoodTexture" type="TextureRect" parent="TileInfoPanel"]
@@ -42,79 +42,78 @@ vertical_alignment = 1
 
 [node name="_TileOwner" type="Label" parent="TileInfoPanel"]
 layout_mode = 0
-offset_left = 39.0
-offset_top = 49.0
-offset_right = 96.0
-offset_bottom = 72.0
+offset_left = 19.0
+offset_top = 37.0
+offset_right = 76.0
+offset_bottom = 60.0
 text = "Owner:"
 
 [node name="TileOwner" type="Label" parent="TileInfoPanel"]
 layout_mode = 0
-offset_left = 114.0
-offset_top = 49.0
-offset_right = 246.0
-offset_bottom = 72.0
+offset_left = 94.0
+offset_top = 37.0
+offset_right = 226.0
+offset_bottom = 60.0
 text = "-"
-horizontal_alignment = 1
 clip_text = true
-
-[node name="_TileLevel" type="Label" parent="TileInfoPanel"]
-layout_mode = 0
-offset_left = 38.0
-offset_top = 159.0
-offset_right = 95.0
-offset_bottom = 182.0
-text = "Level:"
-
-[node name="TileLevel" type="Label" parent="TileInfoPanel"]
-layout_mode = 0
-offset_left = 115.0
-offset_top = 160.0
-offset_right = 172.0
-offset_bottom = 183.0
-text = "-"
 
 [node name="_TileStat" type="Label" parent="TileInfoPanel"]
 layout_mode = 0
-offset_left = 40.0
-offset_top = 77.0
-offset_right = 97.0
-offset_bottom = 100.0
+offset_left = 22.0
+offset_top = 57.0
+offset_right = 79.0
+offset_bottom = 80.0
 text = "Stat:"
 
 [node name="TileStat" type="Label" parent="TileInfoPanel"]
 layout_mode = 0
-offset_left = 114.0
-offset_top = 77.0
-offset_right = 171.0
-offset_bottom = 100.0
+offset_left = 94.0
+offset_top = 57.0
+offset_right = 151.0
+offset_bottom = 80.0
 text = "-"
 
 [node name="TileStatModifier" type="Label" parent="TileInfoPanel"]
 layout_mode = 0
-offset_left = 114.0
-offset_top = 102.0
-offset_right = 171.0
-offset_bottom = 125.0
+offset_left = 95.0
+offset_top = 76.0
+offset_right = 152.0
+offset_bottom = 99.0
 text = "-"
 
 [node name="_Coordinates" type="Label" parent="TileInfoPanel"]
 layout_mode = 0
-offset_left = 39.0
-offset_top = 122.0
-offset_right = 106.0
-offset_bottom = 145.0
+offset_left = 19.0
+offset_top = 96.0
+offset_right = 86.0
+offset_bottom = 119.0
 text = "Position:"
 
 [node name="CoordinateTracker" type="Label" parent="TileInfoPanel"]
 layout_mode = 0
-offset_left = 112.0
-offset_top = 125.0
-offset_right = 179.0
-offset_bottom = 148.0
+offset_left = 93.0
+offset_top = 95.0
+offset_right = 160.0
+offset_bottom = 118.0
 text = "(-,-)"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="_TileLevel" type="Label" parent="TileInfoPanel"]
+layout_mode = 0
+offset_left = 19.0
+offset_top = 117.0
+offset_right = 76.0
+offset_bottom = 140.0
+text = "Level:"
+
+[node name="TileLevel" type="Label" parent="TileInfoPanel"]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 118.0
+offset_right = 153.0
+offset_bottom = 141.0
+text = "-"
 
 [node name="TextureRect" type="TextureRect" parent="TileInfoPanel"]
 layout_mode = 0
@@ -125,3 +124,20 @@ offset_bottom = 122.0
 texture = ExtResource("2_jgbim")
 expand_mode = 1
 flip_h = true
+
+[node name="OwnerActions" type="Control" parent="TileInfoPanel"]
+anchors_preset = 0
+offset_left = 23.0
+offset_top = 204.0
+offset_right = 275.0
+offset_bottom = 296.0
+
+[node name="UpgradeButton" type="Button" parent="TileInfoPanel/OwnerActions"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 13.0
+offset_right = 253.0
+offset_bottom = 44.0
+text = "Upgrade"
+
+[connection signal="pressed" from="TileInfoPanel/OwnerActions/UpgradeButton" to="." method="_on_upgrade_button_pressed"]

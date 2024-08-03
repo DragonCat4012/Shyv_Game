@@ -1,8 +1,8 @@
 extends Node
 
 # BUILDINGTILES
-func BuildingTile_to_JSON(tile: BuildingTiles) -> String: # TODO: stringify Building
-	var dict = {"ownedByNationID": tile.ownedByNationID, "coords": { "x": tile.coords.x, "y": tile.coords.y}, "building": BUILDINGMODEL_to_JSON(tile.building)}
+func BuildingTile_to_JSON(tile: BuildingTiles) -> String:
+	var dict = {"ownedByNationID": tile.ownedByNationID, "coords": {"x": tile.coords.x, "y": tile.coords.y}, "building": BUILDINGMODEL_to_JSON(tile.building)}
 	return JSON.stringify(dict)
 
 func BuildingTiles_from_JSON(jsonString: String) -> BuildingTiles:
@@ -15,7 +15,6 @@ func BuildingTiles_from_JSON(jsonString: String) -> BuildingTiles:
 	tile.coords = Vector2(dict["coords"]["x"], dict["coords"]["y"])
 	tile.building = BUILDINGMODEL_from_JSON(dict["building"])
 	return tile
-	
 	
 	
 # NATIONS
@@ -35,7 +34,6 @@ func NationModel_from_JSON(jsonString: String) -> NationModel:
 	nation.building_tile_row = dict["building_tile_row"]
 	nation.assignedID = dict["assignedID"]
 	return nation
-
 
 
 const ARRAY_DIVIDER_IN_JSON_DONT_ASK = "xoxoILoveYouxoxo" # TODO: chekc that its not in nation name or description, in genral chekc for escaping cnhars
@@ -66,9 +64,6 @@ func nations_from_JSON(jsonString: String) -> Array[NationModel]:
 func nations_to_JSON(nations: Array[NationModel]) -> String:
 	var mappedArray = nations.map(func(nat): return NationModel_to_JSON(nat))
 	return ARRAY_DIVIDER_IN_JSON_DONT_ASK.join(mappedArray)
-
-
-
 
 
 func BUILDINGMODEL_from_JSON(jsonString) -> BuildingModel:
