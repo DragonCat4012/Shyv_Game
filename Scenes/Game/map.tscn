@@ -290,6 +290,7 @@ offset_right = 41.0
 offset_bottom = 41.0
 
 [node name="TextureRect" type="TextureRect" parent="Camera2D/Control/MapOverlayBorders"]
+layout_mode = 0
 offset_left = 3.0
 offset_top = 3.0
 offset_right = 405.0
@@ -299,6 +300,7 @@ texture = ExtResource("4_0ip84")
 stretch_mode = 4
 
 [node name="TextureRect2" type="TextureRect" parent="Camera2D/Control/MapOverlayBorders"]
+layout_mode = 0
 offset_left = 116.0
 offset_top = 58.0
 offset_right = 518.0

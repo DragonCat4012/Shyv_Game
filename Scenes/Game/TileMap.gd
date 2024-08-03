@@ -62,6 +62,9 @@ func update_tile_buildings():
 		
 # SELECTION
 func select_tile(tilePos: Vector2):
+	for n in _get_neighbours(tilePos):
+		set_cell(layerSelect, n, source_id, select_atlas+Vector2i(1,0))
+	
 	set_cell(layerSelect, tilePos, source_id, select_atlas)
 
 func get_building_atlas_coordinates(tilePos: Vector2):
@@ -90,8 +93,18 @@ func generate_world():
 				var touchesLand = false
 				var neighbors = [Vector2(2*x+1, 2*y), Vector2(2*x, 2*y+1), Vector2(2*x-1, 2*y),Vector2(2*x, 2*y-1),
 				Vector2(2*x-1, 2*y-1),Vector2(2*x+1, 2*y-1),Vector2(2*x+1, 2*y+1),Vector2(2*x-1, 2*y+1)]
+			
 				for n in neighbors:
 					if noise.get_noise_2d(n.x, n.y) >= 0:
 						touchesLand = true
+					elif noise.get_noise_2d(n.x, n.y) >= -0.08:
+						touchesLand = true
 				if touchesLand:
 					set_cell(layerTerrain, Vector2(x,y), source_id, water_atlas_light)
+
+func _get_neighbours(tilePos):
+	var sides = [0, 2, 6, 8, 10, 14]
+	var neighbors = []
+	for index in sides:
+		neighbors.append(get_neighbor_cell(tilePos, index))
+	return neighbors
