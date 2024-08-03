@@ -39,16 +39,18 @@ func _style_selected_tile_info(pos: Vector2):
 	if GamManager.ownNation: # host doesnt have nation
 		if nation.assignedID == GamManager.ownNation.assignedID: # own tile
 			selected_tile = GamManager.get_buildTile_from_pos(selected_tile_position)
-			if selected_tile:
-				if selected_tile.building.currentLevel == 5:
-					upgrade_button.disabled = true
-				else: 
+			if selected_tile: # Owner Actions
+				if GamManager.currentPhase == 2:
+					if selected_tile.building.currentLevel == 5:
+						upgrade_button.disabled = true
+					else: 
+						upgrade_button.disabled = false
+				else:
 					upgrade_button.disabled = false
 			panel.position.y = y_position_action
 			owner_actions.visible = true
 		else:
 			panel.position.y = y_position_no_action
-		
 		
 	tile_owner.add_theme_color_override("font_color", nation.color)	
 	

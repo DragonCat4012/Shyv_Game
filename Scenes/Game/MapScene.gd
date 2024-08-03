@@ -58,9 +58,15 @@ func _on_control_gui_input(_event):
 	if Input.is_action_just_released("left_click"):
 		tile_map.local_to_map(to_local(get_global_mouse_position()))
 		_select_tile(get_global_mouse_position())
+	if Input.is_action_just_released("right_click"): # undo selection if there is one
+		if tile_map.oldSeelctedTile:
+			_select_tile_local(tile_map.oldSeelctedTile)
 				
 func _select_tile(global: Vector2):
 	var tilePos = tile_map.local_to_map(to_local(global))
+	_select_tile_local(tilePos)
+	
+func _select_tile_local(tilePos: Vector2):
 	tile_map.clear_layer(tile_map.layerSelect) # clear previous selection
 
 	if tilePos == tile_map.oldSeelctedTile:
@@ -74,7 +80,7 @@ func _select_tile(global: Vector2):
 	tile_map.select_tile(tilePos)
 	tile_map.oldSeelctedTile = tilePos
 	tile_info_panel._style_selected_tile_info(tilePos)
-		
+	
 func _toggle_tile_info_visibillity(on, atlasOwner=Vector2i(-1,-1)):
 	tile_info_panel.visible = on
 
