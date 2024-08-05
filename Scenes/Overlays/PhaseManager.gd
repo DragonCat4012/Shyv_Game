@@ -36,11 +36,13 @@ func update_phase(_phase):
 	
 @rpc("authority", "reliable") 
 func on_phase_update(phase):
+	if phase == 1 and GamManager.currentPhase == 4: # new cycle
+		GamManager.phaseCount += 1
+		
 	GamManager.currentPhase = phase
 	EventSystem.PHASE_UPDATED.emit(phase)
 	GamManager.hasEndedTurn = false
 	GamManager.endedTurnNations = []
-	
 
 # NOTE: Events
 @rpc("authority", "reliable") 

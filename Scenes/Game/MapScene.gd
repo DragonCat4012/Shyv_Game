@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var peer_id =$Camera2D/Control/NameBox/PeerID
 @onready var name_box = $Camera2D/Control/NameBox
+@onready var phase_count = $Camera2D/Control/NameBox/PhaseCount
 
 # Tile Info
 @onready var tile_info_panel = $Camera2D/Control/TileInfo
@@ -31,7 +32,7 @@ func _ready():
 		peer_id.text = GamManager.ownNation.name
 		peer_id.add_theme_color_override("font_color", GamManager.ownNation.color)	
 	if GamManager.isHost:
-		name_box.visible = false
+		peer_id.visible = false
 		
 	# Default hide
 	event_options_scene.visible = false
@@ -86,6 +87,7 @@ func _toggle_tile_info_visibillity(on, atlasOwner=Vector2i(-1,-1)):
 
 func _on_update_game_phase(phase: int):
 	game_phases_scene.update_to_phase(phase)
+	phase_count.text = str(GamManager.phaseCount)
 	
 	if phase == 1: # Handle event selection
 		turn_view._toggle_disabeld(true)

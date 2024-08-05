@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://7j7no5evfsjn"]
+[gd_scene load_steps=20 format=3 uid="uid://7j7no5evfsjn"]
 
 [ext_resource type="Script" path="res://Scenes/Game/MapScene.gd" id="1_jltnr"]
 [ext_resource type="TileSet" uid="uid://cbyt82wxj56is" path="res://Graphics/map_mini.tres" id="2_qsvb2"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://dgtgp651xlux" path="res://Graphics/Overlays/title.png" id="8_lbnwj"]
 [ext_resource type="Script" path="res://Scenes/Game/Minimap.gd" id="11_u4x2y"]
 [ext_resource type="PackedScene" uid="uid://wkjaytqbg2uo" path="res://Scenes/Overlays/TileInfo.tscn" id="14_upk7o"]
+[ext_resource type="Texture2D" uid="uid://ctotlm6n3l6c7" path="res://Graphics/Overlays/header.png" id="15_qsulq"]
 
 [sub_resource type="Gradient" id="Gradient_6mp1p"]
 interpolation_mode = 1
@@ -64,13 +65,20 @@ offset_top = -325.0
 offset_right = 578.0
 offset_bottom = 324.0
 
-[node name="EventOptions" parent="Camera2D/Control" instance=ExtResource("4_6jsjd")]
-visible = false
-layout_mode = 0
+[node name="Header" type="Control" parent="Camera2D/Control"]
+anchors_preset = 0
+offset_top = 7.0
+offset_right = 40.0
+offset_bottom = 47.0
 
-[node name="EventDialogueScene" parent="Camera2D/Control" instance=ExtResource("5_ab5be")]
-visible = false
-layout_mode = 1
+[node name="TextureRect" type="TextureRect" parent="Camera2D/Control/Header"]
+layout_mode = 0
+offset_top = -9.0
+offset_right = 1726.0
+offset_bottom = 82.0
+scale = Vector2(0.666793, 0.666793)
+texture = ExtResource("15_qsulq")
+stretch_mode = 4
 
 [node name="GamePhasesScene" parent="Camera2D/Control" instance=ExtResource("4_v3vhx")]
 position = Vector2(860, 494)
@@ -98,13 +106,27 @@ expand_mode = 1
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_left = 112.0
-offset_top = -18.0
-offset_right = -32.0
-offset_bottom = 5.0
+offset_left = -218.0
+offset_top = -558.0
+offset_right = -429.0
+offset_bottom = -542.0
 grow_horizontal = 2
+theme_override_font_sizes/font_size = 8
 text = "-1"
-horizontal_alignment = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PhaseCount" type="Label" parent="Camera2D/Control/NameBox"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = -219.0
+offset_top = -591.0
+offset_right = -432.0
+offset_bottom = -568.0
+grow_horizontal = 2
+text = "0"
+horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="PlayerListScene" parent="Camera2D/Control" instance=ExtResource("5_u20ln")]
@@ -121,10 +143,10 @@ offset_bottom = 172.0
 text = "i"
 
 [node name="TurnView" parent="Camera2D/Control" instance=ExtResource("6_nh4wk")]
-offset_left = 210.0
-offset_top = 12.0
-offset_right = 210.0
-offset_bottom = 12.0
+offset_left = 9.0
+offset_top = 180.0
+offset_right = 9.0
+offset_bottom = 180.0
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="Camera2D/Control"]
 layout_mode = 0
@@ -194,6 +216,14 @@ flip_h = true
 flip_v = true
 
 [node name="TileInfo" parent="Camera2D/Control" instance=ExtResource("14_upk7o")]
+
+[node name="EventOptions" parent="Camera2D/Control" instance=ExtResource("4_6jsjd")]
+visible = false
+layout_mode = 0
+
+[node name="EventDialogueScene" parent="Camera2D/Control" instance=ExtResource("5_ab5be")]
+visible = false
+layout_mode = 1
 
 [connection signal="gui_input" from="Camera2D/Control" to="." method="_on_control_gui_input"]
 [connection signal="pressed" from="Camera2D/Control/PlayerListButton" to="." method="_on_player_list_button_pressed"]

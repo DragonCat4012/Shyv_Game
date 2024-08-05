@@ -25,6 +25,7 @@ func _style_selected_tile_info(pos: Vector2):
 	selected_tile_position = pos
 	selected_tile = null
 	owner_actions.visible = false
+	upgrade_button.disabled = true
 	
 	var nation = GamManager.get_nation_to_tile(pos)
 	var building = GamManager.get_buildTile_from_pos(pos)
@@ -41,12 +42,8 @@ func _style_selected_tile_info(pos: Vector2):
 			selected_tile = GamManager.get_buildTile_from_pos(selected_tile_position)
 			if selected_tile: # Owner Actions
 				if GamManager.currentPhase == 2:
-					if selected_tile.building.currentLevel == 5:
-						upgrade_button.disabled = true
-					else: 
+					if selected_tile.building.currentLevel != 5:
 						upgrade_button.disabled = false
-				else:
-					upgrade_button.disabled = false
 			panel.position.y = y_position_action
 			owner_actions.visible = true
 		else:
