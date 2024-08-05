@@ -1,5 +1,7 @@
 extends Node
 
+signal PRINTLINE(str)
+
 var network = ENetMultiplayerPeer.new()
 var port = 9999
 
@@ -17,6 +19,8 @@ func start_server():
 	network.create_server(port, 100)
 	multiplayer.multiplayer_peer = network
 	get_tree().set_multiplayer(multiplayer)
+	await get_tree().create_timer(1).timeout
+	PRINTLINE.emit("Start Server")
 	print("Server started at ", IP.resolve_hostname(str(OS.get_environment("COMPUTERNAME")), 1))
 
 func _peer_connected(player_id):
