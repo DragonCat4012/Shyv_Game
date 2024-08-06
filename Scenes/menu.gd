@@ -1,7 +1,8 @@
 extends Node2D
 @onready var version_label = $VersionLabel
 @onready var v_box_container = $VBoxContainer
-@onready var texture_rect = $TextureRect
+@onready var animation_player = $cycle/AnimationPlayer
+
 
 var isLoading = false 
 
@@ -28,6 +29,7 @@ func _ready():
 	EventSystem.LOBBY_JOINED.connect(_change_to_peer_view)
 	EventSystem.START_CONNECTING.connect(_update_loading_status.bind(true))
 	EventSystem.STOP_CONNECTING.connect(_update_loading_status.bind(false))
+	animation_player.play("cycle_loop")
 	
 var lastDisabled = false
 func _process(_delta):
@@ -43,7 +45,6 @@ func _process(_delta):
 			continue
 		child.disabled = disabled
 	lastDisabled = disabled
-	texture_rect.material.set_shader_parameter("dir", deg_to_rad(50))
 	
 func _on_join_button_pressed():
 	GamManager._request_lobbies()

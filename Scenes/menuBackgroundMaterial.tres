@@ -6,3 +6,4 @@
 shader = ExtResource("1_lpv18")
 shader_parameter/north = null
 shader_parameter/dir = 0.0
+shader_parameter/speedDivide = 160.0

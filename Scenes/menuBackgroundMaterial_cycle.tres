@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://l5ojp7tkprur"]
+
+[ext_resource type="Shader" path="res://Scenes/menuBackground_cycle.gdshader" id="1_8ecny"]
+
+[resource]
+shader = ExtResource("1_8ecny")
+shader_parameter/north = null
+shader_parameter/dir = 0.0
+shader_parameter/speedDivide = 160.0

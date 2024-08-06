@@ -1,20 +1,102 @@
-[gd_scene load_steps=5 format=3 uid="uid://dvjmwb8ginuna"]
+[gd_scene load_steps=12 format=3 uid="uid://dvjmwb8ginuna"]
 
 [ext_resource type="Script" path="res://Scenes/menu.gd" id="1_0ar7g"]
+[ext_resource type="Material" uid="uid://kwq2jtopd37o" path="res://Scenes/menuBackgroundMaterial_clouds.tres" id="2_6buf8"]
 [ext_resource type="Theme" uid="uid://41ggext22ekn" path="res://Graphics/Themes/primaryTheme.tres" id="2_11svc"]
-[ext_resource type="Material" uid="uid://c8f3bpbraylal" path="res://Scenes/menuBackgroundMaterial.tres" id="2_busyp"]
-[ext_resource type="Texture2D" uid="uid://dy1w6euu3u522" path="res://Graphics/Themes/menuBackground.JPG" id="5_kyjrl"]
+[ext_resource type="Texture2D" uid="uid://bxh0nuv0x7777" path="res://Graphics/Themes/background.PNG" id="3_wg8sh"]
+[ext_resource type="Material" uid="uid://l5ojp7tkprur" path="res://Scenes/menuBackgroundMaterial_cycle.tres" id="4_rstq8"]
+[ext_resource type="Texture2D" uid="uid://b207oqh52wc7y" path="res://Graphics/Themes/cycle.PNG" id="4_vu17x"]
+[ext_resource type="Texture2D" uid="uid://d0e1rc4n4ekcj" path="res://Graphics/Themes/clouds.PNG" id="5_gup7u"]
+[ext_resource type="Texture2D" uid="uid://douf7p5ilxy5a" path="res://Graphics/Themes/buildings.PNG" id="7_firij"]
+
+[sub_resource type="Animation" id="Animation_f4xqr"]
+resource_name = "cycle_loop"
+length = 80.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 78.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-6.28319, 3.14159]
+}
+
+[sub_resource type="Animation" id="Animation_spgml"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-6.28319]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2mf5f"]
+_data = {
+"RESET": SubResource("Animation_spgml"),
+"cycle_loop": SubResource("Animation_f4xqr")
+}
 
 [node name="Menu" type="Node2D"]
 script = ExtResource("1_0ar7g")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="background" type="TextureRect" parent="."]
 texture_repeat = 2
-material = ExtResource("2_busyp")
+material = ExtResource("2_6buf8")
 offset_right = 8151.0
 offset_bottom = 1668.0
 scale = Vector2(0.393823, 0.39234)
-texture = ExtResource("5_kyjrl")
+texture = ExtResource("3_wg8sh")
+
+[node name="cycle" type="TextureRect" parent="."]
+texture_repeat = 2
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1158.0
+offset_top = -509.0
+offset_right = 2342.0
+offset_bottom = 1159.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -6.28319
+scale = Vector2(0.342219, 0.340931)
+pivot_offset = Vector2(1732.41, 841.13)
+texture = ExtResource("4_vu17x")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="cycle"]
+libraries = {
+"": SubResource("AnimationLibrary_2mf5f")
+}
+
+[node name="clouds" type="TextureRect" parent="."]
+texture_repeat = 2
+material = ExtResource("2_6buf8")
+offset_left = -59.0
+offset_right = 8092.0
+offset_bottom = 1668.0
+scale = Vector2(0.393823, 0.39234)
+texture = ExtResource("5_gup7u")
+
+[node name="buildings" type="TextureRect" parent="."]
+texture_repeat = 2
+material = ExtResource("4_rstq8")
+offset_right = 8151.0
+offset_bottom = 1668.0
+scale = Vector2(0.393823, 0.39234)
+texture = ExtResource("7_firij")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 offset_left = 256.0

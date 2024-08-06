@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://kwq2jtopd37o"]
+
+[ext_resource type="Shader" path="res://Scenes/menuBackground_cloud.gdshader" id="1_4rq60"]
+
+[resource]
+shader = ExtResource("1_4rq60")
+shader_parameter/north = null
+shader_parameter/dir = 0.0
