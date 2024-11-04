@@ -23,33 +23,29 @@ func _ready():
 		select()
 	
 func select():
-	color_rect.hide()
-	color_rect_2.show()
-	texture_rect.show()
-	color_rect_3.hide()
+	texture_rect.modulate = Color("8e75ef")
+	indicator.show()
 
 func deselect():
-	color_rect.show()
-	color_rect_2.hide()
-	texture_rect.hide()
-	color_rect_3.hide()
+	texture_rect.modulate = Color.WHITE
+	indicator.hide()
 	
 func _handle_selected_perk(selectedid):
 	if selectedid != id:
 		deselect()
 
-func _on_color_rect_gui_input(event):
+func _handle_unready():
+	isDisabled = false
+
+func _handle_ready():
+	isDisabled = true
+
+
+func _on_gui_input2(event):
 	if isDisabled:
 		return
 		
 	if Input.is_action_just_released("left_click"):
+		print(isDisabled)
 		EventSystem.PERK_SELECTED.emit(id)
 		select()
-
-func _handle_unready():
-	isDisabled = false
-	color_rect_3.hide()
-
-func _handle_ready():
-	isDisabled = true
-	color_rect_3.show()

@@ -15,7 +15,6 @@ var nation = RessourceManager.LOADED_NATION_MODEL.new()
 @onready var color_picker = $CreateNation/colorPicker
 @onready var leader_name = $CreateNation/Leader/leaderName
 @onready var leader_back = $CreateNation/Leader/leaderBack
-@onready var perks = $CreateNation/Perks
 
 func _ready():
 	color_picker.color = nation.color
@@ -89,7 +88,7 @@ func _on_nation_name_text_changed(new_text):
 func _on_color_picker_color_changed(color):
 	nation.color = color_picker.color
 
-func _on_leader_name_text_submitted(new_text):
+func _on_leader_name_text_submitted(_new_text):
 	leader_name.release_focus()
 
 func _on_leader_name_text_changed(new_text):
@@ -99,7 +98,7 @@ func _on_text_input_changed(new_text, extra_arg_0):
 	if extra_arg_0 == "leaderBack":
 		leader_back = new_text
 
-func _on_text_input_submitted(new_text, extra_arg_0):
+func _on_text_input_submitted(_new_text, extra_arg_0):
 	if extra_arg_0 == "leaderBack":
 		leader_back.release_focus()
 
