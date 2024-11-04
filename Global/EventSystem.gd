@@ -9,6 +9,9 @@ signal LOBBY_CLOSED
 signal START_CONNECTING
 signal STOP_CONNECTING
 
+# Lobby Perks
+signal PERK_SELECTED(id)
+
 # Host
 signal PHASE_UPDATED(phase)
 signal EVENT_SELECTED(name)

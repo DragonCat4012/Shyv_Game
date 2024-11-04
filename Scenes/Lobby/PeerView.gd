@@ -9,15 +9,20 @@ extends Node2D
 @onready var nation_descript = $CreateNation/nationDescript
 var isReady = false
 
-
 # Create Nation
 var nation = RessourceManager.LOADED_NATION_MODEL.new()
 @onready var nation_name = $CreateNation/nationName
 @onready var color_picker = $CreateNation/colorPicker
+@onready var leader_name = $CreateNation/Leader/leaderName
+@onready var leader_back = $CreateNation/Leader/leaderBack
+@onready var perks = $CreateNation/Perks
 
 func _ready():
 	color_picker.color = nation.color
 	nation_name.text = nation.name
+	leader_name.text = nation.leaderName
+	leader_back.text = nation.leaderBackStory
+	EventSystem.PERK_SELECTED.connect(_handle_selected_perk)
 
 func _process(_delta):
 	if !GamManager.connected:
@@ -66,6 +71,12 @@ func _update_ready_button(toReady):
 	color_picker.disabled = isReady
 	nation_name.editable = !isReady
 	nation_descript.editable = !isReady
+	leader_name.editable = !isReady
+	leader_back.editable = !isReady
+	if isReady:
+		perks.set_process_input(false)
+	else:
+		perks.set_process_input(true)
 
 func _exitScene():
 	get_tree().change_scene_to_file(SceneManager.MENUSCENE)
@@ -79,3 +90,21 @@ func _on_nation_name_text_changed(new_text):
 	
 func _on_color_picker_color_changed(color):
 	nation.color = color_picker.color
+
+func _on_leader_name_text_submitted(new_text):
+	leader_name.release_focus()
+
+func _on_leader_name_text_changed(new_text):
+	nation.leaderName = new_text
+
+func _on_text_input_changed(new_text, extra_arg_0):
+	if extra_arg_0 == "leaderBack":
+		leader_back = new_text
+
+func _on_text_input_submitted(new_text, extra_arg_0):
+	if extra_arg_0 == "leaderBack":
+		leader_back.release_focus()
+
+func _handle_selected_perk(id):
+	pass
+	# TODO: save to nation

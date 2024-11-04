@@ -1,0 +1,46 @@
+[gd_scene load_steps=3 format=3 uid="uid://lgr27c0g4f5q"]
+
+[ext_resource type="Script" path="res://Scenes/Lobby/Nodes/PerkSelection.gd" id="1_pvod4"]
+[ext_resource type="Texture2D" uid="uid://d0pv0vwviw82b" path="res://Scenes/Lobby/Nodes/triangle_PNG82-2380705938.png" id="2_67b38"]
+
+[node name="PerkSelection" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_pvod4")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.26673, 0.149282, 0.374922, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.0355551, 0.226348, 0.368002, 1)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 27.0
+offset_right = 2006.0
+offset_bottom = 1805.0
+scale = Vector2(0.0133084, 0.0133084)
+texture = ExtResource("2_67b38")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_top = 8.0
+offset_right = 40.0
+offset_bottom = 31.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "-1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="gui_input" from="ColorRect" to="." method="_on_color_rect_gui_input"]

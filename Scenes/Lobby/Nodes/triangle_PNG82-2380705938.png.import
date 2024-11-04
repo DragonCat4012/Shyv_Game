@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dy1w6euu3u522"
-path="res://.godot/imported/menuBackground.JPG-801ec6ba9489713466342689a0f00d4f.ctex"
+uid="uid://d0pv0vwviw82b"
+path="res://.godot/imported/triangle_PNG82-2380705938.png-21c48efa5c4291c68a559eacf8dc4635.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Graphics/Themes/menuBackground.JPG"
-dest_files=["res://.godot/imported/menuBackground.JPG-801ec6ba9489713466342689a0f00d4f.ctex"]
+source_file="res://Scenes/Lobby/Nodes/triangle_PNG82-2380705938.png"
+dest_files=["res://.godot/imported/triangle_PNG82-2380705938.png-21c48efa5c4291c68a559eacf8dc4635.ctex"]
 
 [params]
 

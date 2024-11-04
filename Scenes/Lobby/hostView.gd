@@ -24,6 +24,9 @@ func _process(_delta):
 			
 			e.add_theme_color_override("font_color", player_nation.color)
 			e.text = player_nation.name + " [" + str(id) +"]"
+			if not player_nation.leaderName.is_empty():
+				e.text = player_nation.name + " [" + player_nation.leaderName +"]"
+			
 			
 		v_box_container.add_child(e)
 	

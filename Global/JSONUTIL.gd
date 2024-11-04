@@ -19,7 +19,10 @@ func BuildingTiles_from_JSON(jsonString: String) -> BuildingTiles:
 	
 # NATIONS
 func NationModel_to_JSON(nation: NationModel) -> String:
-	var dict = {"name": nation.name, "assignedID": nation.assignedID, "description": nation.description, "color": var_to_str(nation.color), "building_tile_row": nation.building_tile_row}
+	var dict = {"name": nation.name, "assignedID": nation.assignedID, 
+	"description": nation.description, "color": var_to_str(nation.color),
+	"leaderName": nation.leaderName, "leaderBackStory": nation.leaderBackStory,
+	 "building_tile_row": nation.building_tile_row}
 	return JSON.stringify(dict)
 	
 func NationModel_from_JSON(jsonString: String) -> NationModel:
@@ -33,6 +36,9 @@ func NationModel_from_JSON(jsonString: String) -> NationModel:
 	nation.color = str_to_var(dict["color"])
 	nation.building_tile_row = dict["building_tile_row"]
 	nation.assignedID = dict["assignedID"]
+	
+	nation.leaderName = dict["leaderName"]
+	nation.leaderBackStory = dict["leaderBackStory"]
 	return nation
 
 

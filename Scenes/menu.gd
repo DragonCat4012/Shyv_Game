@@ -4,7 +4,7 @@ extends Node2D
 @onready var animation_player = $cycle/AnimationPlayer
 
 
-var isLoading = false 
+var isLoading = false
 
 func _ready():
 	# load server info 
@@ -23,7 +23,6 @@ func _ready():
 	var version = file.get_as_text()
 	file.close()
 	version_label.text = version
-	print("connect")
 	
 	GamManager._connect_to_server()
 	EventSystem.LOBBY_JOINED.connect(_change_to_peer_view)

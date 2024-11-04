@@ -30,5 +30,10 @@ Multipeer Tile Game
 # Requierements
 Godot v4.2.0
 
+# Exporting 
+In Builds Folder
+## Server
+```godot --export-release "Linux/X11" ../Builds/ShyvServer --headless```
+
 # Assets 
 [Rubik Font](https://fonts.google.com/specimen/Rubik/about)
