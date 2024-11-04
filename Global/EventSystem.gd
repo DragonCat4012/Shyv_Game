@@ -11,6 +11,8 @@ signal STOP_CONNECTING
 
 # Lobby Perks
 signal PERK_SELECTED(id)
+signal READY_SENT
+signal UNREADY_SENT
 
 # Host
 signal PHASE_UPDATED(phase)

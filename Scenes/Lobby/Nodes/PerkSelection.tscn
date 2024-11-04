@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://lgr27c0g4f5q"]
+[gd_scene load_steps=4 format=3 uid="uid://lgr27c0g4f5q"]
 
 [ext_resource type="Script" path="res://Scenes/Lobby/Nodes/PerkSelection.gd" id="1_pvod4"]
 [ext_resource type="Texture2D" uid="uid://d0pv0vwviw82b" path="res://Scenes/Lobby/Nodes/triangle_PNG82-2380705938.png" id="2_67b38"]
+[ext_resource type="Texture2D" uid="uid://b25ds32fw6lo1" path="res://Scenes/Lobby/Nodes/perk_border.PNG" id="2_k3uu1"]
 
 [node name="PerkSelection" type="Control"]
 layout_mode = 3
@@ -16,12 +17,14 @@ script = ExtResource("1_pvod4")
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+scale = Vector2(1.45842, 1.45842)
 color = Color(0.26673, 0.149282, 0.374922, 1)
 
 [node name="ColorRect2" type="ColorRect" parent="."]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+scale = Vector2(1.45821, 1.45821)
 color = Color(0.0355551, 0.226348, 0.368002, 1)
 
 [node name="ColorRect3" type="ColorRect" parent="."]
@@ -31,22 +34,33 @@ offset_bottom = 40.0
 color = Color(0.145783, 0.139845, 0.129413, 1)
 
 [node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0.557712, 0.460109, 0.935307, 1)
 layout_mode = 0
-offset_left = 6.0
-offset_top = 27.0
-offset_right = 2006.0
-offset_bottom = 1805.0
-scale = Vector2(0.0133084, 0.0133084)
-texture = ExtResource("2_67b38")
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 3154.0
+offset_bottom = 3154.0
+scale = Vector2(0.0198479, 0.0198479)
+texture = ExtResource("2_k3uu1")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
-offset_top = 8.0
+offset_top = 11.0
 offset_right = 40.0
-offset_bottom = 31.0
+offset_bottom = 34.0
+scale = Vector2(1.44976, 1.44976)
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "-1"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Indicator" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 41.0
+offset_right = 2015.0
+offset_bottom = 1819.0
+scale = Vector2(0.0157864, 0.0157514)
+texture = ExtResource("2_67b38")
 
 [connection signal="gui_input" from="ColorRect" to="." method="_on_color_rect_gui_input"]

@@ -182,49 +182,49 @@ offset_bottom = 40.0
 
 [node name="PerkSelection" parent="CreateNation/Perks" instance=ExtResource("3_3668j")]
 layout_mode = 1
-offset_left = 391.0
-offset_top = 522.0
-offset_right = 391.0
-offset_bottom = 522.0
+offset_left = 346.0
+offset_top = 489.0
+offset_right = 346.0
+offset_bottom = 489.0
 
 [node name="PerkSelection2" parent="CreateNation/Perks" instance=ExtResource("3_3668j")]
 layout_mode = 1
-offset_left = 440.0
-offset_top = 522.0
-offset_right = 440.0
-offset_bottom = 522.0
+offset_left = 411.0
+offset_top = 489.0
+offset_right = 411.0
+offset_bottom = 489.0
 id = 2
 
 [node name="PerkSelection3" parent="CreateNation/Perks" instance=ExtResource("3_3668j")]
 layout_mode = 1
-offset_left = 489.0
-offset_top = 522.0
-offset_right = 489.0
-offset_bottom = 522.0
+offset_left = 475.0
+offset_top = 490.0
+offset_right = 475.0
+offset_bottom = 490.0
 id = 3
 
 [node name="PerkSelection4" parent="CreateNation/Perks" instance=ExtResource("3_3668j")]
 layout_mode = 1
-offset_left = 538.0
-offset_top = 522.0
-offset_right = 538.0
-offset_bottom = 522.0
+offset_left = 539.0
+offset_top = 490.0
+offset_right = 539.0
+offset_bottom = 490.0
 id = 4
 
 [node name="PerkSelection5" parent="CreateNation/Perks" instance=ExtResource("3_3668j")]
 layout_mode = 1
-offset_left = 588.0
-offset_top = 523.0
-offset_right = 588.0
-offset_bottom = 523.0
+offset_left = 604.0
+offset_top = 491.0
+offset_right = 604.0
+offset_bottom = 491.0
 id = 5
 
 [node name="PerkSelection6" parent="CreateNation/Perks" instance=ExtResource("3_3668j")]
 layout_mode = 1
-offset_left = 637.0
-offset_top = 523.0
-offset_right = 637.0
-offset_bottom = 523.0
+offset_left = 668.0
+offset_top = 491.0
+offset_right = 668.0
+offset_bottom = 491.0
 id = 6
 
 [connection signal="text_submitted" from="nameField" to="." method="_on_line_edit_text_submitted"]
