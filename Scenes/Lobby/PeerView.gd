@@ -55,10 +55,12 @@ func _on_ready_button_pressed():
 		LobbyManager._publish_unready()
 		ready_button.theme = null
 		isReady = false
+		EventSystem.UNREADY_SENT.emit()
 	else: 
 		isReady = true
 		LobbyManager._publish_ready(nation)
 		ready_button.theme = RessourceManager.THEME_BUTTON_DELETE
+		EventSystem.READY_SENT.emit()
 
 func _on_exit_button_pressed():
 	_update_ready_button(false)
@@ -73,10 +75,6 @@ func _update_ready_button(toReady):
 	nation_descript.editable = !isReady
 	leader_name.editable = !isReady
 	leader_back.editable = !isReady
-	if isReady:
-		perks.set_process_input(false)
-	else:
-		perks.set_process_input(true)
 
 func _exitScene():
 	get_tree().change_scene_to_file(SceneManager.MENUSCENE)
