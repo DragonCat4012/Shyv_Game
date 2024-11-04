@@ -7,6 +7,7 @@ extends Control
 @onready var color_rect_3 = $ColorRect3
 @onready var label = $Label
 @onready var texture_rect = $TextureRect
+@onready var indicator = $Indicator
 
 var isDisabled = false
 
