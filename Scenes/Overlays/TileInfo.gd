@@ -42,7 +42,7 @@ func _style_selected_tile_info(pos: Vector2):
 			selected_tile = GamManager.get_buildTile_from_pos(selected_tile_position)
 			if selected_tile: # Owner Actions
 				if GamManager.currentPhase == 2:
-					if selected_tile.building.currentLevel != 5:
+					if selected_tile.building.currentLevel < 5:
 						upgrade_button.disabled = false
 			panel.position.y = y_position_action
 			owner_actions.visible = true
@@ -57,6 +57,7 @@ func _style_selected_tile_info(pos: Vector2):
 	tile_stat_modifier.text = str(snapped(building.building.randomBaseStatModifier,0.01))
 
 func _on_upgrade_button_pressed():
-	selected_tile.building.currentLevel += 1
-	tile_level.text = str(selected_tile.building.currentLevel) # ikikik not good xd
-	MapManager._send_tile_update(selected_tile)
+	if selected_tile.building.currentLevel < 5:
+		selected_tile.building.currentLevel += 1
+		tile_level.text = str(selected_tile.building.currentLevel) # ikikik not good xd
+		MapManager._send_tile_update(selected_tile)
