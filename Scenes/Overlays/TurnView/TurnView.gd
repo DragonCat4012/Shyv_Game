@@ -27,10 +27,14 @@ func _process(_delta):
 		next_phase_button.disabled = true
 		
 func _on_button_pressed():
+	if RessourceManager.isTestMap:
+		return
 	next_phase_button.focus_mode = FOCUS_NONE
 	PhaseManager._end_turn()
 
 func _on_next_phase_button_pressed():
+	if RessourceManager.isTestMap:
+		return
 	next_phase_button.focus_mode = FOCUS_NONE
 	PhaseManager._update_phase()
 

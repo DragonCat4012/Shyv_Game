@@ -46,17 +46,21 @@ func _process(_delta):
 	lastDisabled = disabled
 	
 func _on_join_button_pressed():
+	RessourceManager.isTestMap = false
 	GamManager._request_lobbies()
 	get_tree().change_scene_to_file(SceneManager.OPENGAMESSELECTION)
 	
 func _on_join_random_button_pressed():
+	RessourceManager.isTestMap = false
 	GamManager._on_join_pressed()
 
 func _on_host_button_pressed():
+	RessourceManager.isTestMap = false
 	GamManager._on_host_pressed()
 	get_tree().change_scene_to_file(SceneManager.HOSTSCENE)
 
 func _on_test_pressed():
+	RessourceManager.isTestMap = true
 	get_tree().change_scene_to_file(SceneManager.GAMESCENE)
 	
 func _update_loading_status(newIsLoading):
