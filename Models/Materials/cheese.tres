@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="MaterialModel" load_steps=2 format=3 uid="uid://cpj4tjb5kq334"]
+
+[ext_resource type="Script" path="res://Models/MaterialModel.gd" id="1_yys6k"]
+
+[resource]
+script = ExtResource("1_yys6k")
+name = "Cheese"
+description = "Nameless Description"

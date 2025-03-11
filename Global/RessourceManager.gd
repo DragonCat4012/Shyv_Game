@@ -8,3 +8,8 @@ var START_POSITIONS_GENERATOR = preload("res://Scenes/Game/StartPositionsGenerat
 var LOADED_NATION_MODEL = preload("res://Models/NationModel.gd")
 
 var isTestMap = false
+
+# Resources
+# Saved in array ordered
+var res_1 = preload("res://Models/Materials/cheese.tres")
+var res = [res_1]
