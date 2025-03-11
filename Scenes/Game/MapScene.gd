@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var peer_id =$Camera2D/Control/NameBox/PeerID
+@onready var peer_id = $Camera2D/Control/NameBox/PeerID
 @onready var name_box = $Camera2D/Control/NameBox
 @onready var phase_count = $Camera2D/Control/NameBox/PhaseCount
 
@@ -8,7 +8,7 @@ extends Node2D
 @onready var tile_info_panel = $Camera2D/Control/TileInfo
 
 @onready var camera_2d = $Camera2D
-@onready var tile_map : TileMap = $TileMap
+@onready var tile_map: TileMap = $TileMap
 
 # Overlays
 @onready var game_phases_scene = $Camera2D/Control/GamePhasesScene
@@ -30,7 +30,7 @@ func _ready():
 	
 	if GamManager.ownNation:
 		peer_id.text = GamManager.ownNation.name
-		peer_id.add_theme_color_override("font_color", GamManager.ownNation.color)	
+		peer_id.add_theme_color_override("font_color", GamManager.ownNation.color)
 	if GamManager.isHost:
 		peer_id.visible = false
 		
@@ -53,6 +53,7 @@ func _process(_delta):
 	if tile_map.oldTileBuildings == GamManager.building_tiles:
 		return
 	tile_map.update_tile_buildings()
+	%Minimap.update_tile_buildings()
 	tile_map.oldTileBuildings = GamManager.building_tiles
 	
 func _on_control_gui_input(_event):
@@ -82,7 +83,7 @@ func _select_tile_local(tilePos: Vector2):
 	tile_map.oldSeelctedTile = tilePos
 	tile_info_panel._style_selected_tile_info(tilePos)
 	
-func _toggle_tile_info_visibillity(on, atlasOwner=Vector2i(-1,-1)):
+func _toggle_tile_info_visibillity(on, atlasOwner = Vector2i(-1, -1)):
 	tile_info_panel.visible = on
 
 func _on_update_game_phase(phase: int):

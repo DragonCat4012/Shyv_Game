@@ -18,6 +18,25 @@ func _ready():
 func update_minimap_focus(cameraPosition): # max x = 2500, min x = -2500
 	# Translate camera to map, then scale?
 	focus.position = (cameraPosition + Vector2(1860, 1400)) / 28
+	
+func update_tile_buildings():
+	clear_layer(layerIcon)
+
+	for tile in GamManager.building_tiles:
+		var nation = GamManager.get_nation_to_tile(tile.coords)
+		var newAtlas = Vector2i(building_atlas.x, nation.building_tile_row)
+		var levelAtlas = Vector2i(level_atlas.x, tile.building.currentLevel)
+		
+		set_cell(map_node.layerTerrain, tile.coords,  map_node.source_id, Vector2i(1,0))
+
+		# Add nation colors to tiles
+		var modulatedIcon = get_cell_tile_data(layerIcon, tile.coords)
+		if modulatedIcon:
+			modulatedIcon.modulate = nation.color
+		
+		var modulatedLevel = get_cell_tile_data(layerLevel, tile.coords)
+		if modulatedLevel:
+			modulatedLevel.modulate = nation.color
 		
 func generate_world(): # TODO: move pls
 	var width = map_node.width
