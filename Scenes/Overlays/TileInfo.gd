@@ -18,8 +18,8 @@ var y_position_action: int = 343
 var selected_tile_position = null
 var selected_tile = null 
 
-func updateOwner(owner: String):
-	tile_owner.text = owner
+func updateOwner(new_owner: String):
+	tile_owner.text = new_owner
 
 func _style_selected_tile_info(pos: Vector2):
 	selected_tile_position = pos

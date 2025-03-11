@@ -20,30 +20,28 @@ func update_minimap_focus(cameraPosition): # max x = 2500, min x = -2500
 	focus.position = (cameraPosition + Vector2(1860, 1400)) / 28
 	
 func update_tile_buildings():
-	clear_layer(layerIcon)
-
 	for tile in GamManager.building_tiles:
-		var nation = GamManager.get_nation_to_tile(tile.coords)
-		var newAtlas = Vector2i(building_atlas.x, nation.building_tile_row)
-		var levelAtlas = Vector2i(level_atlas.x, tile.building.currentLevel)
+		#var nation = GamManager.get_nation_to_tile(tile.coords)
+		#var newAtlas = Vector2i(building_atlas.x, nation.building_tile_row)
+		#var levelAtlas = Vector2i(level_atlas.x, tile.building.currentLevel)
 		
 		set_cell(map_node.layerTerrain, tile.coords,  map_node.source_id, Vector2i(1,0))
 
 		# Add nation colors to tiles
-		var modulatedIcon = get_cell_tile_data(layerIcon, tile.coords)
+		"""var modulatedIcon = get_cell_tile_data(layerIcon, tile.coords)
 		if modulatedIcon:
 			modulatedIcon.modulate = nation.color
 		
 		var modulatedLevel = get_cell_tile_data(layerLevel, tile.coords)
 		if modulatedLevel:
-			modulatedLevel.modulate = nation.color
+			modulatedLevel.modulate = nation.color"""
 		
 func generate_world(): # TODO: move pls
-	var width = map_node.width
-	var height = map_node.height
+	var world_width = map_node.width
+	var world_height = map_node.height
 	
-	for x in range(-width / 2, width / 2):
-		for y in range(-height / 2, height / 2):
+	for x in range(-world_width / 2, world_width / 2):
+		for y in range(-world_height / 2, world_height / 2):
 			var noiseValue = map_node.noise.get_noise_2d(2 * x, 2 * y)
 			if noiseValue >= 0.0: # land
 				set_cell(map_node.layerTerrain, Vector2(x, y), map_node.source_id, land_atlas_plain)

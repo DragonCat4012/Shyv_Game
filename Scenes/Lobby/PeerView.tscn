@@ -18,10 +18,11 @@ scale = Vector2(0.391726, 0.391726)
 texture = ExtResource("2_3h53g")
 
 [node name="TextureRect2" type="TextureRect" parent="."]
+visible = false
 offset_top = -9.0
-offset_right = 1726.0
-offset_bottom = 82.0
-scale = Vector2(0.666793, 0.666793)
+offset_right = 2388.0
+offset_bottom = 1343.0
+scale = Vector2(0.481782, 0.489841)
 texture = ExtResource("2_0m0u4")
 stretch_mode = 4
 
@@ -263,6 +264,7 @@ offset_bottom = 490.0
 id = 5
 
 [node name="_perkDescript" type="Label" parent="CreateNation/Perks"]
+layout_mode = 0
 offset_left = 353.0
 offset_top = 453.0
 offset_right = 404.0

@@ -16,11 +16,11 @@ func _updated_lobbys(newLobbies):
 		v_box_container.remove_child(x)
 	
 	for i in lobbys:
-		var button = button.duplicate()
-		button.visible = true
-		button.pressed.connect(self._on_join_pressed.bind(i))
-		button.text = "Join " + str(i)
-		v_box_container.add_child(button)
+		var button2 = button.duplicate()
+		button2.visible = true
+		button2.pressed.connect(self._on_join_pressed.bind(i))
+		button2.text = "Join " + str(i)
+		v_box_container.add_child(button2)
 		
 func _on_join_pressed(lobby):
 	GamManager._on_join_lobby_pressed(lobby)
