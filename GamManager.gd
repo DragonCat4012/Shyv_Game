@@ -124,6 +124,10 @@ func request_lobbys():
 # From Server	
 @rpc("authority", "reliable")
 func lobby_found(lobbyID):
+	if lobbyID == null:
+		EventSystem.STOP_CONNECTING.emit()
+		return
+
 	GamManager.connected = true
 	lobbyCode = lobbyID
 	EventSystem.LOBBY_JOINED.emit()
