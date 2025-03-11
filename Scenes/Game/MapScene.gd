@@ -83,7 +83,7 @@ func _select_tile_local(tilePos: Vector2):
 	tile_map.oldSeelctedTile = tilePos
 	tile_info_panel._style_selected_tile_info(tilePos)
 	
-func _toggle_tile_info_visibillity(on, atlasOwner = Vector2i(-1, -1)):
+func _toggle_tile_info_visibillity(on, _atlasOwner = Vector2i(-1, -1)):
 	tile_info_panel.visible = on
 
 func _on_update_game_phase(phase: int):

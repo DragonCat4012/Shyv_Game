@@ -102,6 +102,6 @@ func _on_text_input_submitted(_new_text, extra_arg_0):
 	if extra_arg_0 == "leaderBack":
 		leader_back.release_focus()
 
-func _handle_selected_perk(id):
+func _handle_selected_perk(_id):
 	pass
 	# TODO: save to nation

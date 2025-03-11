@@ -41,7 +41,7 @@ func _handle_ready():
 	isDisabled = true
 
 
-func _on_gui_input2(event):
+func _on_gui_input2(_event):
 	if isDisabled:
 		return
 		
