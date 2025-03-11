@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://dghdg7s3kj0o5"]
+
+[node name="RessourceView" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 725.0
+offset_right = 765.0
+offset_bottom = 23.0
+text = "0 ✯"
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 769.0
+offset_right = 809.0
+offset_bottom = 23.0
+text = "0 ✯"
+
+[node name="Label3" type="Label" parent="."]
+layout_mode = 0
+offset_left = 811.0
+offset_right = 851.0
+offset_bottom = 23.0
+text = "0 ✯"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://7j7no5evfsjn"]
+[gd_scene load_steps=21 format=3 uid="uid://7j7no5evfsjn"]
 
 [ext_resource type="Script" path="res://Scenes/Game/MapScene.gd" id="1_jltnr"]
 [ext_resource type="TileSet" uid="uid://cbyt82wxj56is" path="res://Graphics/map_mini.tres" id="2_qsvb2"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://md3mc5jmctsj" path="res://Scenes/Overlays/GamePhasesScene.tscn" id="4_v3vhx"]
 [ext_resource type="PackedScene" uid="uid://d0rmtj5tqyayu" path="res://Scenes/Overlays/PlayerOverlays/EventDialogueScene.tscn" id="5_ab5be"]
 [ext_resource type="PackedScene" uid="uid://cqu4dqw8hmixw" path="res://Scenes/Overlays/PlayerList/PlayerListScene.tscn" id="5_u20ln"]
+[ext_resource type="PackedScene" uid="uid://dghdg7s3kj0o5" path="res://Scenes/Game/RessourceView.tscn" id="6_jdvax"]
 [ext_resource type="PackedScene" uid="uid://jc0rwis1gjgx" path="res://Scenes/Overlays/TurnView/TurnView.tscn" id="6_nh4wk"]
 [ext_resource type="Texture2D" uid="uid://dgtgp651xlux" path="res://Graphics/Overlays/title.png" id="8_lbnwj"]
 [ext_resource type="Script" path="res://Scenes/Game/Minimap.gd" id="11_u4x2y"]
@@ -76,10 +77,12 @@ layout_mode = 0
 offset_top = -9.0
 offset_right = 2388.0
 offset_bottom = 1343.0
-scale = Vector2(0.485, 0.485)
+scale = Vector2(0.486923, 0.485945)
 mouse_filter = 2
 texture = ExtResource("15_qsulq")
 stretch_mode = 4
+
+[node name="RessourceView" parent="Camera2D/Control/Header" instance=ExtResource("6_jdvax")]
 
 [node name="GamePhasesScene" parent="Camera2D/Control" instance=ExtResource("4_v3vhx")]
 position = Vector2(860, 494)
