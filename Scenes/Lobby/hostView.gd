@@ -4,11 +4,16 @@ extends Node2D
 @onready var player_rect = $Panel/VBoxContainer/Label
 @onready var v_box_container = $Panel/VBoxContainer
 @onready var id_label = $IDLabel
+@onready var animation_player = $AnimationPlayer
 
 var lastArr = ""
 
 func _process(_delta):
 	start_button.disabled = GamManager.connected_peer_ids.size() != GamManager.ready_peer_ids.size() or GamManager.connected_peer_ids.size() == 0
+	if not start_button.disabled:
+		animation_player.play("start_animate")
+	else: 
+		animation_player.play("RESET")
 		
 	#if str(GamManager.connected_peer_ids) != lastArr:
 	for child in v_box_container.get_children():

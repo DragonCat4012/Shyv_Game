@@ -1,12 +1,21 @@
-[gd_scene load_steps=5 format=3 uid="uid://dhmj5fy61v608"]
+[gd_scene load_steps=6 format=3 uid="uid://dhmj5fy61v608"]
 
 [ext_resource type="Script" path="res://Scenes/Lobby/PeerView.gd" id="1_hqru8"]
 [ext_resource type="Texture2D" uid="uid://ctotlm6n3l6c7" path="res://Graphics/Overlays/header.png" id="2_0m0u4"]
+[ext_resource type="Texture2D" uid="uid://bsrn6cn3d7ovw" path="res://Graphics/Backgrounds/still.JPG" id="2_3h53g"]
 [ext_resource type="Theme" uid="uid://ixv6thuip0t" path="res://Graphics/Themes/deleteTheme.tres" id="2_vyrjh"]
 [ext_resource type="PackedScene" uid="uid://lgr27c0g4f5q" path="res://Scenes/Lobby/Nodes/PerkSelection.tscn" id="3_3668j"]
 
 [node name="PeerView" type="Node2D"]
 script = ExtResource("1_hqru8")
+
+[node name="BackgroundTexture" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0.407843)
+offset_left = -6.0
+offset_right = 2966.0
+offset_bottom = 1668.0
+scale = Vector2(0.391726, 0.391726)
+texture = ExtResource("2_3h53g")
 
 [node name="TextureRect2" type="TextureRect" parent="."]
 offset_top = -9.0
@@ -252,6 +261,13 @@ offset_top = 490.0
 offset_right = 668.0
 offset_bottom = 490.0
 id = 5
+
+[node name="_perkDescript" type="Label" parent="CreateNation/Perks"]
+offset_left = 353.0
+offset_top = 453.0
+offset_right = 404.0
+offset_bottom = 476.0
+text = "Perk:"
 
 [connection signal="text_submitted" from="nameField" to="." method="_on_line_edit_text_submitted"]
 [connection signal="pressed" from="ReadyButton" to="." method="_on_ready_button_pressed"]
