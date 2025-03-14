@@ -1,8 +1,11 @@
-[gd_scene format=3 uid="uid://dghdg7s3kj0o5"]
+[gd_scene load_steps=2 format=3 uid="uid://dghdg7s3kj0o5"]
+
+[ext_resource type="Script" path="res://Scenes/Game/RessourceView.gd" id="1_6u8nc"]
 
 [node name="RessourceView" type="Control"]
 layout_mode = 3
 anchors_preset = 0
+script = ExtResource("1_6u8nc")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0

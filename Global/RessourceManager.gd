@@ -12,4 +12,4 @@ var isTestMap = false
 # Resources
 # Saved in array ordered
 var res_1 = preload("res://Models/Materials/cheese.tres")
-var res = [res_1]
+var res = [res_1, res_1, res_1]

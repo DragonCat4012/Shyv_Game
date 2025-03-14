@@ -11,7 +11,7 @@ var building_tile_row: int = 0
 var assignedID: int = -1 # gets assigned foreach game
 
 # Ressources
-var resources: Array[int] = [0, 0, 0]
+@export var resources: Array[int] = [0, 0, 0]
 
 func _init():
 	color =Color(randf(), randf(), randf())
