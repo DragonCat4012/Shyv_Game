@@ -25,6 +25,7 @@ func _update_phase():
 	if GamManager.currentPhase >= 4: # last phase begin again
 		GamManager.phaseCount += 1
 		newPhase = 1
+		updateResources()
 	print("Update Game to new phase: ", newPhase)
 	rpc_id(1, "update_phase", newPhase)
 	GamManager.currentPhase = newPhase
@@ -61,3 +62,6 @@ func _send_event(eventName):
 	
 	rpc_id(1,"send_event", eventName)
 	
+func updateResources(): # TODO: send update with new phase pls
+	for na in GamManager.allNations:
+		na.resources[0] = na.resources[0] + 1

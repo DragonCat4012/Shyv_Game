@@ -25,7 +25,7 @@ EventSystem="*res://Global/EventSystem.gd"
 MapManager="*res://Scenes/Game/MapManager.gd"
 Jsonutil="*res://Global/JSONUTIL.gd"
 RessourceManager="*res://Global/RessourceManager.gd"
-PhaseManager="*res://Scenes/Overlays/PhaseManager.gd"
+PhaseManager="*res://PhaseManager.gd"
 EventManager="*res://Global/EventManager.gd"
 
 [display]
